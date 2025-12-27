@@ -10,6 +10,7 @@ import { Badge } from '@/components/ui/badge';
 import { MapPin, Star, Phone, Mail, Lock, Calendar, Wallet } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
+import { toast } from '@/components/ui/sonner';
 
 const CompanionDetail = () => {
   const { id } = useParams();
@@ -40,10 +41,40 @@ const CompanionDetail = () => {
   const canAffordBooking = (user?.walletBalance || 0) >= totalCost;
 
   const handleBooking = () => {
+    if (!bookingAmount || bookingAmount < 1 || bookingAmount > 24) {
+      toast.error('Invalid Duration', {
+        description: 'Please enter a duration between 1 and 24 hours.',
+      });
+      return;
+    }
+
     if (canAffordBooking) {
       // Deduct from wallet
       addToWallet(-totalCost);
-      alert(`Booking confirmed! ${bookingAmount} hour(s) with ${companion.name}. Total: R${totalCost}`);
+      
+      // Create a booking record (stored in localStorage for demo)
+      const booking = {
+        id: Date.now().toString(),
+        companionId: companion.id,
+        companionName: companion.name,
+        userId: user?.id,
+        date: new Date().toISOString(),
+        duration: bookingAmount,
+        totalCost,
+        status: 'confirmed',
+      };
+      
+      const bookings = JSON.parse(localStorage.getItem('cumpani_bookings') || '[]');
+      bookings.push(booking);
+      localStorage.setItem('cumpani_bookings', JSON.stringify(bookings));
+      
+      toast.success('Booking Confirmed!', {
+        description: `${bookingAmount} hour(s) with ${companion.name}. Total: R${totalCost}`,
+      });
+    } else {
+      toast.error('Insufficient Funds', {
+        description: 'Please add more funds to your wallet to complete this booking.',
+      });
     }
   };
 
@@ -191,10 +222,33 @@ const CompanionDetail = () => {
                         type="number"
                         min="1"
                         max="24"
+                        step="1"
                         value={bookingAmount}
-                        onChange={(e) => setBookingAmount(parseInt(e.target.value) || 1)}
+                        onChange={(e) => {
+                          const value = e.target.value;
+                          if (value === '') {
+                            setBookingAmount(1);
+                          } else {
+                            const numValue = parseInt(value);
+                            if (!isNaN(numValue) && numValue >= 1 && numValue <= 24) {
+                              setBookingAmount(numValue);
+                            }
+                          }
+                        }}
+                        onBlur={(e) => {
+                          // Ensure valid value on blur
+                          const numValue = parseInt(e.target.value);
+                          if (isNaN(numValue) || numValue < 1) {
+                            setBookingAmount(1);
+                          } else if (numValue > 24) {
+                            setBookingAmount(24);
+                          }
+                        }}
                         className="w-full px-3 py-2 border border-border rounded-md"
                       />
+                      <p className="text-xs text-muted-foreground mt-1">
+                        Minimum 1 hour, maximum 24 hours
+                      </p>
                     </div>
 
                     <div className="flex items-center justify-between text-lg font-semibold">
