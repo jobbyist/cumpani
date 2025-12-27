@@ -38,7 +38,7 @@ const App = () => (
           <SkipLink />
           <Toaster />
           <Sonner />
-          <BrowserRouter basename="/cumpani">
+          <BrowserRouter>
               <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
                 <Routes>
                   <Route path="/" element={<Index />} />
