@@ -19,11 +19,9 @@ const Header = () => {
   const { user, logout, isAuthenticated } = useAuth();
 
   const navItems = [
-    { name: 'ALL POST', href: '/posts' },
-    { name: 'BUSINESS', href: '/business' },
-    { name: 'TECHNOLOGY', href: '/technology' },
-    { name: 'PODCAST', href: '/podcast' },
-    { name: 'REQUEST QUOTE', href: '/quote-request' },
+    { name: 'COMPANIONS', href: '/companions' },
+    { name: 'HOW IT WORKS', href: '/about' },
+    { name: 'CONTACT', href: '/contact' },
   ];
 
   const socialLinks = [
@@ -39,7 +37,7 @@ const Header = () => {
           {/* Logo */}
           <div className="flex-shrink-0">
             <Link to="/" className="block">
-              <h1 className="text-2xl font-bold text-foreground tracking-tight uppercase">gravitas</h1>
+              <h1 className="text-2xl font-bold text-foreground tracking-tight uppercase">cumpani</h1>
             </Link>
           </div>
 

@@ -4,6 +4,8 @@ interface User {
   id: string;
   email: string;
   name: string;
+  isPaidUser?: boolean;
+  walletBalance?: number;
 }
 
 interface AuthContextType {
@@ -12,6 +14,9 @@ interface AuthContextType {
   signup: (email: string, password: string, name: string) => Promise<boolean>;
   logout: () => void;
   isAuthenticated: boolean;
+  isPaidUser: boolean;
+  upgradeToPaid: () => void;
+  addToWallet: (amount: number) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -33,20 +38,20 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   useEffect(() => {
     // Load user from localStorage on mount
-    const storedUser = localStorage.getItem('gravitas_user');
+    const storedUser = localStorage.getItem('cumpani_user');
     if (storedUser) {
       try {
         setUser(JSON.parse(storedUser));
       } catch (error) {
         console.error('Failed to parse stored user:', error);
-        localStorage.removeItem('gravitas_user');
+        localStorage.removeItem('cumpani_user');
       }
     }
   }, []);
 
   const login = async (email: string, password: string): Promise<boolean> => {
     // Mock authentication - in production, this would call an API
-    const storedUsers = localStorage.getItem('gravitas_users');
+    const storedUsers = localStorage.getItem('cumpani_users');
     const users = storedUsers ? JSON.parse(storedUsers) : [];
     
     const foundUser = users.find((u: any) => u.email === email && u.password === password);
@@ -54,7 +59,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     if (foundUser) {
       const userData = { id: foundUser.id, email: foundUser.email, name: foundUser.name };
       setUser(userData);
-      localStorage.setItem('gravitas_user', JSON.stringify(userData));
+      localStorage.setItem('cumpani_user', JSON.stringify(userData));
       return true;
     }
     
@@ -63,7 +68,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const signup = async (email: string, password: string, name: string): Promise<boolean> => {
     // Mock signup - in production, this would call an API
-    const storedUsers = localStorage.getItem('gravitas_users');
+    const storedUsers = localStorage.getItem('cumpani_users');
     const users = storedUsers ? JSON.parse(storedUsers) : [];
     
     // Check if user already exists
@@ -79,18 +84,37 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     };
     
     users.push(newUser);
-    localStorage.setItem('gravitas_users', JSON.stringify(users));
+    localStorage.setItem('cumpani_users', JSON.stringify(users));
     
     const userData = { id: newUser.id, email: newUser.email, name: newUser.name };
     setUser(userData);
-    localStorage.setItem('gravitas_user', JSON.stringify(userData));
+    localStorage.setItem('cumpani_user', JSON.stringify(userData));
     
     return true;
   };
 
   const logout = () => {
     setUser(null);
-    localStorage.removeItem('gravitas_user');
+    localStorage.removeItem('cumpani_user');
+  };
+
+  const upgradeToPaid = () => {
+    if (user) {
+      const updatedUser = { ...user, isPaidUser: true, walletBalance: user.walletBalance || 0 };
+      setUser(updatedUser);
+      localStorage.setItem('cumpani_user', JSON.stringify(updatedUser));
+    }
+  };
+
+  const addToWallet = (amount: number) => {
+    if (user) {
+      const updatedUser = { 
+        ...user, 
+        walletBalance: (user.walletBalance || 0) + amount 
+      };
+      setUser(updatedUser);
+      localStorage.setItem('cumpani_user', JSON.stringify(updatedUser));
+    }
   };
 
   const value = {
@@ -99,6 +123,9 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     signup,
     logout,
     isAuthenticated: !!user,
+    isPaidUser: !!user?.isPaidUser,
+    upgradeToPaid,
+    addToWallet,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

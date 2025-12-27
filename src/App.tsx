@@ -25,6 +25,8 @@ const Login = lazy(() => import("./pages/Login"));
 const Signup = lazy(() => import("./pages/Signup"));
 const QuoteRequest = lazy(() => import("./pages/QuoteRequest"));
 const NotFound = lazy(() => import("./pages/NotFound"));
+const Companions = lazy(() => import("./pages/Companions"));
+const CompanionDetail = lazy(() => import("./pages/CompanionDetail"));
 
 const queryClient = new QueryClient();
 
@@ -36,10 +38,12 @@ const App = () => (
           <SkipLink />
           <Toaster />
           <Sonner />
-          <BrowserRouter>
+          <BrowserRouter basename="/cumpani">
               <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
                 <Routes>
                   <Route path="/" element={<Index />} />
+                  <Route path="/companions" element={<Companions />} />
+                  <Route path="/companion/:id" element={<CompanionDetail />} />
                   <Route path="/posts" element={<AllPosts />} />
                   <Route path="/business" element={<Business />} />
                   <Route path="/technology" element={<Technology />} />

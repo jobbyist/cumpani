@@ -6,19 +6,19 @@ const Footer = () => {
       <div className="container-blog py-12">
         <div className="grid md:grid-cols-4 gap-8">
           <div className="space-y-4">
-            <h2 className="text-lg font-bold text-foreground">nexus</h2>
+            <h2 className="text-lg font-bold text-foreground">cumpani</h2>
             <p className="text-sm text-muted-foreground">
-              A personal blog exploring fashion, technology, business, and lifestyle trends.
+              Your premier companion service connecting you with attractive companions across South Africa.
             </p>
           </div>
           
           <div className="space-y-4">
-            <h3 className="font-medium text-foreground">Categories</h3>
+            <h3 className="font-medium text-foreground">Services</h3>
             <ul className="space-y-2 text-sm">
-              <li><Link to="/posts" className="text-muted-foreground hover:text-foreground transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded">Fashion</Link></li>
-              <li><Link to="/technology" className="text-muted-foreground hover:text-foreground transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded">Technology</Link></li>
-              <li><Link to="/business" className="text-muted-foreground hover:text-foreground transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded">Business</Link></li>
-              <li><Link to="/posts" className="text-muted-foreground hover:text-foreground transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded">Lifestyle</Link></li>
+              <li><Link to="/companions" className="text-muted-foreground hover:text-foreground transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded">Browse Companions</Link></li>
+              <li><Link to="/about" className="text-muted-foreground hover:text-foreground transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded">How It Works</Link></li>
+              <li><Link to="/signup" className="text-muted-foreground hover:text-foreground transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded">Sign Up</Link></li>
+              <li><Link to="/login" className="text-muted-foreground hover:text-foreground transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded">Login</Link></li>
             </ul>
           </div>
           
@@ -53,7 +53,7 @@ const Footer = () => {
         
         <div className="border-t border-border mt-8 pt-8 text-center">
           <p className="text-sm text-muted-foreground">
-            © 2023 Nexus Blog. All rights reserved.
+            © 2023 Cumpani. All rights reserved.
           </p>
         </div>
       </div>
