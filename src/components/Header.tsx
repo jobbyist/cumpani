@@ -19,9 +19,10 @@ const Header = () => {
   const { user, logout, isAuthenticated } = useAuth();
 
   const navItems = [
-    { name: 'COMPANIONS', href: '/companions' },
-    { name: 'HOW IT WORKS', href: '/about' },
-    { name: 'CONTACT', href: '/contact' },
+    { name: 'BROWSE CUMPANIONS', href: '/companions' },
+    { name: 'BROWSE BY LOCATION', href: '/locations' },
+    { name: 'CUMMUNITY GUIDELINES', href: '/about' },
+    { name: 'CONTACT SUPPORT', href: '/contact' },
   ];
 
   const socialLinks = [
