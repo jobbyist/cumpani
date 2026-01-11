@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import CompanionCard from '@/components/CompanionCard';
+import AdPlaceholder from '@/components/AdPlaceholder';
 import { companionProfiles } from '@/data/companions';
 import { SOUTH_AFRICAN_CITIES } from '@/types/companion';
 import {
@@ -13,7 +15,24 @@ import {
 } from '@/components/ui/select';
 
 const Companions = () => {
-  const [selectedCity, setSelectedCity] = useState<string>('all');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [selectedCity, setSelectedCity] = useState<string>(searchParams.get('city') || 'all');
+
+  useEffect(() => {
+    const city = searchParams.get('city');
+    if (city) {
+      setSelectedCity(city);
+    }
+  }, [searchParams]);
+
+  const handleCityChange = (value: string) => {
+    setSelectedCity(value);
+    if (value === 'all') {
+      setSearchParams({});
+    } else {
+      setSearchParams({ city: value });
+    }
+  };
 
   const filteredCompanions = selectedCity === 'all'
     ? companionProfiles
@@ -37,7 +56,7 @@ const Companions = () => {
               <label htmlFor="city-filter" className="font-medium text-foreground">
                 Filter by City:
               </label>
-              <Select value={selectedCity} onValueChange={setSelectedCity}>
+              <Select value={selectedCity} onValueChange={handleCityChange}>
                 <SelectTrigger id="city-filter" className="w-[200px]">
                   <SelectValue placeholder="All Cities" />
                 </SelectTrigger>
@@ -53,10 +72,23 @@ const Companions = () => {
             </div>
           </div>
 
+          {/* Ad Placeholder */}
+          <div className="mb-8">
+            <AdPlaceholder variant="horizontal" />
+          </div>
+
           {/* Companions Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredCompanions.map((companion) => (
-              <CompanionCard key={companion.id} companion={companion} />
+            {filteredCompanions.map((companion, index) => (
+              <>
+                <CompanionCard key={companion.id} companion={companion} />
+                {/* Add ad placeholder after every 3rd companion */}
+                {(index + 1) % 3 === 0 && index !== filteredCompanions.length - 1 && (
+                  <div key={`ad-${index}`} className="col-span-full">
+                    <AdPlaceholder variant="horizontal" />
+                  </div>
+                )}
+              </>
             ))}
           </div>
 
