@@ -120,5 +120,125 @@ export const companionProfiles: CompanionProfile[] = [
     location: 'Rosebank, Johannesburg',
     rating: 5.0,
     reviewCount: 35
+  },
+  {
+    id: '7',
+    name: 'Siphokazi',
+    age: 26,
+    city: 'Sandton',
+    province: 'Gauteng',
+    bio: 'Elegant and sophisticated companion with a passion for luxury lifestyle. Perfect for high-end events and exclusive gatherings.',
+    profileImage: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=400&h=600&fit=crop',
+    images: [
+      'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=400&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1522556189639-b150ed9c4330?w=400&h=600&fit=crop'
+    ],
+    rate: 3200,
+    availability: 'Evenings & Weekends',
+    phone: '+27 88 789 0123',
+    email: 'siphokazi@cumpani.co.za',
+    location: 'Sandton City, Sandton',
+    rating: 4.9,
+    reviewCount: 29
+  },
+  {
+    id: '8',
+    name: 'Lindiwe',
+    age: 27,
+    city: 'Midrand',
+    province: 'Gauteng',
+    bio: 'Warm and engaging companion who enjoys meaningful conversations and outdoor activities. Great for casual dates and business trips.',
+    profileImage: 'https://images.unsplash.com/photo-1509967419530-da38b4704bc6?w=400&h=600&fit=crop',
+    images: [
+      'https://images.unsplash.com/photo-1509967419530-da38b4704bc6?w=400&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1513097847644-f00cfe868607?w=400&h=600&fit=crop'
+    ],
+    rate: 2400,
+    availability: 'Flexible',
+    phone: '+27 89 890 1234',
+    email: 'lindiwe@cumpani.co.za',
+    location: 'Waterfall Estate, Midrand',
+    rating: 4.7,
+    reviewCount: 20
+  },
+  {
+    id: '9',
+    name: 'Ayanda',
+    age: 25,
+    city: 'Cape Town',
+    province: 'Western Cape',
+    bio: 'Adventurous and fun-loving companion who enjoys wine tasting and exploring the beautiful Western Cape.',
+    profileImage: 'https://images.unsplash.com/photo-1485875437342-9b39470b3d95?w=400&h=600&fit=crop',
+    images: [
+      'https://images.unsplash.com/photo-1485875437342-9b39470b3d95?w=400&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1499952127939-9bbf5af6c51c?w=400&h=600&fit=crop'
+    ],
+    rate: 2600,
+    availability: 'Weekends',
+    phone: '+27 90 901 2345',
+    email: 'ayanda@cumpani.co.za',
+    location: 'Camps Bay, Cape Town',
+    rating: 4.8,
+    reviewCount: 26
+  },
+  {
+    id: '10',
+    name: 'Ntombi',
+    age: 28,
+    city: 'Pretoria',
+    province: 'Gauteng',
+    bio: 'Professional and well-educated companion specializing in business dinners and corporate functions. Multilingual and cultured.',
+    profileImage: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=600&fit=crop',
+    images: [
+      'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1492288991661-058aa541ff43?w=400&h=600&fit=crop'
+    ],
+    rate: 2900,
+    availability: 'By Appointment',
+    phone: '+27 91 012 3456',
+    email: 'ntombi@cumpani.co.za',
+    location: 'Brooklyn, Pretoria',
+    rating: 5.0,
+    reviewCount: 32
+  },
+  {
+    id: '11',
+    name: 'Thandi',
+    age: 24,
+    city: 'Durban',
+    province: 'KwaZulu-Natal',
+    bio: 'Vibrant and energetic companion who loves beach activities and water sports. Perfect for outdoor adventures and fun dates.',
+    profileImage: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&h=600&fit=crop',
+    images: [
+      'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1506634572416-48cdfe530110?w=400&h=600&fit=crop'
+    ],
+    rate: 2200,
+    availability: 'Daytime & Weekends',
+    phone: '+27 92 123 4567',
+    email: 'thandi@cumpani.co.za',
+    location: 'North Beach, Durban',
+    rating: 4.6,
+    reviewCount: 19
+  },
+  {
+    id: '12',
+    name: 'Nomvula',
+    age: 29,
+    city: 'Sandton',
+    province: 'Gauteng',
+    bio: 'Glamorous and stylish companion with impeccable taste. Ideal for high-profile events, galas, and exclusive parties.',
+    profileImage: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&h=600&fit=crop',
+    images: [
+      'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1499651681375-8afc5a4db253?w=400&h=600&fit=crop'
+    ],
+    rate: 3800,
+    availability: 'Evenings',
+    phone: '+27 93 234 5678',
+    email: 'nomvula@cumpani.co.za',
+    location: 'Nelson Mandela Square, Sandton',
+    rating: 5.0,
+    reviewCount: 41
   }
 ];

@@ -32,6 +32,8 @@ export const SOUTH_AFRICAN_CITIES = [
   'Cape Town',
   'Durban',
   'Pretoria',
+  'Sandton',
+  'Midrand',
   'Port Elizabeth',
   'Bloemfontein',
   'Polokwane',

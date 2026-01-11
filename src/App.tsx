@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ThemeProvider } from "next-themes";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SkipLink from "@/components/SkipLink";
+import AgeVerification from "@/components/AgeVerification";
 import { Suspense, lazy } from "react";
 import { AuthProvider } from "@/contexts/AuthContext";
 import Index from "./pages/Index";
@@ -36,6 +37,7 @@ const App = () => (
       <AuthProvider>
         <TooltipProvider>
           <SkipLink />
+          <AgeVerification />
           <Toaster />
           <Sonner />
           <BrowserRouter>
