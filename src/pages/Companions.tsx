@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Fragment } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -80,15 +80,15 @@ const Companions = () => {
           {/* Companions Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredCompanions.map((companion, index) => (
-              <>
-                <CompanionCard key={companion.id} companion={companion} />
+              <Fragment key={companion.id}>
+                <CompanionCard companion={companion} />
                 {/* Add ad placeholder after every 3rd companion */}
                 {(index + 1) % 3 === 0 && index !== filteredCompanions.length - 1 && (
-                  <div key={`ad-${index}`} className="col-span-full">
+                  <div className="col-span-full">
                     <AdPlaceholder variant="horizontal" />
                   </div>
                 )}
-              </>
+              </Fragment>
             ))}
           </div>
 
