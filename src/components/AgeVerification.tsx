@@ -32,12 +32,16 @@ const AgeVerification = () => {
   };
 
   const handleDecline = () => {
-    // Redirect to a safe page or show a message
+    // Redirect users under 18 to a safe external site
+    // This could be made configurable via environment variables in production
     window.location.href = 'https://www.google.com';
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={() => {}}>
+    <Dialog open={isOpen} onOpenChange={() => {
+      // Prevent dialog from being closed without making a choice
+      // Users must explicitly accept or decline age verification
+    }}>
       <DialogContent 
         className="sm:max-w-md"
         onInteractOutside={(e) => e.preventDefault()}
