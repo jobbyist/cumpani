@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Search, Facebook, Twitter, Instagram, Menu, X, User, LogOut } from 'lucide-react';
+import { Search, MessageCircle, Twitter, Instagram, Menu, X, User, LogOut } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import ThemeToggle from './ThemeToggle';
 import { useAuth } from '@/contexts/AuthContext';
@@ -26,7 +26,7 @@ const Header = () => {
   ];
 
   const socialLinks = [
-    { icon: Telegram, href: '#', label: 'Telegram' },
+    { icon: MessageCircle, href: '#', label: 'Telegram' },
     { icon: Twitter, href: '#', label: 'Twitter' }, 
   ];
 
