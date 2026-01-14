@@ -18,7 +18,7 @@ const BecomeCompanion = () => {
               Become A Cumpanion
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Join South Africa's premier companionship platform. Build your business, set your schedule, 
+              Join South Africa's premier cumpanionship platform. Build your business, set your schedule, 
               and connect with verified clients in a safe, professional environment.
             </p>
           </div>
@@ -196,7 +196,7 @@ const BecomeCompanion = () => {
               Ready to Get Started?
             </h2>
             <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-              Join hundreds of successful companions already earning on Cumpani. 
+              Join hundreds of successful cumpanions already earning on Cumpani. 
               Start your application today and take control of your career.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

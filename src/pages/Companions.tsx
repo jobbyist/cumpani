@@ -45,10 +45,10 @@ const Companions = () => {
         <div className="max-w-7xl mx-auto">
           <div className="mb-8">
             <h1 className="text-4xl font-bold text-foreground mb-4">
-              Premium Companions
+              Premium Cumpanions
             </h1>
             <p className="text-lg text-muted-foreground mb-6">
-              Connect with sophisticated companions across South Africa's major cities
+              Connect with sophisticated cumpanions across South Africa's major cities
             </p>
 
             {/* City Filter */}
@@ -77,12 +77,12 @@ const Companions = () => {
             <AdPlaceholder variant="horizontal" />
           </div>
 
-          {/* Companions Grid */}
+          {/* Cumpanions Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredCompanions.map((companion, index) => (
               <Fragment key={companion.id}>
                 <CompanionCard companion={companion} />
-                {/* Add ad placeholder after every 3rd companion */}
+                {/* Add ad placeholder after every 3rd cumpanion */}
                 {(index + 1) % 3 === 0 && index !== filteredCompanions.length - 1 && (
                   <div className="col-span-full">
                     <AdPlaceholder variant="horizontal" />
@@ -95,7 +95,7 @@ const Companions = () => {
           {filteredCompanions.length === 0 && (
             <div className="text-center py-12">
               <p className="text-lg text-muted-foreground">
-                No companions available in this city yet. Check back soon!
+                No cumpanions available in this city yet. Check back soon!
               </p>
             </div>
           )}

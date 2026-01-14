@@ -84,7 +84,7 @@ const CompanionDetail = () => {
       <main id="main-content" className="container-blog py-12">
         <div className="max-w-6xl mx-auto">
           <Button variant="outline" onClick={() => navigate('/companions')} className="mb-6">
-            ← Back to Companions
+            ← Back to Cumpanions
           </Button>
 
           <div className="grid md:grid-cols-2 gap-8">

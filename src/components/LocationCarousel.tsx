@@ -42,6 +42,31 @@ const popularLocations: LocationData[] = [
     image: 'https://images.unsplash.com/photo-1573837002449-fa77a8f7d90f?w=800&h=600&fit=crop',
     description: 'Modern hub connecting Johannesburg and Pretoria',
   },
+  {
+    city: 'Johannesburg',
+    image: 'https://images.unsplash.com/photo-1577948000111-9c970dfe3743?w=800&h=600&fit=crop',
+    description: 'Economic powerhouse and cultural melting pot',
+  },
+  {
+    city: 'Port Elizabeth',
+    image: 'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&h=600&fit=crop',
+    description: 'Friendly city with beautiful beaches and safari access',
+  },
+  {
+    city: 'Bloemfontein',
+    image: 'https://images.unsplash.com/photo-1577948000111-9c970dfe3743?w=800&h=600&fit=crop',
+    description: 'City of roses with rich heritage and charm',
+  },
+  {
+    city: 'Stellenbosch',
+    image: 'https://images.unsplash.com/photo-1580060839134-75a5edca2e99?w=800&h=600&fit=crop',
+    description: 'Wine country with historic architecture and mountain views',
+  },
+  {
+    city: 'Centurion',
+    image: 'https://images.unsplash.com/photo-1590155787507-e52ad3d0e1d1?w=800&h=600&fit=crop',
+    description: 'Thriving suburb with modern amenities and lifestyle',
+  },
 ];
 
 const LocationCarousel = () => {
@@ -68,7 +93,7 @@ const LocationCarousel = () => {
                     <div className="relative h-[200px] overflow-hidden">
                       <img
                         src={location.image}
-                        alt={`${location.city} - Browse companions`}
+                        alt={`${location.city} - Browse cumpanions`}
                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                         loading="lazy"
                       />
@@ -81,7 +106,7 @@ const LocationCarousel = () => {
                         <p className="text-sm text-white/90 mb-2">{location.description}</p>
                         <div className="flex items-center text-xs">
                           <Users className="w-4 h-4 mr-1" />
-                          <span>{companionCount} Companions Available</span>
+                          <span>{companionCount} Cumpanions Available</span>
                         </div>
                       </div>
                     </div>

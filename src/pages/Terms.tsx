@@ -16,67 +16,110 @@ const Terms = () => {
             <section>
               <h2 className="text-2xl font-semibold text-foreground mb-4">1. Acceptance of Terms</h2>
               <p>
-                By accessing and using the Nexus Blog website, you accept and agree to be bound by the terms and provision of this agreement. These Terms of Service govern your use of our website and services.
+                By accessing and using the Cumpani website and services, you accept and agree to be bound by the terms and provisions of this agreement. These Terms of Service govern your use of our platform, including all features, functionalities, and services provided.
               </p>
             </section>
 
             <section>
               <h2 className="text-2xl font-semibold text-foreground mb-4">2. Use License</h2>
               <p>
-                Permission is granted to temporarily download one copy of the materials on Nexus Blog's website for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and under this license you may not:
+                Permission is granted to access and use Cumpani's platform for personal use in accordance with these Terms. Under this license you may not:
               </p>
               <ul className="list-disc pl-6 mt-4 space-y-2">
-                <li>modify or copy the materials</li>
-                <li>use the materials for any commercial purpose or for any public display</li>
-                <li>attempt to reverse engineer any software contained on the website</li>
-                <li>remove any copyright or other proprietary notations from the materials</li>
+                <li>Modify, copy, or reproduce platform materials without permission</li>
+                <li>Use the platform for any illegal purpose or solicitation</li>
+                <li>Attempt to gain unauthorized access to any part of the platform</li>
+                <li>Remove any copyright or proprietary notations</li>
+                <li>Misrepresent your identity or provide false information</li>
               </ul>
             </section>
 
             <section>
-              <h2 className="text-2xl font-semibold text-foreground mb-4">3. Content Guidelines</h2>
+              <h2 className="text-2xl font-semibold text-foreground mb-4">3. Age Verification and Eligibility</h2>
               <p>
-                Users who engage with our content through comments or other interactive features agree to:
+                You must be at least 18 years of age to use Cumpani. By using our services, you represent and warrant that you are of legal age and have the legal capacity to enter into this agreement.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-2xl font-semibold text-foreground mb-4">4. User Conduct and Community Guidelines</h2>
+              <p>
+                All users agree to conduct themselves in a respectful, professional manner:
               </p>
               <ul className="list-disc pl-6 mt-4 space-y-2">
-                <li>Not post harmful, threatening, or inappropriate content</li>
-                <li>Respect intellectual property rights</li>
-                <li>Not engage in spam or promotional activities without permission</li>
-                <li>Maintain respectful discourse in all interactions</li>
+                <li>Respect the privacy and boundaries of all cumpanions and clients</li>
+                <li>Maintain honesty in all communications and transactions</li>
+                <li>Not engage in harassment, threats, or inappropriate behavior</li>
+                <li>Comply with all applicable laws and regulations</li>
+                <li>Report any violations or safety concerns immediately</li>
               </ul>
             </section>
 
             <section>
-              <h2 className="text-2xl font-semibold text-foreground mb-4">4. Disclaimer</h2>
+              <h2 className="text-2xl font-semibold text-foreground mb-4">5. Booking and Payment Terms</h2>
               <p>
-                The materials on Nexus Blog's website are provided on an 'as is' basis. Nexus Blog makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties including, without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.
+                All bookings and payments are processed through our secure virtual wallet system. By making a booking, you agree to:
+              </p>
+              <ul className="list-disc pl-6 mt-4 space-y-2">
+                <li>Provide accurate payment information</li>
+                <li>Pay the full amount as agreed upon before services are rendered</li>
+                <li>Respect cancellation policies (see our Refund Policy)</li>
+                <li>Not request services beyond those explicitly agreed upon</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2 className="text-2xl font-semibold text-foreground mb-4">6. Cumpanion Requirements</h2>
+              <p>
+                All cumpanions on our platform must:
+              </p>
+              <ul className="list-disc pl-6 mt-4 space-y-2">
+                <li>Be verified through our screening process</li>
+                <li>Maintain accurate and current profile information</li>
+                <li>Conduct themselves professionally at all times</li>
+                <li>Report any safety concerns or violations</li>
+                <li>Comply with local laws and regulations</li>
+              </ul>
+            </section>
+
+            <section>
+              <h2 className="text-2xl font-semibold text-foreground mb-4">7. Disclaimer</h2>
+              <p>
+                Cumpani provides a platform connecting clients with cumpanions. We do not employ cumpanions and are not responsible for the services provided. All interactions and agreements are between clients and cumpanions. Cumpani makes no warranties regarding the quality, safety, or legality of services provided by third parties.
               </p>
             </section>
 
             <section>
-              <h2 className="text-2xl font-semibold text-foreground mb-4">5. Limitations</h2>
+              <h2 className="text-2xl font-semibold text-foreground mb-4">8. Limitations of Liability</h2>
               <p>
-                In no event shall Nexus Blog or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on Nexus Blog's website, even if Nexus Blog or its authorized representative has been notified orally or in writing of the possibility of such damage.
+                In no event shall Cumpani be liable for any indirect, incidental, special, consequential, or punitive damages arising from your use of the platform or services. Our total liability shall not exceed the amount paid by you in the past 12 months.
               </p>
             </section>
 
             <section>
-              <h2 className="text-2xl font-semibold text-foreground mb-4">6. Revisions</h2>
+              <h2 className="text-2xl font-semibold text-foreground mb-4">9. Termination</h2>
               <p>
-                Nexus Blog may revise these terms of service at any time without notice. By using this website, you are agreeing to be bound by the then-current version of these terms of service.
+                We reserve the right to terminate or suspend access to our services immediately, without prior notice, for conduct that we believe violates these Terms or is harmful to other users, us, or third parties, or for any other reason.
               </p>
             </section>
 
             <section>
-              <h2 className="text-2xl font-semibold text-foreground mb-4">7. Contact Information</h2>
+              <h2 className="text-2xl font-semibold text-foreground mb-4">10. Changes to Terms</h2>
               <p>
-                If you have any questions about these Terms of Service, please contact us through our website or email us at legal@nexusblog.com.
+                Cumpani may revise these Terms of Service at any time. Continued use of our services after changes constitutes acceptance of the revised terms.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-2xl font-semibold text-foreground mb-4">11. Contact Information</h2>
+              <p>
+                If you have any questions about these Terms of Service, please contact us at <a href="mailto:help@cumpani.fun" className="text-primary hover:underline">help@cumpani.fun</a>.
               </p>
             </section>
 
             <div className="mt-12 pt-8 border-t border-border">
               <p className="text-sm text-muted-foreground">
-                Last updated: September 2024
+                Last updated: January 2026
               </p>
             </div>
           </div>

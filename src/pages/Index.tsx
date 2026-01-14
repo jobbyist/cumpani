@@ -21,15 +21,15 @@ const Index = () => {
           <div className="container-blog">
             <div className="max-w-4xl mx-auto text-center space-y-6">
               <h1 className="text-5xl md:text-6xl font-bold text-foreground animate-slide-in">
-                Premium Companionship Services
+                Premium Cumpanionship Services
               </h1>
               <p className="text-xl text-muted-foreground">
-                Connect with sophisticated, attractive companions across South Africa's major cities. 
+                Connect with sophisticated, attractive cumpanions across South Africa's major cities. 
                 Secure, discreet, and professional.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button size="lg" asChild className="hover:scale-105 transition-transform">
-                  <Link to="/companions">Browse Companions</Link>
+                  <Link to="/companions">Browse Cumpanions</Link>
                 </Button>
                 <Button size="lg" variant="outline" asChild className="hover:scale-105 transition-transform">
                   <Link to="/about">Learn More</Link>
@@ -56,7 +56,7 @@ const Index = () => {
             <div className="text-center mb-12 animate-fade-in">
               <h2 className="text-3xl font-bold mb-4">Browse by Location</h2>
               <p className="text-lg text-muted-foreground">
-                Discover premium companions in South Africa's most popular cities
+                Discover premium cumpanions in South Africa's most popular cities
               </p>
             </div>
             <LocationCarousel />
@@ -80,7 +80,7 @@ const Index = () => {
                   <Shield className="w-12 h-12 mb-4 text-primary" />
                   <CardTitle>Verified Profiles</CardTitle>
                   <CardDescription>
-                    All companions are carefully verified and screened for your safety and peace of mind.
+                    All cumpanions are carefully verified and screened for your safety and peace of mind.
                   </CardDescription>
                 </CardHeader>
               </Card>
@@ -115,13 +115,13 @@ const Index = () => {
           </div>
         </section>
 
-        {/* Featured Companions */}
+        {/* Featured Cumpanions */}
         <section className="py-16">
           <div className="container-blog">
             <div className="text-center mb-12 animate-fade-in">
-              <h2 className="text-3xl font-bold mb-4">Featured Companions</h2>
+              <h2 className="text-3xl font-bold mb-4">Featured Cumpanions</h2>
               <p className="text-lg text-muted-foreground">
-                Meet some of our most popular companions
+                Meet some of our most popular cumpanions
               </p>
             </div>
             <div className="grid md:grid-cols-3 gap-8 mb-8">
@@ -133,7 +133,7 @@ const Index = () => {
             </div>
             <div className="text-center">
               <Button size="lg" asChild className="hover:scale-105 transition-transform">
-                <Link to="/companions">View All Companions</Link>
+                <Link to="/companions">View All Cumpanions</Link>
               </Button>
             </div>
           </div>
@@ -167,7 +167,7 @@ const Index = () => {
                 </div>
                 <h3 className="text-xl font-semibold">Browse & Select</h3>
                 <p className="text-muted-foreground">
-                  Find the perfect companion from our verified profiles
+                  Find the perfect cumpanion from our verified profiles
                 </p>
               </div>
 
@@ -210,7 +210,7 @@ const Index = () => {
                 Become A Cumpanion
               </h2>
               <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-                Join our platform as a verified companion. Set your own schedule, customize your profile, 
+                Join our platform as a verified cumpanion. Set your own schedule, customize your profile, 
                 and build your business with our secure platform. Earn on your terms with flexible availability 
                 and transparent pricing.
               </p>
@@ -252,7 +252,7 @@ const Index = () => {
                 </div>
                 <div className="flex items-center gap-3 justify-center md:justify-start">
                   <CheckCircle className="w-5 h-5 text-primary flex-shrink-0" />
-                  <span className="text-sm text-muted-foreground">Direct messaging with companions</span>
+                  <span className="text-sm text-muted-foreground">Direct messaging with cumpanions</span>
                 </div>
                 <div className="flex items-center gap-3 justify-center md:justify-start">
                   <CheckCircle className="w-5 h-5 text-primary flex-shrink-0" />
@@ -271,14 +271,14 @@ const Index = () => {
           <div className="container-blog text-center space-y-6">
             <h2 className="text-4xl font-bold">Ready to Get Started?</h2>
             <p className="text-xl max-w-2xl mx-auto opacity-90">
-              Join Cumpani today and connect with the finest companions across South Africa
+              Join Cumpani today and connect with the finest cumpanions across South Africa
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" variant="secondary" asChild className="hover:scale-105 transition-transform">
                 <Link to="/signup">Sign Up Now</Link>
               </Button>
               <Button size="lg" variant="outline" className="bg-transparent border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary hover:scale-105 transition-all" asChild>
-                <Link to="/companions">Browse Companions</Link>
+                <Link to="/companions">Browse Cumpanions</Link>
               </Button>
             </div>
           </div>
