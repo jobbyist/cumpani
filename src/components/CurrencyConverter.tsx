@@ -19,7 +19,9 @@ const currencies = [
 ];
 
 // Fixed exchange rates (ZAR as base = 1)
-// Note: In production, these should be fetched from a real API
+// Note: In production, these should be fetched from a real API like exchangerate-api.com or similar
+// Last updated: January 2026 (approximate rates for demonstration purposes)
+// These are static rates and should be replaced with live API calls in production
 const exchangeRates: Record<string, number> = {
   ZAR: 1,
   USD: 0.053,
