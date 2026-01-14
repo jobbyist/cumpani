@@ -42,7 +42,11 @@ const Index = () => {
         {/* Ad Placeholder 1 */}
         <section className="py-8 bg-muted/20">
           <div className="container-blog">
-            <AdPlaceholder variant="horizontal" />
+               <div className="flex justify-center">
+              <a href="https://t.crjmpy.com/401328/3785/0?bo=Array&target=nativeads&file_id=554077&po=6456&aff_sub5=SF_006OG000004lmDN&aff_sub4=AT_0002" target="_blank">
+                <img src="https://www.imglnkx.com/3785/010769A_GDAT_18_ALL_EN_798_L.jpg" width="928" height="244" border="0" />
+              </a>
+            </div>
           </div>
         </section>
 
@@ -62,7 +66,7 @@ const Index = () => {
         {/* Ad Placeholder 2 */}
         <section className="py-8 bg-muted/20">
           <div className="container-blog">
-            <AdPlaceholder variant="horizontal" />
+           <a href="https://t.crjmpy.com/401328/7234?bo=2753,2754,2755,2756&aff_sub5=SF_006OG000004lmDN&aff_sub4=AT_0002" target="_blank"><img src="https://www.imglnkx.com/9863/PMKT-1799_DESIGN-25473_SEXMESSENGER_BANNERCONCEPT_BANNER4_300100.gif" width="300" height="100" border="0" /></a>
           </div>
         </section>
 
@@ -107,7 +111,7 @@ const Index = () => {
         {/* Ad Placeholder 3 */}
         <section className="py-8 bg-muted/20">
           <div className="container-blog">
-            <AdPlaceholder variant="horizontal" />
+           <a href="https://t.crjmpy.com/401328/7234?bo=2753,2754,2755,2756&aff_sub5=SF_006OG000004lmDN&aff_sub4=AT_0002" target="_blank"><img src="https://www.imglnkx.com/9863/DAT-459_DESIGN-23700_BannerMB_mosaic_SFW_300100.jpg" width="300" height="100" border="0" /></a>
           </div>
         </section>
 
