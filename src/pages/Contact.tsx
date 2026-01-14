@@ -8,6 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Mail, MessageSquare, Send, MapPin } from 'lucide-react';
 import { useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
+import CurrencyConverter from '@/components/CurrencyConverter';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -204,6 +205,11 @@ const Contact = () => {
                 </CardContent>
               </Card>
             </div>
+          </div>
+
+          {/* Currency Converter Section */}
+          <div className="mt-16 max-w-2xl mx-auto">
+            <CurrencyConverter />
           </div>
         </div>
       </main>

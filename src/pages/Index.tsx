@@ -3,7 +3,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Shield, Lock, MapPin, Heart, Wallet, Star } from 'lucide-react';
+import { Shield, Lock, MapPin, Heart, Wallet, Star, Award, Users, CheckCircle } from 'lucide-react';
 import CompanionCard from '@/components/CompanionCard';
 import LocationCarousel from '@/components/LocationCarousel';
 import AdPlaceholder from '@/components/AdPlaceholder';
@@ -198,6 +198,71 @@ const Index = () => {
         <section className="py-8 bg-muted/20">
           <div className="container-blog">
             <AdPlaceholder variant="horizontal" />
+          </div>
+        </section>
+
+        {/* Become A Cumpanion Section */}
+        <section className="py-16 bg-gradient-to-r from-primary/10 to-primary/5">
+          <div className="container-blog">
+            <div className="max-w-4xl mx-auto text-center">
+              <Award className="w-16 h-16 text-primary mx-auto mb-6" />
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+                Become A Cumpanion
+              </h2>
+              <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
+                Join our platform as a verified companion. Set your own schedule, customize your profile, 
+                and build your business with our secure platform. Earn on your terms with flexible availability 
+                and transparent pricing.
+              </p>
+              <Button size="lg" asChild className="hover:scale-105 transition-transform">
+                <Link to="/become-companion">Learn More & Apply</Link>
+              </Button>
+            </div>
+          </div>
+        </section>
+
+        {/* Join The Cummunity Section */}
+        <section className="py-16 bg-gradient-to-r from-purple-500/10 to-pink-500/10">
+          <div className="container-blog">
+            <div className="max-w-4xl mx-auto text-center">
+              <Users className="w-16 h-16 text-primary mx-auto mb-6" />
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+                Join The Cummunity
+              </h2>
+              <p className="text-lg text-muted-foreground mb-6 max-w-2xl mx-auto">
+                Unlock exclusive benefits with our premium membership for just <span className="text-primary font-bold">$9.99/month</span>. 
+                New users get 30% off their first booking!
+              </p>
+              <div className="grid md:grid-cols-3 gap-4 max-w-3xl mx-auto mb-8">
+                <div className="flex items-center gap-3 justify-center md:justify-start">
+                  <CheckCircle className="w-5 h-5 text-primary flex-shrink-0" />
+                  <span className="text-sm text-muted-foreground">Instant access to verified profiles</span>
+                </div>
+                <div className="flex items-center gap-3 justify-center md:justify-start">
+                  <CheckCircle className="w-5 h-5 text-primary flex-shrink-0" />
+                  <span className="text-sm text-muted-foreground">Ad-free browsing experience</span>
+                </div>
+                <div className="flex items-center gap-3 justify-center md:justify-start">
+                  <CheckCircle className="w-5 h-5 text-primary flex-shrink-0" />
+                  <span className="text-sm text-muted-foreground">Secure virtual wallet (100% encrypted)</span>
+                </div>
+                <div className="flex items-center gap-3 justify-center md:justify-start">
+                  <CheckCircle className="w-5 h-5 text-primary flex-shrink-0" />
+                  <span className="text-sm text-muted-foreground">30-day money back guarantee</span>
+                </div>
+                <div className="flex items-center gap-3 justify-center md:justify-start">
+                  <CheckCircle className="w-5 h-5 text-primary flex-shrink-0" />
+                  <span className="text-sm text-muted-foreground">Direct messaging with companions</span>
+                </div>
+                <div className="flex items-center gap-3 justify-center md:justify-start">
+                  <CheckCircle className="w-5 h-5 text-primary flex-shrink-0" />
+                  <span className="text-sm text-muted-foreground">30% off first booking</span>
+                </div>
+              </div>
+              <Button size="lg" asChild className="hover:scale-105 transition-transform">
+                <Link to="/membership">Subscribe Now</Link>
+              </Button>
+            </div>
           </div>
         </section>
 

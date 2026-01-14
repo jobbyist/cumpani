@@ -28,6 +28,8 @@ const QuoteRequest = lazy(() => import("./pages/QuoteRequest"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const Companions = lazy(() => import("./pages/Companions"));
 const CompanionDetail = lazy(() => import("./pages/CompanionDetail"));
+const BecomeCompanion = lazy(() => import("./pages/BecomeCompanion"));
+const Membership = lazy(() => import("./pages/Membership"));
 
 const queryClient = new QueryClient();
 
@@ -46,6 +48,8 @@ const App = () => (
                   <Route path="/" element={<Index />} />
                   <Route path="/companions" element={<Companions />} />
                   <Route path="/companion/:id" element={<CompanionDetail />} />
+                  <Route path="/become-companion" element={<BecomeCompanion />} />
+                  <Route path="/membership" element={<Membership />} />
                   <Route path="/posts" element={<AllPosts />} />
                   <Route path="/business" element={<Business />} />
                   <Route path="/technology" element={<Technology />} />
