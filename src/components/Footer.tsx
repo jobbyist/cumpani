@@ -27,9 +27,9 @@ const Footer = () => {
             <h3 className="font-medium text-foreground">Services</h3>
             <ul className="space-y-2 text-sm">
               <li><Link to="/companions" className="text-muted-foreground hover:text-foreground transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded">Browse Companions</Link></li>
+              <li><Link to="/become-companion" className="text-muted-foreground hover:text-foreground transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded">Become A Cumpanion</Link></li>
+              <li><Link to="/membership" className="text-muted-foreground hover:text-foreground transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded">Join The Cummunity</Link></li>
               <li><Link to="/about" className="text-muted-foreground hover:text-foreground transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded">How It Works</Link></li>
-              <li><Link to="/signup" className="text-muted-foreground hover:text-foreground transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded">Sign Up</Link></li>
-              <li><Link to="/login" className="text-muted-foreground hover:text-foreground transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded">Login</Link></li>
             </ul>
           </div>
           
@@ -40,6 +40,14 @@ const Footer = () => {
                 <li><Link to="/contact" className="text-muted-foreground hover:text-foreground transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded">Contact</Link></li>
                 <li><Link to="/privacy" className="text-muted-foreground hover:text-foreground transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded">Privacy</Link></li>
                 <li><Link to="/terms" className="text-muted-foreground hover:text-foreground transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded">Terms</Link></li>
+              </ul>
+            </div>
+
+            <div className="space-y-4">
+              <h3 className="font-medium text-foreground">Account</h3>
+              <ul className="space-y-2 text-sm">
+                <li><Link to="/signup" className="text-muted-foreground hover:text-foreground transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded">Sign Up</Link></li>
+                <li><Link to="/login" className="text-muted-foreground hover:text-foreground transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded">Login</Link></li>
               </ul>
             </div>
         </div>
