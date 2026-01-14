@@ -26,9 +26,8 @@ const Header = () => {
   ];
 
   const socialLinks = [
-    { icon: Facebook, href: '#', label: 'Facebook' },
-    { icon: Twitter, href: '#', label: 'Twitter' },  
-    { icon: Instagram, href: '#', label: 'Instagram' },
+    { icon: Telegram, href: '#', label: 'Telegram' },
+    { icon: Twitter, href: '#', label: 'Twitter' }, 
   ];
 
   return (
@@ -77,7 +76,7 @@ const Header = () => {
             <Button 
               variant="outline" 
               size="sm" 
-              aria-label="Search articles"
+              aria-label="Search..."
               onClick={() => navigate('/search')}
             >
               <Search className="h-4 w-4" />
@@ -156,7 +155,7 @@ const Header = () => {
               <Button 
                 variant="outline" 
                 size="sm" 
-                aria-label="Search articles"
+                aria-label="Search..."
                 onClick={() => navigate('/search')}
                 className="w-full"
               >
