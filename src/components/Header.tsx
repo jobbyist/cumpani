@@ -37,8 +37,17 @@ const Header = () => {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <Link to="/" className="block">
-              <h1 className="text-2xl font-bold text-foreground tracking-tight uppercase">cumpani</h1>
+             <Link to="/" className="block" aria-label="Cumpani home">
+              <img
+                src="/cumpaniblk.svg"
+                alt="Cumpani"
+                className="h-8 w-auto dark:hidden"
+              />
+              <img
+                src="/cumpaniwht.svg"
+                alt="Cumpani"
+                className="hidden h-8 w-auto dark:block"
+              />
             </Link>
           </div>
 
