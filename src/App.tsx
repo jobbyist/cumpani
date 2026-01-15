@@ -6,6 +6,7 @@ import { ThemeProvider } from "next-themes";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SkipLink from "@/components/SkipLink";
 import AgeVerification from "@/components/AgeVerification";
+import AIChatbot from "@/components/AIChatbot";
 import { Suspense, lazy } from "react";
 import { AuthProvider } from "@/contexts/AuthContext";
 import Index from "./pages/Index";
@@ -18,6 +19,8 @@ const Technology = lazy(() => import("./pages/Technology"));
 const Podcast = lazy(() => import("./pages/Podcast"));
 const Terms = lazy(() => import("./pages/Terms"));
 const Privacy = lazy(() => import("./pages/Privacy"));
+const Refunds = lazy(() => import("./pages/Refunds"));
+const Cookies = lazy(() => import("./pages/Cookies"));
 const Sitemap = lazy(() => import("./pages/Sitemap"));
 const SearchResults = lazy(() => import("./pages/SearchResults"));
 const About = lazy(() => import("./pages/About"));
@@ -40,6 +43,7 @@ const App = () => (
         <TooltipProvider>
           <SkipLink />
           <AgeVerification />
+          <AIChatbot />
           <Toaster />
           <Sonner />
           <BrowserRouter>
@@ -56,6 +60,8 @@ const App = () => (
                   <Route path="/podcast" element={<Podcast />} />
                   <Route path="/terms" element={<Terms />} />
                   <Route path="/privacy" element={<Privacy />} />
+                  <Route path="/refunds" element={<Refunds />} />
+                  <Route path="/cookies" element={<Cookies />} />
                   <Route path="/sitemap" element={<Sitemap />} />
                   <Route path="/search" element={<SearchResults />} />
                   <Route path="/about" element={<About />} />

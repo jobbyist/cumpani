@@ -40,12 +40,12 @@ const Header = () => {
               <img
                 src="/cumpaniblk.svg"
                 alt="Cumpani"
-                className="h-8 w-auto dark:hidden"
+                className="w-[200px] h-auto dark:hidden"
               />
               <img
                 src="/cumpaniwht.svg"
                 alt="Cumpani"
-                className="hidden h-8 w-auto dark:block"
+                className="hidden w-[200px] h-auto dark:block"
               />
             </Link>
           </div>

@@ -16,7 +16,7 @@ const About = () => {
               About Cumpani
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              South Africa's premier platform for verified companionship services
+              South Africa's premier platform for verified cumpanionship services
             </p>
           </div>
 
@@ -27,7 +27,7 @@ const About = () => {
                 <div className="w-24 h-24 bg-primary rounded-full mx-auto mb-4 flex items-center justify-center">
                   <Heart className="h-12 w-12 text-primary-foreground" />
                 </div>
-                <p className="text-muted-foreground">Connecting You with Premium Companions</p>
+                <p className="text-muted-foreground">Connecting You with Premium Cumpanions</p>
               </div>
             </div>
           </div>
@@ -39,16 +39,16 @@ const About = () => {
               <div className="space-y-4 text-muted-foreground">
                 <p>
                   Cumpani is South Africa's premier platform designed to connect individuals with 
-                  verified, professional companions across major cities. We've built a secure, 
+                  verified, professional cumpanions across major cities. We've built a secure, 
                   discreet, and sophisticated ecosystem that prioritizes safety, privacy, and quality.
                 </p>
                 <p>
                   Our platform was created to address the need for a trustworthy, transparent 
-                  companionship service. Every profile is carefully verified, every transaction 
+                  cumpanionship service. Every profile is carefully verified, every transaction 
                   is encrypted, and every experience is designed with your comfort and security in mind.
                 </p>
                 <p>
-                  Whether you're seeking sophisticated company for an event, professional companionship 
+                  Whether you're seeking sophisticated company for an event, professional cumpanionship 
                   for travel, or simply quality time with attractive, engaging individuals, Cumpani 
                   provides a safe, modern solution.
                 </p>
@@ -91,7 +91,7 @@ const About = () => {
                   </div>
                   <div className="flex items-center gap-3">
                     <CheckCircle className="h-5 w-5 text-primary" />
-                    <span className="text-muted-foreground">Direct messaging with companions</span>
+                    <span className="text-muted-foreground">Direct messaging with cumpanions</span>
                   </div>
                 </div>
               </div>
@@ -106,7 +106,7 @@ const About = () => {
                 Become A Cumpanion
               </h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Join our platform as a verified companion and connect with clients across South Africa. 
+                Join our platform as a verified cumpanion and connect with clients across South Africa. 
                 Set your own schedule, customize your profile, and build your business with our secure platform.
               </p>
             </div>
@@ -143,7 +143,7 @@ const About = () => {
                 </div>
                 <div className="flex items-start gap-3">
                   <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
-                  <span className="text-muted-foreground">Direct messaging with companions</span>
+                  <span className="text-muted-foreground">Direct messaging with cumpanions</span>
                 </div>
                 <div className="flex items-start gap-3">
                   <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
@@ -168,15 +168,15 @@ const About = () => {
               Ready to Get Started?
             </h2>
             <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
-              Join thousands of satisfied clients and companions on South Africa's most trusted platform 
-              for premium companionship services.
+              Join thousands of satisfied clients and cumpanions on South Africa's most trusted platform 
+              for premium cumpanionship services.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild size="lg">
                 <Link to="/signup">Sign Up Free</Link>
               </Button>
               <Button variant="outline" size="lg" asChild>
-                <Link to="/companions">Browse Companions</Link>
+                <Link to="/companions">Browse Cumpanions</Link>
               </Button>
             </div>
           </div>
