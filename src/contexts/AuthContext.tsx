@@ -54,7 +54,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     const storedUsers = localStorage.getItem('cumpani_users');
     const users = storedUsers ? JSON.parse(storedUsers) : [];
     
-    const foundUser = users.find((u: any) => u.email === email && u.password === password);
+    const foundUser = users.find((u: { email: string; password: string; id: string; name: string }) => u.email === email && u.password === password);
     
     if (foundUser) {
       const userData = { id: foundUser.id, email: foundUser.email, name: foundUser.name };
@@ -72,7 +72,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     const users = storedUsers ? JSON.parse(storedUsers) : [];
     
     // Check if user already exists
-    if (users.find((u: any) => u.email === email)) {
+    if (users.find((u: { email: string }) => u.email === email)) {
       return false;
     }
     
