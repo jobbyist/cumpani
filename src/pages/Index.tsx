@@ -21,10 +21,10 @@ const Index = () => {
           <div className="container-blog">
             <div className="max-w-4xl mx-auto text-center space-y-6">
               <h1 className="text-5xl md:text-6xl font-bold text-foreground animate-slide-in">
-                Premium Cumpanionship Services
+                South Africa's Premier Adult Cumpanionship Platform
               </h1>
               <p className="text-xl text-muted-foreground">
-                Connect with sophisticated, attractive cumpanions across South Africa's major cities. 
+                Connect with sophisticated, attractive cumpanions across South Africa's major cities for an unmatched, top-tier experience. 
                 Secure, discreet, and professional.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -32,7 +32,7 @@ const Index = () => {
                   <Link to="/companions">Browse Cumpanions</Link>
                 </Button>
                 <Button size="lg" variant="outline" asChild className="hover:scale-105 transition-transform">
-                  <Link to="/about">Learn More</Link>
+                  <Link to="/about">Find Out More</Link>
                 </Button>
               </div>
             </div>
@@ -43,8 +43,7 @@ const Index = () => {
         <section className="py-8 bg-muted/20">
           <div className="container-blog">
                <div className="flex justify-center">
-              <a href="https://t.crjmpy.com/401328/3785/0?bo=Array&target=nativeads&file_id=554077&po=6456&aff_sub5=SF_006OG000004lmDN&aff_sub4=AT_0002" target="_blank">
-                <img src="https://www.imglnkx.com/3785/010769A_GDAT_18_ALL_EN_798_L.jpg" width="928" height="244" border="0" />
+             <a href="https://t.mbjrkmms.com/401328/6224/0?bo=2779,2778,2777,2776,2775&file_id=612664&po=6533&aff_sub5=SF_006OG000004lmDN&aff_sub4=AT_0002" target="_blank"><img src="https://www.imglnkx.com/6224/009451A_JRKM_18_ALL_EN_22646_L.jpg" width="970" height="90" border="0" /></a>
               </a>
             </div>
           </div>
@@ -66,8 +65,9 @@ const Index = () => {
         {/* Ad Placeholder 2 */}
         <section className="py-8 bg-muted/20">
           <div className="container-blog">
-           <a href="https://t.crjmpy.com/401328/7234?bo=2753,2754,2755,2756&aff_sub5=SF_006OG000004lmDN&aff_sub4=AT_0002" target="_blank"><img src="https://www.imglnkx.com/9863/PMKT-1799_DESIGN-25473_SEXMESSENGER_BANNERCONCEPT_BANNER4_300100.gif" width="300" height="100" border="0" /></a>
-          </div>
+             <div className="flex justify-center">
+          <a href="https://t.mbjrkmms.com/401328/6224/0?bo=2779,2778,2777,2776,2775&file_id=612664&po=6533&aff_sub5=SF_006OG000004lmDN&aff_sub4=AT_0002" target="_blank"><img src="https://www.imglnkx.com/6224/009451A_JRKM_18_ALL_EN_22646_L.jpg" width="970" height="90" border="0" /></a>
+             </div> </div>
         </section>
 
         {/* Features Section */}
@@ -111,15 +111,16 @@ const Index = () => {
         {/* Ad Placeholder 3 */}
         <section className="py-8 bg-muted/20">
           <div className="container-blog">
-           <a href="https://t.crjmpy.com/401328/7234?bo=2753,2754,2755,2756&aff_sub5=SF_006OG000004lmDN&aff_sub4=AT_0002" target="_blank"><img src="https://www.imglnkx.com/9863/DAT-459_DESIGN-23700_BannerMB_mosaic_SFW_300100.jpg" width="300" height="100" border="0" /></a>
-          </div>
+           <div className="flex justify-center">
+            <a href="https://t.acrsmartcam.com/401328/8873/0?bo=2779,2778,2777,2776,2775&file_id=615074&po=6533&aff_sub5=SF_006OG000004lmDN&aff_sub4=AT_0002" target="_blank"><img src="https://www.imglnkx.com/8873/PCAM-192_DESIGN-22403_900250_2.B.png" width="900" height="250" border="0" /></a>
+          </div> </div>
         </section>
 
         {/* Featured Cumpanions */}
         <section className="py-16">
           <div className="container-blog">
             <div className="text-center mb-12 animate-fade-in">
-              <h2 className="text-3xl font-bold mb-4">Featured Cumpanions</h2>
+              <h2 className="text-3xl font-bold mb-4">Top-Rated Cumpanions</h2>
               <p className="text-lg text-muted-foreground">
                 Meet some of our most popular cumpanions
               </p>
@@ -142,8 +143,9 @@ const Index = () => {
         {/* Ad Placeholder 4 */}
         <section className="py-8 bg-muted/20">
           <div className="container-blog">
-            <AdPlaceholder variant="horizontal" />
-          </div>
+             <div className="flex justify-center">
+          <a href="https://t.crjmpy.com/401328/3785/0?bo=Array&target=banners&file_id=554077&po=6456&aff_sub5=SF_006OG000004lmDN&aff_sub4=AT_0002" target="_blank"><img src="https://www.imglnkx.com/3785/010769A_GDAT_18_ALL_EN_798_L.jpg" width="928" height="244" border="0" /></a>
+          </div> </div>
         </section>
 
         {/* How It Works */}
@@ -157,7 +159,7 @@ const Index = () => {
                 </div>
                 <h3 className="text-xl font-semibold">Sign Up</h3>
                 <p className="text-muted-foreground">
-                  Create your free account to browse companion profiles
+                  Create your account to browse companion profiles
                 </p>
               </div>
 
@@ -187,7 +189,7 @@ const Index = () => {
                 </div>
                 <h3 className="text-xl font-semibold">Book Securely</h3>
                 <p className="text-muted-foreground">
-                  Use our virtual wallet to book your appointment safely
+                  Use your secure digital wallet to buy tokens & book your appointment safely
                 </p>
               </div>
             </div>
@@ -197,7 +199,9 @@ const Index = () => {
         {/* Ad Placeholder 5 */}
         <section className="py-8 bg-muted/20">
           <div className="container-blog">
-            <AdPlaceholder variant="horizontal" />
+             <div className="flex justify-center">
+            <a href="https://t.crjmpy.com/401328/3785/0?bo=Array&target=banners&file_id=288555&po=6456&aff_sub5=SF_006OG000004lmDN&aff_sub4=AT_0002" target="_blank"><img src="https://www.imglnkx.com/3785/20180402102132-005096A_GDAT_18_ALL_EN_798_L.gif" width="928" height="244" border="0" /></a>
+             </div>
           </div>
         </section>
 
@@ -215,9 +219,18 @@ const Index = () => {
                 and transparent pricing.
               </p>
               <Button size="lg" asChild className="hover:scale-105 transition-transform">
-                <Link to="/become-companion">Learn More & Apply</Link>
+                <Link to="/work-with-us">Learn More & Apply</Link>
               </Button>
             </div>
+          </div>
+        </section>
+
+       {/* Ad Placeholder 6 */}
+        <section className="py-8 bg-muted/20">
+          <div className="container-blog">
+             <div className="flex justify-center">
+           <a href="https://t.crjmpy.com/401328/3785/0?bo=Array&target=banners&file_id=554051&po=6456&aff_sub5=SF_006OG000004lmDN&aff_sub4=AT_0002" target="_blank"><img src="https://www.imglnkx.com/3785/010765A_GDAT_18_ALL_EN_798_L.gif" width="928" height="244" border="0" /></a>
+             </div>
           </div>
         </section>
 
@@ -230,8 +243,8 @@ const Index = () => {
                 Join The Cummunity
               </h2>
               <p className="text-lg text-muted-foreground mb-6 max-w-2xl mx-auto">
-                Unlock exclusive benefits with our premium membership for just <span className="text-primary font-bold">$9.99/month</span>. 
-                New users get 30% off their first booking!
+                Unlock exclusive benefits with our premium membership for just <span className="text-primary font-bold">$9.99/month. Cancel anytime.</span>. 
+                New members get 30% off their first booking!
               </p>
               <div className="grid md:grid-cols-3 gap-4 max-w-3xl mx-auto mb-8">
                 <div className="flex items-center gap-3 justify-center md:justify-start">
@@ -260,7 +273,7 @@ const Index = () => {
                 </div>
               </div>
               <Button size="lg" asChild className="hover:scale-105 transition-transform">
-                <Link to="/membership">Subscribe Now</Link>
+                <Link to="/upgrade">Join Now</Link>
               </Button>
             </div>
           </div>
@@ -271,7 +284,7 @@ const Index = () => {
           <div className="container-blog text-center space-y-6">
             <h2 className="text-4xl font-bold">Ready to Get Started?</h2>
             <p className="text-xl max-w-2xl mx-auto opacity-90">
-              Join Cumpani today and connect with the finest cumpanions across South Africa
+              Join Cumpani today and connect with the finest, most sought-after cumpanions across South Africa
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" variant="secondary" asChild className="hover:scale-105 transition-transform">
