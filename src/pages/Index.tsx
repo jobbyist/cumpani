@@ -7,6 +7,7 @@ import { Shield, Lock, MapPin, Heart, Wallet, Star, Award, Users, CheckCircle } 
 import CompanionCard from '@/components/CompanionCard';
 import LocationCarousel from '@/components/LocationCarousel';
 import AdPlaceholder from '@/components/AdPlaceholder';
+import StoriesSection from '@/components/StoriesSection';
 import { companionProfiles } from '@/data/companions';
 
 const Index = () => {
@@ -44,7 +45,6 @@ const Index = () => {
           <div className="container-blog">
                <div className="flex justify-center">
              <a href="https://t.mbjrkmms.com/401328/6224/0?bo=2779,2778,2777,2776,2775&file_id=612664&po=6533&aff_sub5=SF_006OG000004lmDN&aff_sub4=AT_0002" target="_blank"><img src="https://www.imglnkx.com/6224/009451A_JRKM_18_ALL_EN_22646_L.jpg" width="970" height="90" border="0" /></a>
-              </a>
             </div>
           </div>
         </section>
@@ -65,9 +65,10 @@ const Index = () => {
         {/* Ad Placeholder 2 */}
         <section className="py-8 bg-muted/20">
           <div className="container-blog">
-             <div className="flex justify-center">
-          <a href="https://t.mbjrkmms.com/401328/6224/0?bo=2779,2778,2777,2776,2775&file_id=612664&po=6533&aff_sub5=SF_006OG000004lmDN&aff_sub4=AT_0002" target="_blank"><img src="https://www.imglnkx.com/6224/009451A_JRKM_18_ALL_EN_22646_L.jpg" width="970" height="90" border="0" /></a>
-             </div> </div>
+            <div className="flex justify-center">
+              <a href="https://t.mbjrkmms.com/401328/6224/0?bo=2779,2778,2777,2776,2775&file_id=612664&po=6533&aff_sub5=SF_006OG000004lmDN&aff_sub4=AT_0002" target="_blank"><img src="https://www.imglnkx.com/6224/009451A_JRKM_18_ALL_EN_22646_L.jpg" width="970" height="90" border="0" /></a>
+            </div>
+          </div>
         </section>
 
         {/* Features Section */}
@@ -111,9 +112,10 @@ const Index = () => {
         {/* Ad Placeholder 3 */}
         <section className="py-8 bg-muted/20">
           <div className="container-blog">
-           <div className="flex justify-center">
-            <a href="https://t.acrsmartcam.com/401328/8873/0?bo=2779,2778,2777,2776,2775&file_id=615074&po=6533&aff_sub5=SF_006OG000004lmDN&aff_sub4=AT_0002" target="_blank"><img src="https://www.imglnkx.com/8873/PCAM-192_DESIGN-22403_900250_2.B.png" width="900" height="250" border="0" /></a>
-          </div> </div>
+            <div className="flex justify-center">
+              <a href="https://t.acrsmartcam.com/401328/8873/0?bo=2779,2778,2777,2776,2775&file_id=615074&po=6533&aff_sub5=SF_006OG000004lmDN&aff_sub4=AT_0002" target="_blank"><img src="https://www.imglnkx.com/8873/PCAM-192_DESIGN-22403_900250_2.B.png" width="900" height="250" border="0" /></a>
+            </div>
+          </div>
         </section>
 
         {/* Featured Cumpanions */}
@@ -143,9 +145,10 @@ const Index = () => {
         {/* Ad Placeholder 4 */}
         <section className="py-8 bg-muted/20">
           <div className="container-blog">
-             <div className="flex justify-center">
-          <a href="https://t.crjmpy.com/401328/3785/0?bo=Array&target=banners&file_id=554077&po=6456&aff_sub5=SF_006OG000004lmDN&aff_sub4=AT_0002" target="_blank"><img src="https://www.imglnkx.com/3785/010769A_GDAT_18_ALL_EN_798_L.jpg" width="928" height="244" border="0" /></a>
-          </div> </div>
+            <div className="flex justify-center">
+              <a href="https://t.crjmpy.com/401328/3785/0?bo=Array&target=banners&file_id=554077&po=6456&aff_sub5=SF_006OG000004lmDN&aff_sub4=AT_0002" target="_blank"><img src="https://www.imglnkx.com/3785/010769A_GDAT_18_ALL_EN_798_L.jpg" width="928" height="244" border="0" /></a>
+            </div>
+          </div>
         </section>
 
         {/* How It Works */}
@@ -199,9 +202,9 @@ const Index = () => {
         {/* Ad Placeholder 5 */}
         <section className="py-8 bg-muted/20">
           <div className="container-blog">
-             <div className="flex justify-center">
-            <a href="https://t.crjmpy.com/401328/3785/0?bo=Array&target=banners&file_id=288555&po=6456&aff_sub5=SF_006OG000004lmDN&aff_sub4=AT_0002" target="_blank"><img src="https://www.imglnkx.com/3785/20180402102132-005096A_GDAT_18_ALL_EN_798_L.gif" width="928" height="244" border="0" /></a>
-             </div>
+            <div className="flex justify-center">
+              <a href="https://t.crjmpy.com/401328/3785/0?bo=Array&target=banners&file_id=288555&po=6456&aff_sub5=SF_006OG000004lmDN&aff_sub4=AT_0002" target="_blank"><img src="https://www.imglnkx.com/3785/20180402102132-005096A_GDAT_18_ALL_EN_798_L.gif" width="928" height="244" border="0" /></a>
+            </div>
           </div>
         </section>
 
@@ -228,9 +231,9 @@ const Index = () => {
        {/* Ad Placeholder 6 */}
         <section className="py-8 bg-muted/20">
           <div className="container-blog">
-             <div className="flex justify-center">
-           <a href="https://t.crjmpy.com/401328/3785/0?bo=Array&target=banners&file_id=554051&po=6456&aff_sub5=SF_006OG000004lmDN&aff_sub4=AT_0002" target="_blank"><img src="https://www.imglnkx.com/3785/010765A_GDAT_18_ALL_EN_798_L.gif" width="928" height="244" border="0" /></a>
-             </div>
+            <div className="flex justify-center">
+              <a href="https://t.crjmpy.com/401328/3785/0?bo=Array&target=banners&file_id=554051&po=6456&aff_sub5=SF_006OG000004lmDN&aff_sub4=AT_0002" target="_blank"><img src="https://www.imglnkx.com/3785/010765A_GDAT_18_ALL_EN_798_L.gif" width="928" height="244" border="0" /></a>
+            </div>
           </div>
         </section>
 
@@ -296,6 +299,9 @@ const Index = () => {
             </div>
           </div>
         </section>
+
+        {/* Stories Section - Instagram Reel Style */}
+        <StoriesSection />
       </main>
       <Footer />
     </div>
