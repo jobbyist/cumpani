@@ -18,8 +18,8 @@ const BecomeCompanion = () => {
               Become A Cumpanion
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Join South Africa's premier cumpanionship platform. Build your business, set your schedule, 
-              and connect with verified clients in a safe, professional environment.
+              Join South Africa's premier adult cumpanionship platform. Build your business, boost your income, set your schedule, 
+              and connect with upscale, high-value verified clients in a safe, professional environment.
             </p>
           </div>
 
@@ -32,8 +32,8 @@ const BecomeCompanion = () => {
                   <DollarSign className="w-12 h-12 mb-4 text-primary" />
                   <CardTitle>Earn On Your Terms</CardTitle>
                   <CardDescription>
-                    Set your own rates and availability. Keep the majority of your earnings with 
-                    transparent, competitive platform fees.
+                    Set your own booking fees/rates and availability. Keep 100% of your earnings (excluding third-party payment/transaction fees) with 
+                    transparent, competitive platform fees. You can withdraw your earnings anytime on your dashboard after you reach a minimum of R500 in bookings. We have multiple payout options available including Bank Deposit/EFT, PayPal & FNB eWallet.
                   </CardDescription>
                 </CardHeader>
               </Card>
@@ -54,8 +54,7 @@ const BecomeCompanion = () => {
                   <Shield className="w-12 h-12 mb-4 text-primary" />
                   <CardTitle>Safe & Secure</CardTitle>
                   <CardDescription>
-                    All clients are verified. Payments are processed through our secure virtual wallet. 
-                    Your safety and privacy are our top priorities.
+                    Your safety and privacy are our top priorities. That's why ALL clients are pre-screened and verified before they are allowed to place bookings on our platform. Payments are processed through our secure virtual wallet.
                   </CardDescription>
                 </CardHeader>
               </Card>
@@ -76,7 +75,7 @@ const BecomeCompanion = () => {
                   <MessageSquare className="w-12 h-12 mb-4 text-primary" />
                   <CardTitle>Direct Communication</CardTitle>
                   <CardDescription>
-                    Chat with clients through our secure messaging system. Screen potential bookings 
+                    Chat with clients through our secure, built-in messaging system without revealing your personal contact information. Screen potential bookings 
                     before accepting.
                   </CardDescription>
                 </CardHeader>
@@ -87,8 +86,8 @@ const BecomeCompanion = () => {
                   <TrendingUp className="w-12 h-12 mb-4 text-primary" />
                   <CardTitle>Grow Your Business</CardTitle>
                   <CardDescription>
-                    Build your reputation with our review system. Featured profiles get priority 
-                    placement and increased visibility.
+                    Build your reputation by encouraging your clients to rate their experience with our user-friendly review system. Top-rated profiles get priority 
+                    placement on our homepage and increased visibility.
                   </CardDescription>
                 </CardHeader>
               </Card>
@@ -112,11 +111,11 @@ const BecomeCompanion = () => {
                   </li>
                   <li className="flex items-start gap-3">
                     <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
-                    <span className="text-muted-foreground">Professional photos for profile</span>
+                    <span className="text-muted-foreground">3-5 Professional photos and/or videos for profile</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
-                    <span className="text-muted-foreground">Clear background check</span>
+                    <span className="text-muted-foreground">Clear criminal history/background check</span>
                   </li>
                 </ul>
               </div>
