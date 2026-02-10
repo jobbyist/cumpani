@@ -1,10 +1,14 @@
+import { useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Award, DollarSign, Calendar, Shield, Settings, MessageSquare, TrendingUp, CheckCircle } from 'lucide-react';
+import CompanionApplicationModal from '@/components/CompanionApplicationModal';
 
 const BecomeCompanion = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -161,9 +165,9 @@ const BecomeCompanion = () => {
                 <div className="w-16 h-16 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-2xl font-bold mx-auto">
                   2
                 </div>
-                <h3 className="text-xl font-semibold">Verification</h3>
+                <h3 className="text-xl font-semibold">Set Up Profile</h3>
                 <p className="text-muted-foreground">
-                  Complete our verification process including ID and background check
+                  Create your profile, set your rates, and customize your preferences
                 </p>
               </div>
 
@@ -171,9 +175,9 @@ const BecomeCompanion = () => {
                 <div className="w-16 h-16 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-2xl font-bold mx-auto">
                   3
                 </div>
-                <h3 className="text-xl font-semibold">Set Up Profile</h3>
+                <h3 className="text-xl font-semibold">Verification</h3>
                 <p className="text-muted-foreground">
-                  Create your profile, set your rates, and customize your preferences
+                  Complete our verification process including ID and background check
                 </p>
               </div>
 
@@ -199,7 +203,11 @@ const BecomeCompanion = () => {
               Start your application today and take control of your career.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="hover:scale-105 transition-transform">
+              <Button 
+                size="lg" 
+                className="hover:scale-105 transition-transform"
+                onClick={() => setIsModalOpen(true)}
+              >
                 Apply Now
               </Button>
               <Button variant="outline" size="lg">
@@ -211,6 +219,11 @@ const BecomeCompanion = () => {
       </main>
       
       <Footer />
+      
+      <CompanionApplicationModal 
+        open={isModalOpen} 
+        onOpenChange={setIsModalOpen} 
+      />
     </div>
   );
 };
