@@ -40,6 +40,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { CheckCircle, Upload, X } from 'lucide-react';
+import { Checkbox } from '@/components/ui/checkbox';
 import { toast } from 'sonner';
 
 // Form schema with validation
@@ -69,7 +70,9 @@ const formSchema = z.object({
   accountType: z.string().min(1, 'Account type is required'),
   branchCode: z.string().min(5, 'Branch code is required'),
   
-  // Step 5: Media Upload - handled separately
+  // Step 5: Availability - handled separately as arrays
+  
+  // Step 6: Media Upload - handled separately
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -79,7 +82,17 @@ interface CompanionApplicationModalProps {
   onOpenChange: (open: boolean) => void;
 }
 
-const TOTAL_STEPS = 6;
+const TOTAL_STEPS = 7;
+
+const DAYS_OF_WEEK = [
+  { id: 'monday', label: 'Monday' },
+  { id: 'tuesday', label: 'Tuesday' },
+  { id: 'wednesday', label: 'Wednesday' },
+  { id: 'thursday', label: 'Thursday' },
+  { id: 'friday', label: 'Friday' },
+  { id: 'saturday', label: 'Saturday' },
+  { id: 'sunday', label: 'Sunday' },
+];
 
 const CompanionApplicationModal = ({ open, onOpenChange }: CompanionApplicationModalProps) => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -89,6 +102,9 @@ const CompanionApplicationModal = ({ open, onOpenChange }: CompanionApplicationM
   const [featuredMediaUrls, setFeaturedMediaUrls] = useState<string[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showCloseConfirm, setShowCloseConfirm] = useState(false);
+  const [availableDays, setAvailableDays] = useState<string[]>([]);
+  const [startTime, setStartTime] = useState('09:00');
+  const [endTime, setEndTime] = useState('17:00');
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -132,6 +148,22 @@ const CompanionApplicationModal = ({ open, onOpenChange }: CompanionApplicationM
         fieldsToValidate = ['hourlyRate', 'overnightRate', 'bankName', 'accountNumber', 'accountType', 'branchCode'];
         break;
       case 5:
+        // Validate availability
+        if (availableDays.length === 0) {
+          toast.error('Please select at least one day of availability');
+          return;
+        }
+        if (!startTime || !endTime) {
+          toast.error('Please set your available time range');
+          return;
+        }
+        if (startTime >= endTime) {
+          toast.error('End time must be after start time');
+          return;
+        }
+        setCurrentStep(currentStep + 1);
+        return;
+      case 6:
         // Validate media files
         if (!profilePicture) {
           toast.error('Please upload a profile picture');
@@ -225,6 +257,14 @@ const CompanionApplicationModal = ({ open, onOpenChange }: CompanionApplicationM
     setFeaturedMediaUrls(featuredMediaUrls.filter((_, i) => i !== index));
   };
 
+  const handleDayToggle = (dayId: string) => {
+    setAvailableDays(prev => 
+      prev.includes(dayId) 
+        ? prev.filter(d => d !== dayId)
+        : [...prev, dayId]
+    );
+  };
+
   const onSubmit = async (data: FormValues) => {
     setIsSubmitting(true);
     
@@ -236,6 +276,11 @@ const CompanionApplicationModal = ({ open, onOpenChange }: CompanionApplicationM
       Object.entries(data).forEach(([key, value]) => {
         formData.append(key, String(value));
       });
+      
+      // Add availability data
+      formData.append('availableDays', JSON.stringify(availableDays));
+      formData.append('startTime', startTime);
+      formData.append('endTime', endTime);
       
       // Add profile picture
       if (profilePicture) {
@@ -251,7 +296,7 @@ const CompanionApplicationModal = ({ open, onOpenChange }: CompanionApplicationM
       await new Promise((resolve) => setTimeout(resolve, 2000));
       
       // Show success step
-      setCurrentStep(6);
+      setCurrentStep(7);
       
       toast.success('Application submitted successfully!');
     } catch (error) {
@@ -262,7 +307,7 @@ const CompanionApplicationModal = ({ open, onOpenChange }: CompanionApplicationM
   };
 
   const handleCloseAttempt = () => {
-    if (currentStep < 6) {
+    if (currentStep < 7) {
       setShowCloseConfirm(true);
     } else {
       handleClose(true);
@@ -287,6 +332,9 @@ const CompanionApplicationModal = ({ open, onOpenChange }: CompanionApplicationM
         setProfilePictureUrl(null);
         setFeaturedMedia([]);
         setFeaturedMediaUrls([]);
+        setAvailableDays([]);
+        setStartTime('09:00');
+        setEndTime('17:00');
       }, 300);
     }
     setShowCloseConfirm(false);
@@ -298,16 +346,16 @@ const CompanionApplicationModal = ({ open, onOpenChange }: CompanionApplicationM
       <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="text-2xl font-bold">
-            {currentStep === 6 ? 'Application Submitted!' : 'Become a Cumpanion'}
+            {currentStep === 7 ? 'Application Submitted!' : 'Become a Cumpanion'}
           </DialogTitle>
           <DialogDescription>
-            {currentStep === 6
+            {currentStep === 7
               ? 'Thank you for your application'
               : `Step ${currentStep} of ${TOTAL_STEPS - 1}`}
           </DialogDescription>
         </DialogHeader>
 
-        {currentStep < 6 && (
+        {currentStep < 7 && (
           <div className="mb-6">
             <Progress value={progress} className="h-2" />
           </div>
@@ -643,8 +691,68 @@ const CompanionApplicationModal = ({ open, onOpenChange }: CompanionApplicationM
               </div>
             )}
 
-            {/* Step 5: Media Upload */}
+            {/* Step 5: Availability */}
             {currentStep === 5 && (
+              <div className="space-y-4">
+                <h3 className="text-lg font-semibold">Availability</h3>
+                
+                <div>
+                  <label className="block text-sm font-medium mb-3">
+                    Available Days *
+                  </label>
+                  <div className="grid grid-cols-2 gap-3">
+                    {DAYS_OF_WEEK.map((day) => (
+                      <div key={day.id} className="flex items-center space-x-2">
+                        <Checkbox
+                          id={day.id}
+                          checked={availableDays.includes(day.id)}
+                          onCheckedChange={() => handleDayToggle(day.id)}
+                        />
+                        <label
+                          htmlFor={day.id}
+                          className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer"
+                        >
+                          {day.label}
+                        </label>
+                      </div>
+                    ))}
+                  </div>
+                  <p className="text-sm text-muted-foreground mt-2">
+                    Select the days you're typically available
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium mb-2">
+                      Available From *
+                    </label>
+                    <Input
+                      type="time"
+                      value={startTime}
+                      onChange={(e) => setStartTime(e.target.value)}
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium mb-2">
+                      Available Until *
+                    </label>
+                    <Input
+                      type="time"
+                      value={endTime}
+                      onChange={(e) => setEndTime(e.target.value)}
+                    />
+                  </div>
+                </div>
+                
+                <p className="text-sm text-muted-foreground">
+                  Set your typical availability hours. You can always adjust your schedule later from your dashboard.
+                </p>
+              </div>
+            )}
+
+            {/* Step 6: Media Upload */}
+            {currentStep === 6 && (
               <div className="space-y-4">
                 <h3 className="text-lg font-semibold">Profile & Featured Media</h3>
 
@@ -755,8 +863,8 @@ const CompanionApplicationModal = ({ open, onOpenChange }: CompanionApplicationM
               </div>
             )}
 
-            {/* Step 6: Thank You */}
-            {currentStep === 6 && (
+            {/* Step 7: Thank You */}
+            {currentStep === 7 && (
               <div className="text-center py-8 space-y-4">
                 <CheckCircle className="w-20 h-20 text-green-500 mx-auto" />
                 <h3 className="text-2xl font-bold text-foreground">
@@ -780,7 +888,7 @@ const CompanionApplicationModal = ({ open, onOpenChange }: CompanionApplicationM
             )}
 
             {/* Navigation Buttons */}
-            {currentStep < 6 && (
+            {currentStep < 7 && (
               <div className="flex justify-between pt-6 border-t">
                 <Button
                   type="button"
@@ -791,7 +899,7 @@ const CompanionApplicationModal = ({ open, onOpenChange }: CompanionApplicationM
                   Back
                 </Button>
 
-                {currentStep < 5 ? (
+                {currentStep < 6 ? (
                   <Button type="button" onClick={handleNext}>
                     Next
                   </Button>
