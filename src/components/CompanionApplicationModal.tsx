@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -9,6 +9,16 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from '@/components/ui/alert-dialog';
 import {
   Form,
   FormControl,
@@ -74,8 +84,11 @@ const TOTAL_STEPS = 6;
 const CompanionApplicationModal = ({ open, onOpenChange }: CompanionApplicationModalProps) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [profilePicture, setProfilePicture] = useState<File | null>(null);
+  const [profilePictureUrl, setProfilePictureUrl] = useState<string | null>(null);
   const [featuredMedia, setFeaturedMedia] = useState<File[]>([]);
+  const [featuredMediaUrls, setFeaturedMediaUrls] = useState<string[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showCloseConfirm, setShowCloseConfirm] = useState(false);
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -148,6 +161,16 @@ const CompanionApplicationModal = ({ open, onOpenChange }: CompanionApplicationM
     }
   };
 
+  // Cleanup object URLs on unmount
+  useEffect(() => {
+    return () => {
+      if (profilePictureUrl) {
+        URL.revokeObjectURL(profilePictureUrl);
+      }
+      featuredMediaUrls.forEach(url => URL.revokeObjectURL(url));
+    };
+  }, [profilePictureUrl, featuredMediaUrls]);
+
   const handleProfilePictureChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -159,7 +182,14 @@ const CompanionApplicationModal = ({ open, onOpenChange }: CompanionApplicationM
         toast.error('Profile picture must be an image');
         return;
       }
+      
+      // Revoke old URL if exists
+      if (profilePictureUrl) {
+        URL.revokeObjectURL(profilePictureUrl);
+      }
+      
       setProfilePicture(file);
+      setProfilePictureUrl(URL.createObjectURL(file));
     }
   };
 
@@ -180,11 +210,19 @@ const CompanionApplicationModal = ({ open, onOpenChange }: CompanionApplicationM
       return;
     }
 
+    const newUrls = files.map(file => URL.createObjectURL(file));
     setFeaturedMedia([...featuredMedia, ...files]);
+    setFeaturedMediaUrls([...featuredMediaUrls, ...newUrls]);
   };
 
   const removeFeaturedMedia = (index: number) => {
+    // Revoke the URL for the removed file
+    if (featuredMediaUrls[index]) {
+      URL.revokeObjectURL(featuredMediaUrls[index]);
+    }
+    
     setFeaturedMedia(featuredMedia.filter((_, i) => i !== index));
+    setFeaturedMediaUrls(featuredMediaUrls.filter((_, i) => i !== index));
   };
 
   const onSubmit = async (data: FormValues) => {
@@ -223,32 +261,40 @@ const CompanionApplicationModal = ({ open, onOpenChange }: CompanionApplicationM
     }
   };
 
-  const handleClose = () => {
+  const handleCloseAttempt = () => {
     if (currentStep < 6) {
-      if (confirm('Are you sure you want to close? Your progress will be lost.')) {
-        onOpenChange(false);
-        // Reset form after a delay to allow for closing animation
-        setTimeout(() => {
-          form.reset();
-          setCurrentStep(1);
-          setProfilePicture(null);
-          setFeaturedMedia([]);
-        }, 300);
-      }
+      setShowCloseConfirm(true);
     } else {
+      handleClose(true);
+    }
+  };
+
+  const handleClose = (confirmed: boolean) => {
+    if (confirmed) {
       onOpenChange(false);
       // Reset form after a delay to allow for closing animation
       setTimeout(() => {
         form.reset();
         setCurrentStep(1);
+        
+        // Clean up object URLs
+        if (profilePictureUrl) {
+          URL.revokeObjectURL(profilePictureUrl);
+        }
+        featuredMediaUrls.forEach(url => URL.revokeObjectURL(url));
+        
         setProfilePicture(null);
+        setProfilePictureUrl(null);
         setFeaturedMedia([]);
+        setFeaturedMediaUrls([]);
       }, 300);
     }
+    setShowCloseConfirm(false);
   };
 
   return (
-    <Dialog open={open} onOpenChange={handleClose}>
+    <>
+    <Dialog open={open} onOpenChange={handleCloseAttempt}>
       <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="text-2xl font-bold">
@@ -608,10 +654,10 @@ const CompanionApplicationModal = ({ open, onOpenChange }: CompanionApplicationM
                       Profile Picture *
                     </label>
                     <div className="border-2 border-dashed rounded-lg p-6 text-center">
-                      {profilePicture ? (
+                      {profilePicture && profilePictureUrl ? (
                         <div className="space-y-2">
                           <img
-                            src={URL.createObjectURL(profilePicture)}
+                            src={profilePictureUrl}
                             alt="Profile preview"
                             className="mx-auto h-32 w-32 object-cover rounded-full"
                           />
@@ -620,7 +666,13 @@ const CompanionApplicationModal = ({ open, onOpenChange }: CompanionApplicationM
                             type="button"
                             variant="outline"
                             size="sm"
-                            onClick={() => setProfilePicture(null)}
+                            onClick={() => {
+                              if (profilePictureUrl) {
+                                URL.revokeObjectURL(profilePictureUrl);
+                              }
+                              setProfilePicture(null);
+                              setProfilePictureUrl(null);
+                            }}
                           >
                             Remove
                           </Button>
@@ -672,7 +724,7 @@ const CompanionApplicationModal = ({ open, onOpenChange }: CompanionApplicationM
                             <div key={index} className="relative group">
                               {file.type.startsWith('image/') ? (
                                 <img
-                                  src={URL.createObjectURL(file)}
+                                  src={featuredMediaUrls[index]}
                                   alt={`Featured ${index + 1}`}
                                   className="w-full h-24 object-cover rounded"
                                 />
@@ -712,7 +764,7 @@ const CompanionApplicationModal = ({ open, onOpenChange }: CompanionApplicationM
                 </h3>
                 <p className="text-muted-foreground max-w-md mx-auto">
                   Thank you for your application! An account manager will review your submission
-                  and respond with further instructions to activate your account within 3-5 working days.
+                  and respond with further instructions to activate your account within 3-5 business days.
                 </p>
                 <p className="text-sm text-muted-foreground">
                   Please check your email for confirmation and next steps.
@@ -754,6 +806,26 @@ const CompanionApplicationModal = ({ open, onOpenChange }: CompanionApplicationM
         </Form>
       </DialogContent>
     </Dialog>
+    
+    <AlertDialog open={showCloseConfirm} onOpenChange={setShowCloseConfirm}>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Close Application Form?</AlertDialogTitle>
+          <AlertDialogDescription>
+            Are you sure you want to close? Your progress will be lost and you'll need to start over.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel onClick={() => handleClose(false)}>
+            Continue Application
+          </AlertDialogCancel>
+          <AlertDialogAction onClick={() => handleClose(true)}>
+            Close Form
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
+    </>
   );
 };
 
