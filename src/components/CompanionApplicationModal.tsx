@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -105,6 +105,9 @@ const CompanionApplicationModal = ({ open, onOpenChange }: CompanionApplicationM
   const [availableDays, setAvailableDays] = useState<string[]>([]);
   const [startTime, setStartTime] = useState('09:00');
   const [endTime, setEndTime] = useState('17:00');
+  
+  // Keep track of all URLs to revoke on unmount
+  const urlsToCleanup = useRef<string[]>([]);
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -193,15 +196,18 @@ const CompanionApplicationModal = ({ open, onOpenChange }: CompanionApplicationM
     }
   };
 
-  // Cleanup object URLs on unmount
+  // Cleanup all object URLs on unmount
   useEffect(() => {
     return () => {
-      if (profilePictureUrl) {
-        URL.revokeObjectURL(profilePictureUrl);
-      }
-      featuredMediaUrls.forEach(url => URL.revokeObjectURL(url));
+      urlsToCleanup.current.forEach(url => {
+        try {
+          URL.revokeObjectURL(url);
+        } catch (e) {
+          // Ignore errors on cleanup
+        }
+      });
     };
-  }, [profilePictureUrl, featuredMediaUrls]);
+  }, []);
 
   const handleProfilePictureChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -218,10 +224,14 @@ const CompanionApplicationModal = ({ open, onOpenChange }: CompanionApplicationM
       // Revoke old URL if exists
       if (profilePictureUrl) {
         URL.revokeObjectURL(profilePictureUrl);
+        urlsToCleanup.current = urlsToCleanup.current.filter(url => url !== profilePictureUrl);
       }
       
+      const newUrl = URL.createObjectURL(file);
+      urlsToCleanup.current.push(newUrl);
+      
       setProfilePicture(file);
-      setProfilePictureUrl(URL.createObjectURL(file));
+      setProfilePictureUrl(newUrl);
     }
   };
 
@@ -242,7 +252,11 @@ const CompanionApplicationModal = ({ open, onOpenChange }: CompanionApplicationM
       return;
     }
 
-    const newUrls = files.map(file => URL.createObjectURL(file));
+    const newUrls = files.map(file => {
+      const url = URL.createObjectURL(file);
+      urlsToCleanup.current.push(url);
+      return url;
+    });
     setFeaturedMedia([...featuredMedia, ...files]);
     setFeaturedMediaUrls([...featuredMediaUrls, ...newUrls]);
   };
@@ -251,6 +265,7 @@ const CompanionApplicationModal = ({ open, onOpenChange }: CompanionApplicationM
     // Revoke the URL for the removed file
     if (featuredMediaUrls[index]) {
       URL.revokeObjectURL(featuredMediaUrls[index]);
+      urlsToCleanup.current = urlsToCleanup.current.filter(url => url !== featuredMediaUrls[index]);
     }
     
     setFeaturedMedia(featuredMedia.filter((_, i) => i !== index));
@@ -325,8 +340,12 @@ const CompanionApplicationModal = ({ open, onOpenChange }: CompanionApplicationM
         // Clean up object URLs
         if (profilePictureUrl) {
           URL.revokeObjectURL(profilePictureUrl);
+          urlsToCleanup.current = urlsToCleanup.current.filter(url => url !== profilePictureUrl);
         }
-        featuredMediaUrls.forEach(url => URL.revokeObjectURL(url));
+        featuredMediaUrls.forEach(url => {
+          URL.revokeObjectURL(url);
+        });
+        urlsToCleanup.current = urlsToCleanup.current.filter(url => !featuredMediaUrls.includes(url));
         
         setProfilePicture(null);
         setProfilePictureUrl(null);
@@ -777,6 +796,7 @@ const CompanionApplicationModal = ({ open, onOpenChange }: CompanionApplicationM
                             onClick={() => {
                               if (profilePictureUrl) {
                                 URL.revokeObjectURL(profilePictureUrl);
+                                urlsToCleanup.current = urlsToCleanup.current.filter(url => url !== profilePictureUrl);
                               }
                               setProfilePicture(null);
                               setProfilePictureUrl(null);
