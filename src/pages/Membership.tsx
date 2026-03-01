@@ -45,7 +45,7 @@ const Membership = () => {
               </CardHeader>
               <CardContent className="pt-8">
                 <div className="text-center mb-8">
-                  <Button size="lg" className="w-full max-w-xs hover:scale-105 transition-transform">
+                  <Button size="lg" className="w-full max-w-xs hover:scale-105 transition-transform" asChild>
                     <Link to="/signup">Subscribe Now</Link>
                   </Button>
                   <p className="text-sm text-muted-foreground mt-4 flex items-center justify-center gap-2">
