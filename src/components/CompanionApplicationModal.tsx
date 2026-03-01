@@ -83,6 +83,8 @@ interface CompanionApplicationModalProps {
 }
 
 const TOTAL_STEPS = 7;
+const COMPANION_APPLICATION_FORM_ENDPOINT = 'https://www.formbackend.com/f/1298da3eac7a8924';
+
 
 const DAYS_OF_WEEK = [
   { id: 'monday', label: 'Monday' },
@@ -307,8 +309,16 @@ const CompanionApplicationModal = ({ open, onOpenChange }: CompanionApplicationM
         formData.append(`featuredMedia_${index}`, file);
       });
 
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+     formData.append('recipientEmail', 'cumpani@gravitas.uno');
+
+      const response = await fetch(COMPANION_APPLICATION_FORM_ENDPOINT, {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to submit application');
+      }
       
       // Show success step
       setCurrentStep(7);
@@ -381,7 +391,16 @@ const CompanionApplicationModal = ({ open, onOpenChange }: CompanionApplicationM
         )}
 
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+         
+
+                      <form
+            action={COMPANION_APPLICATION_FORM_ENDPOINT}
+            method="POST"
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="space-y-6"
+          >
+
+                        
             {/* Step 1: Basic Information */}
             {currentStep === 1 && (
               <div className="space-y-4">
