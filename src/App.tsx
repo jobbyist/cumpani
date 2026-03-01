@@ -7,8 +7,10 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SkipLink from "@/components/SkipLink";
 import AgeVerification from "@/components/AgeVerification";
 import AIChatbot from "@/components/AIChatbot";
-import { Suspense, lazy } from "react";
+import { Suspense, lazy, useState, useEffect } from "react";
 import { AuthProvider } from "@/contexts/AuthContext";
+import { FavoritesProvider } from "@/contexts/FavoritesContext";
+import Preloader from "@/components/Preloader";
 import Index from "./pages/Index";
 
 // Lazy load non-critical pages
@@ -36,17 +38,31 @@ const Membership = lazy(() => import("./pages/Membership"));
 
 const queryClient = new QueryClient();
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-      <AuthProvider>
-        <TooltipProvider>
-          <SkipLink />
-          <AgeVerification />
-          <AIChatbot />
-          <Toaster />
-          <Sonner />
-          <BrowserRouter>
+const App = () => {
+  const [showPreloader, setShowPreloader] = useState(true);
+
+  useEffect(() => {
+    // Hide preloader after a delay
+    const timer = setTimeout(() => {
+      setShowPreloader(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      {showPreloader && <Preloader />}
+      <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <AuthProvider>
+          <FavoritesProvider>
+            <TooltipProvider>
+              <SkipLink />
+              <AgeVerification />
+              <AIChatbot />
+              <Toaster />
+              <Sonner />
+              <BrowserRouter>
               <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
                 <Routes>
                   <Route path="/" element={<Index />} />
@@ -75,10 +91,12 @@ const App = () => (
                 </Routes>
               </Suspense>
             </BrowserRouter>
-        </TooltipProvider>
-      </AuthProvider>
-    </ThemeProvider>
-  </QueryClientProvider>
-);
+            </TooltipProvider>
+          </FavoritesProvider>
+        </AuthProvider>
+      </ThemeProvider>
+    </QueryClientProvider>
+  );
+};
 
 export default App;

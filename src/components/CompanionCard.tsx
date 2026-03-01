@@ -1,9 +1,11 @@
 import { Link } from 'react-router-dom';
-import { MapPin, Star, Lock } from 'lucide-react';
+import { MapPin, Star, Lock, Heart } from 'lucide-react';
 import { CompanionProfile } from '@/types/companion';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useAuth } from '@/contexts/AuthContext';
+import { useFavorites } from '@/contexts/FavoritesContext';
+import { useState } from 'react';
 
 interface CompanionCardProps {
   companion: CompanionProfile;
@@ -11,8 +13,17 @@ interface CompanionCardProps {
 
 const CompanionCard = ({ companion }: CompanionCardProps) => {
   const { isAuthenticated } = useAuth();
+  const { isFavorite, toggleFavorite } = useFavorites();
+  const [isLiked, setIsLiked] = useState(isFavorite(companion.id));
 
-  const companionUrl = `/companion/${companion.id}`;
+  const companionUrl = isAuthenticated ? `/companion/${companion.id}` : '/membership';
+
+  const handleFavoriteClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    toggleFavorite(companion.id);
+    setIsLiked(!isLiked);
+  };
 
   return (
     <article className="blog-card group cursor-pointer transition-all duration-300 hover:shadow-lg border border-transparent hover:border-primary rounded-lg overflow-hidden">
@@ -27,13 +38,24 @@ const CompanionCard = ({ companion }: CompanionCardProps) => {
             decoding="async"
           />
           {!isAuthenticated && (
-            <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
+            <div className="absolute inset-0 bg-black/60 flex items-center justify-center backdrop-blur-sm">
               <div className="text-center text-white">
                 <Lock className="w-12 h-12 mx-auto mb-2" />
                 <p className="font-semibold">Login to View</p>
               </div>
             </div>
           )}
+          
+          {/* Favorite Button */}
+          <button
+            onClick={handleFavoriteClick}
+            className="absolute top-3 right-3 p-2 bg-background/80 backdrop-blur-sm rounded-full hover:scale-110 transition-transform z-10"
+            aria-label={isLiked ? 'Remove from favorites' : 'Add to favorites'}
+          >
+            <Heart
+              className={`w-5 h-5 ${isLiked ? 'fill-red-500 text-red-500' : 'text-foreground'}`}
+            />
+          </button>
         </div>
 
         {/* Content */}
@@ -69,15 +91,11 @@ const CompanionCard = ({ companion }: CompanionCardProps) => {
             <span className="text-xs text-muted-foreground">
               {companion.availability}
             </span>
-            {isAuthenticated ? (
-              <Button size="sm" asChild>
-                <Link to={companionUrl}>View Profile</Link>
-              </Button>
-            ) : (
-              <Button size="sm" asChild>
-                <Link to="/login">Login to View</Link>
-              </Button>
-            )}
+            <Button size="sm" asChild>
+              <Link to={companionUrl}>
+                {isAuthenticated ? 'View Profile' : 'Subscribe to View'}
+              </Link>
+            </Button>
           </div>
         </div>
       </div>

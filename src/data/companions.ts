@@ -19,7 +19,15 @@ export const companionProfiles: CompanionProfile[] = [
     email: 'amara@cumpani.co.za',
     location: 'Waterfront, Cape Town',
     rating: 4.8,
-    reviewCount: 24
+    reviewCount: 24,
+    ethnicity: 'Coloured',
+    gender: 'Female',
+    sexualOrientation: 'Straight',
+    isAvailable: true,
+    ethnicity: 'Mixed',
+    gender: 'Female',
+    sexualOrientation: 'Bisexual',
+    isAvailable: true
   },
   {
     id: '2',
@@ -39,7 +47,15 @@ export const companionProfiles: CompanionProfile[] = [
     email: 'thandiwe@cumpani.co.za',
     location: 'Sandton, Johannesburg',
     rating: 4.9,
-    reviewCount: 31
+    reviewCount: 31,
+    ethnicity: 'Coloured',
+    gender: 'Female',
+    sexualOrientation: 'Straight',
+    isAvailable: true,
+    ethnicity: 'Black',
+    gender: 'Female',
+    sexualOrientation: 'Straight',
+    isAvailable: true
   },
   {
     id: '3',
@@ -59,7 +75,11 @@ export const companionProfiles: CompanionProfile[] = [
     email: 'lerato@cumpani.co.za',
     location: 'Umhlanga, Durban',
     rating: 4.7,
-    reviewCount: 18
+    reviewCount: 18,
+    ethnicity: 'Black',
+    gender: 'Female',
+    sexualOrientation: 'Bisexual',
+    isAvailable: true
   },
   {
     id: '4',
@@ -79,7 +99,11 @@ export const companionProfiles: CompanionProfile[] = [
     email: 'zuri@cumpani.co.za',
     location: 'Hatfield, Pretoria',
     rating: 4.9,
-    reviewCount: 27
+    reviewCount: 27,
+    ethnicity: 'Mixed',
+    gender: 'Female',
+    sexualOrientation: 'Straight',
+    isAvailable: true
   },
   {
     id: '5',
@@ -99,7 +123,11 @@ export const companionProfiles: CompanionProfile[] = [
     email: 'naledi@cumpani.co.za',
     location: 'Green Point, Cape Town',
     rating: 4.6,
-    reviewCount: 22
+    reviewCount: 22,
+    ethnicity: 'Coloured',
+    gender: 'Female',
+    sexualOrientation: 'Bisexual',
+    isAvailable: true
   },
   {
     id: '6',
@@ -119,7 +147,11 @@ export const companionProfiles: CompanionProfile[] = [
     email: 'kefilwe@cumpani.co.za',
     location: 'Rosebank, Johannesburg',
     rating: 5.0,
-    reviewCount: 35
+    reviewCount: 35,
+    ethnicity: 'Black',
+    gender: 'Female',
+    sexualOrientation: 'Straight',
+    isAvailable: true
   },
   {
     id: '7',
@@ -139,7 +171,11 @@ export const companionProfiles: CompanionProfile[] = [
     email: 'siphokazi@cumpani.co.za',
     location: 'Sandton City, Sandton',
     rating: 4.9,
-    reviewCount: 29
+    reviewCount: 29,
+    ethnicity: 'Black',
+    gender: 'Female',
+    sexualOrientation: 'Straight',
+    isAvailable: true
   },
   {
     id: '8',
@@ -159,7 +195,11 @@ export const companionProfiles: CompanionProfile[] = [
     email: 'lindiwe@cumpani.co.za',
     location: 'Waterfall Estate, Midrand',
     rating: 4.7,
-    reviewCount: 20
+    reviewCount: 20,
+    ethnicity: 'Coloured',
+    gender: 'Female',
+    sexualOrientation: 'Straight',
+    isAvailable: true
   },
   {
     id: '9',
@@ -179,7 +219,11 @@ export const companionProfiles: CompanionProfile[] = [
     email: 'ayanda@cumpani.co.za',
     location: 'Camps Bay, Cape Town',
     rating: 4.8,
-    reviewCount: 26
+    reviewCount: 26,
+    ethnicity: 'Coloured',
+    gender: 'Female',
+    sexualOrientation: 'Straight',
+    isAvailable: true
   },
   {
     id: '10',
@@ -199,7 +243,11 @@ export const companionProfiles: CompanionProfile[] = [
     email: 'ntombi@cumpani.co.za',
     location: 'Brooklyn, Pretoria',
     rating: 5.0,
-    reviewCount: 32
+    reviewCount: 32,
+    ethnicity: 'Coloured',
+    gender: 'Female',
+    sexualOrientation: 'Straight',
+    isAvailable: true
   },
   {
     id: '11',
@@ -219,7 +267,11 @@ export const companionProfiles: CompanionProfile[] = [
     email: 'thandi@cumpani.co.za',
     location: 'North Beach, Durban',
     rating: 4.6,
-    reviewCount: 19
+    reviewCount: 19,
+    ethnicity: 'Coloured',
+    gender: 'Female',
+    sexualOrientation: 'Straight',
+    isAvailable: true
   },
   {
     id: '12',
@@ -239,6 +291,10 @@ export const companionProfiles: CompanionProfile[] = [
     email: 'nomvula@cumpani.co.za',
     location: 'Nelson Mandela Square, Sandton',
     rating: 5.0,
-    reviewCount: 41
+    reviewCount: 41,
+    ethnicity: 'Coloured',
+    gender: 'Female',
+    sexualOrientation: 'Straight',
+    isAvailable: true
   }
 ];
