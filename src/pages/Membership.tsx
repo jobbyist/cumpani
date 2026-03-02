@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
@@ -44,8 +45,8 @@ const Membership = () => {
               </CardHeader>
               <CardContent className="pt-8">
                 <div className="text-center mb-8">
-                  <Button size="lg" className="w-full max-w-xs hover:scale-105 transition-transform">
-                    Subscribe Now
+                  <Button size="lg" className="w-full max-w-xs hover:scale-105 transition-transform" asChild>
+                    <Link to="/signup">Subscribe Now</Link>
                   </Button>
                   <p className="text-sm text-muted-foreground mt-4 flex items-center justify-center gap-2">
                     <RefreshCw className="w-4 h-4" />
@@ -263,8 +264,8 @@ const Membership = () => {
               Start your premium membership today and experience the best of Cumpani. 
               Risk-free with our 30-day money back guarantee.
             </p>
-            <Button size="lg" className="hover:scale-105 transition-transform">
-              Subscribe for $9.99/Month
+            <Button size="lg" className="hover:scale-105 transition-transform" asChild>
+              <Link to="/signup">Subscribe for $9.99/Month</Link>
             </Button>
             <p className="text-sm text-muted-foreground mt-4">
               No commitment • Cancel anytime • 30-day money back guarantee

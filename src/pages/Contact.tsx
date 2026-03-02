@@ -147,7 +147,7 @@ const Contact = () => {
                     </div>
                     <div>
                       <h3 className="font-medium text-foreground">Email</h3>
-                      <p className="text-muted-foreground">hello@nexusblog.com</p>
+                      <p className="text-muted-foreground">help@cumpani.fun</p>
                       <p className="text-sm text-muted-foreground">
                         We typically respond within 24 hours
                       </p>
@@ -177,28 +177,28 @@ const Contact = () => {
                   <div className="space-y-4">
                     <div>
                       <h4 className="font-medium text-foreground mb-2">
-                        Can I contribute to the blog?
+                        How do I become a Cumpanion?
                       </h4>
                       <p className="text-sm text-muted-foreground">
-                        We welcome guest contributors! Please reach out with your ideas and writing samples.
+                        Visit our "Become A Cumpanion" page to learn about the application process and requirements.
                       </p>
                     </div>
                     
                     <div>
                       <h4 className="font-medium text-foreground mb-2">
-                        How often do you publish new content?
+                        Is my information kept confidential?
                       </h4>
                       <p className="text-sm text-muted-foreground">
-                        We publish new articles several times a week across all our categories.
+                        Yes, all your personal information and bookings are 100% confidential and encrypted.
                       </p>
                     </div>
                     
                     <div>
                       <h4 className="font-medium text-foreground mb-2">
-                        Do you offer partnerships or collaborations?
+                        What payment methods do you accept?
                       </h4>
                       <p className="text-sm text-muted-foreground">
-                        Yes! We're open to partnerships with brands and creators that align with our values.
+                        We use a secure virtual wallet system that accepts all major credit cards and debit cards.
                       </p>
                     </div>
                   </div>

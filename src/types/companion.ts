@@ -15,6 +15,11 @@ export interface CompanionProfile {
   location?: string;
   rating: number;
   reviewCount: number;
+  // Additional filter fields
+  ethnicity?: string;
+  gender?: string;
+  sexualOrientation?: string;
+  isAvailable?: boolean;
 }
 
 export interface Booking {
@@ -39,4 +44,30 @@ export const SOUTH_AFRICAN_CITIES = [
   'Polokwane',
   'Nelspruit',
   'Kimberley',
+];
+
+export const ETHNICITIES = [
+  'Black',
+  'White',
+  'Coloured',
+  'Indian',
+  'Asian',
+  'Mixed',
+  'Other',
+];
+
+export const GENDERS = [
+  'Female',
+  'Male',
+  'Non-binary',
+  'Other',
+];
+
+export const SEXUAL_ORIENTATIONS = [
+  'Straight',
+  'Gay',
+  'Lesbian',
+  'Bisexual',
+  'Pansexual',
+  'Other',
 ];

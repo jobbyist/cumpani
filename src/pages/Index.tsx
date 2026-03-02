@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import LaunchNotificationBanner from '@/components/LaunchNotificationBanner';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Shield, Lock, MapPin, Heart, Wallet, Star, Award, Users, CheckCircle } from 'lucide-react';
@@ -15,6 +16,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <LaunchNotificationBanner />
       <Header />
       <main id="main-content">
         {/* Hero Section */}
@@ -33,7 +35,7 @@ const Index = () => {
                   <Link to="/companions">Browse Cumpanions</Link>
                 </Button>
                 <Button size="lg" variant="outline" asChild className="hover:scale-105 transition-transform">
-                  <Link to="/about">Find Out More</Link>
+                  <Link to="/become-companion">Become A Cumpanion</Link>
                 </Button>
               </div>
             </div>
@@ -276,7 +278,7 @@ const Index = () => {
                 </div>
               </div>
               <Button size="lg" asChild className="hover:scale-105 transition-transform">
-                <Link to="/upgrade">Join Now</Link>
+                <Link to="/signup">Join Now</Link>
               </Button>
             </div>
           </div>

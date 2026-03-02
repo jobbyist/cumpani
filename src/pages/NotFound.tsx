@@ -1,11 +1,14 @@
-import { useLocation, Link } from "react-router-dom";
+import { useLocation, Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { useAuth } from "@/contexts/AuthContext";
 
 const NotFound = () => {
   const location = useLocation();
+  const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
 
   useEffect(() => {
     console.error("404 Error: User attempted to access non-existent route:", location.pathname);
@@ -41,8 +44,8 @@ const NotFound = () => {
             </Button>
             
             <Button variant="outline" asChild size="lg">
-              <Link to="/posts">
-                Browse All Posts
+              <Link to="/contact">
+                Contact Support
               </Link>
             </Button>
           </div>
@@ -53,14 +56,17 @@ const NotFound = () => {
               You might be looking for:
             </p>
             <div className="flex flex-wrap justify-center gap-6 text-sm">
-              <Link to="/" className="text-foreground hover:text-primary transition-colors">
-                Homepage
+              <button 
+                onClick={() => isAuthenticated ? navigate('/companions') : navigate('/login')}
+                className="text-foreground hover:text-primary transition-colors cursor-pointer"
+              >
+                My Account
+              </button>
+              <Link to="/companions" className="text-foreground hover:text-primary transition-colors">
+                Cumpanions
               </Link>
-              <Link to="/posts" className="text-foreground hover:text-primary transition-colors">
-                All Posts
-              </Link>
-              <Link to="/business" className="text-foreground hover:text-primary transition-colors">
-                Business Articles
+              <Link to="/contact" className="text-foreground hover:text-primary transition-colors">
+                Help/Support
               </Link>
             </div>
           </div>
