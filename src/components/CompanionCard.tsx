@@ -65,6 +65,7 @@ const CompanionCard = ({ companion }: CompanionCardProps) => {
               <h3 className="text-xl font-bold text-foreground mb-1">
                 {companion.name}, {companion.age}
               </h3>
+              <p className="text-sm font-medium text-primary mb-1">{companion.username}</p>
               <div className="flex items-center text-sm text-muted-foreground mb-2">
                 <MapPin className="w-4 h-4 mr-1" />
                 {companion.city}, {companion.province}

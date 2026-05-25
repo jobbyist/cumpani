@@ -1,6 +1,7 @@
 export interface CompanionProfile {
   id: string;
   name: string;
+  username: string;
   age: number;
   city: string;
   province: string;
@@ -35,6 +36,7 @@ export interface Booking {
 export const SOUTH_AFRICAN_CITIES = [
   'Johannesburg',
   'Cape Town',
+  'Stellenbosch',
   'Durban',
   'Pretoria',
   'Sandton',
