@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import PageShell from '@/components/PageShell';
 import Disclaimer from '@/components/Disclaimer';
+import HeroVideo from '@/components/HeroVideo';
 import LocationCarousel from '@/components/LocationCarousel';
 import { Button } from '@/components/ui/button';
 import { Shield, Lock, MessageCircle, Users, BadgeCheck, Wallet } from 'lucide-react';
@@ -18,12 +19,11 @@ const features = [
 const Index = () => {
   const { isAuthenticated } = useAuth();
   return (
-    <PageShell>
-      <section className="py-12 text-center max-w-3xl mx-auto space-y-5">
-        <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
+    <PageShell hero={<HeroVideo>
+        <h1 className="text-4xl md:text-6xl font-bold tracking-tight drop-shadow-lg">
           Meet verified people across South Africa
         </h1>
-        <p className="text-lg text-muted-foreground">
+        <p className="text-lg text-white/90 drop-shadow">
           Cumpani is a members-only social and dating platform for adults aged 21+. Verified profiles, private
           messaging and a respectful community.
         </p>
@@ -33,9 +33,12 @@ const Index = () => {
           ) : (
             <Button size="lg" asChild><Link to="/signup">Join Cumpani</Link></Button>
           )}
-          <Button size="lg" variant="outline" asChild><Link to="/how-it-works">How it works</Link></Button>
+          <Button size="lg" variant="outline" asChild
+            className="border-white bg-transparent text-white hover:bg-white hover:text-black">
+            <Link to="/how-it-works">How it works</Link>
+          </Button>
         </div>
-      </section>
+    </HeroVideo>}>
 
       <section className="py-8">
         <h2 className="text-2xl font-bold mb-6 text-center">Across South Africa</h2>
