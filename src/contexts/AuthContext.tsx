@@ -1,6 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, ReactNode } from 'react';
 import type { Session } from '@supabase/supabase-js';
 import { supabase } from '@/lib/supabase';
+import { PREVIEW_MODE } from '@/lib/preview';
 
 export type UserRole = 'member' | 'companion' | 'admin';
 export type VerificationStatus = 'unverified' | 'pending' | 'verified' | 'rejected';
@@ -124,6 +125,18 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const value = useMemo<AuthContextType>(() => {
     const u = session?.user;
+    // Temporary preview mode: no real session, show the full member/admin experience with sample data.
+    if (PREVIEW_MODE && !u) {
+      return {
+        user: { id: 'preview', email: 'preview@cumpani.fun', name: 'Preview' },
+        profile: {
+          id: 'preview', role: 'admin', display_name: 'Preview', city: null, province: null, avatar_url: null,
+          verification_status: 'verified', interested_in: null,
+        } as Profile,
+        session: null, loading, isAuthenticated: true, isVerified: true, isSubscribed: true,
+        isCompanion: true, isAdmin: true, walletBalance: 0, login, signup, logout, refresh,
+      };
+    }
     const admin = profile?.role === 'admin';
     return {
       user: u ? { id: u.id, email: u.email ?? '', name: profile?.display_name ?? u.email ?? '' } : null,
