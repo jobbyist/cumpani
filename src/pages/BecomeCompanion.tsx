@@ -1,231 +1,50 @@
-import { useState } from 'react';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
+import { Link } from 'react-router-dom';
+import PageShell from '@/components/PageShell';
+import Disclaimer from '@/components/Disclaimer';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Award, DollarSign, Calendar, Shield, Settings, MessageSquare, TrendingUp, CheckCircle } from 'lucide-react';
-import CompanionApplicationModal from '@/components/CompanionApplicationModal';
+import { BadgeCheck, MessageCircle, Image, Wallet } from 'lucide-react';
 
-const BecomeCompanion = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+const perks = [
+  { icon: BadgeCheck, title: 'Verified profile', text: 'Complete ID and age verification once, then build a profile members can trust.' },
+  { icon: MessageCircle, title: 'Chat with members', text: 'Private in-app messaging, so you never need to share personal contact details.' },
+  { icon: Image, title: 'Post content', text: 'Share posts in the community feed and publish exclusive content for credits.' },
+  { icon: Wallet, title: 'Earn credits', text: 'Earn a share of the credits members spend on your messages and content, with a dashboard to track it.' },
+];
 
-  return (
-    <div className="min-h-screen bg-background">
-      <Header />
-      
-      <main id="main-content" className="container-blog py-12">
-        <div className="max-w-4xl mx-auto">
-          {/* Hero Section */}
-          <div className="text-center mb-16">
-            <Award className="w-20 h-20 text-primary mx-auto mb-6" />
-            <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-              Become A Cumpanion
-            </h1>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Join South Africa's premier adult cumpanionship platform. Build your business, boost your income, set your schedule, 
-              and connect with upscale, high-value verified clients in a safe, professional environment.
-            </p>
-          </div>
-
-          {/* Benefits Section */}
-          <div className="mb-16">
-            <h2 className="text-3xl font-bold text-center mb-12">Why Join Cumpani?</h2>
-            <div className="grid md:grid-cols-2 gap-8">
-              <Card className="hover:shadow-lg transition-all duration-300">
-                <CardHeader>
-                  <DollarSign className="w-12 h-12 mb-4 text-primary" />
-                  <CardTitle>Earn On Your Terms</CardTitle>
-                  <CardDescription>
-                    Set your own booking fees/rates and availability. Keep 100% of your earnings (excluding third-party payment/transaction fees) with 
-                    transparent, competitive platform fees. You can withdraw your earnings anytime on your dashboard after you reach a minimum of R500 in bookings. We have multiple payout options available including Bank Deposit/EFT, PayPal & FNB eWallet.
-                  </CardDescription>
-                </CardHeader>
-              </Card>
-
-              <Card className="hover:shadow-lg transition-all duration-300">
-                <CardHeader>
-                  <Calendar className="w-12 h-12 mb-4 text-primary" />
-                  <CardTitle>Flexible Schedule</CardTitle>
-                  <CardDescription>
-                    You're in control. Set your availability, accept or decline bookings, 
-                    and manage your calendar from our easy-to-use dashboard.
-                  </CardDescription>
-                </CardHeader>
-              </Card>
-
-              <Card className="hover:shadow-lg transition-all duration-300">
-                <CardHeader>
-                  <Shield className="w-12 h-12 mb-4 text-primary" />
-                  <CardTitle>Safe & Secure</CardTitle>
-                  <CardDescription>
-                    Your safety and privacy are our top priorities. That's why ALL clients are pre-screened and verified before they are allowed to place bookings on our platform. Payments are processed through our secure virtual wallet.
-                  </CardDescription>
-                </CardHeader>
-              </Card>
-
-              <Card className="hover:shadow-lg transition-all duration-300">
-                <CardHeader>
-                  <Settings className="w-12 h-12 mb-4 text-primary" />
-                  <CardTitle>Customize Your Profile</CardTitle>
-                  <CardDescription>
-                    Create a professional profile that showcases your personality and services. 
-                    Set your preferences and boundaries clearly.
-                  </CardDescription>
-                </CardHeader>
-              </Card>
-
-              <Card className="hover:shadow-lg transition-all duration-300">
-                <CardHeader>
-                  <MessageSquare className="w-12 h-12 mb-4 text-primary" />
-                  <CardTitle>Direct Communication</CardTitle>
-                  <CardDescription>
-                    Chat with clients through our secure, built-in messaging system without revealing your personal contact information. Screen potential bookings 
-                    before accepting.
-                  </CardDescription>
-                </CardHeader>
-              </Card>
-
-              <Card className="hover:shadow-lg transition-all duration-300">
-                <CardHeader>
-                  <TrendingUp className="w-12 h-12 mb-4 text-primary" />
-                  <CardTitle>Grow Your Business</CardTitle>
-                  <CardDescription>
-                    Build your reputation by encouraging your clients to rate their experience with our user-friendly review system. Top-rated profiles get priority 
-                    placement on our homepage and increased visibility.
-                  </CardDescription>
-                </CardHeader>
-              </Card>
-            </div>
-          </div>
-
-          {/* Requirements Section */}
-          <div className="mb-16 bg-muted p-8 rounded-lg">
-            <h2 className="text-3xl font-bold text-center mb-8">Requirements</h2>
-            <div className="grid md:grid-cols-2 gap-6">
-              <div className="space-y-4">
-                <h3 className="text-xl font-semibold text-foreground">Basic Requirements</h3>
-                <ul className="space-y-3">
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
-                    <span className="text-muted-foreground">Must be 18 years or older</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
-                    <span className="text-muted-foreground">Valid South African ID or proof of legal residence</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
-                    <span className="text-muted-foreground">3-5 Professional photos and/or videos for profile</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
-                    <span className="text-muted-foreground">Clear criminal history/background check</span>
-                  </li>
-                </ul>
-              </div>
-              <div className="space-y-4">
-                <h3 className="text-xl font-semibold text-foreground">What We Look For</h3>
-                <ul className="space-y-3">
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
-                    <span className="text-muted-foreground">Professional and reliable</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
-                    <span className="text-muted-foreground">Excellent communication skills</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
-                    <span className="text-muted-foreground">Respectful and discreet</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
-                    <span className="text-muted-foreground">Commitment to safety and professionalism</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          {/* How It Works Section */}
-          <div className="mb-16">
-            <h2 className="text-3xl font-bold text-center mb-12">How It Works</h2>
-            <div className="grid md:grid-cols-4 gap-8">
-              <div className="text-center space-y-4">
-                <div className="w-16 h-16 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-2xl font-bold mx-auto">
-                  1
-                </div>
-                <h3 className="text-xl font-semibold">Apply</h3>
-                <p className="text-muted-foreground">
-                  Submit your application with photos and basic information
-                </p>
-              </div>
-
-              <div className="text-center space-y-4">
-                <div className="w-16 h-16 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-2xl font-bold mx-auto">
-                  2
-                </div>
-                <h3 className="text-xl font-semibold">Set Up Profile</h3>
-                <p className="text-muted-foreground">
-                  Create your profile, set your rates, and customize your preferences
-                </p>
-              </div>
-
-              <div className="text-center space-y-4">
-                <div className="w-16 h-16 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-2xl font-bold mx-auto">
-                  3
-                </div>
-                <h3 className="text-xl font-semibold">Verification</h3>
-                <p className="text-muted-foreground">
-                  Complete our verification process including ID and background check
-                </p>
-              </div>
-
-              <div className="text-center space-y-4">
-                <div className="w-16 h-16 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-2xl font-bold mx-auto">
-                  4
-                </div>
-                <h3 className="text-xl font-semibold">Start Earning</h3>
-                <p className="text-muted-foreground">
-                  Go live and start accepting bookings on your schedule
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* CTA Section */}
-          <div className="text-center bg-gradient-to-r from-primary/10 to-primary/5 p-12 rounded-lg">
-            <h2 className="text-3xl font-bold text-foreground mb-4">
-              Ready to Get Started?
-            </h2>
-            <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-              Join hundreds of successful cumpanions already earning on Cumpani. 
-              Start your application today and take control of your career.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button 
-                size="lg" 
-                className="hover:scale-105 transition-transform"
-                onClick={() => setIsModalOpen(true)}
-              >
-                Apply Now
-              </Button>
-              <Button variant="outline" size="lg">
-                Contact Us
-              </Button>
-            </div>
-          </div>
-        </div>
-      </main>
-      
-      <Footer />
-      
-      <CompanionApplicationModal 
-        open={isModalOpen} 
-        onOpenChange={setIsModalOpen} 
-      />
+const BecomeCompanion = () => (
+  <PageShell narrow>
+    <div className="text-center mb-10 space-y-3">
+      <h1 className="text-4xl font-bold">Become a companion</h1>
+      <p className="text-lg text-muted-foreground">
+        Create a verified profile on Cumpani, connect with members and share content on your terms.
+      </p>
     </div>
-  );
-};
+
+    <div className="grid gap-6 sm:grid-cols-2 mb-10">
+      {perks.map(({ icon: Icon, title, text }) => (
+        <div key={title} className="rounded-xl border border-border bg-card p-6">
+          <Icon className="h-6 w-6 text-primary mb-3" aria-hidden="true" />
+          <h2 className="font-semibold mb-1">{title}</h2>
+          <p className="text-sm text-muted-foreground">{text}</p>
+        </div>
+      ))}
+    </div>
+
+    <section className="mb-10 space-y-2">
+      <h2 className="text-2xl font-semibold">How to apply</h2>
+      <ol className="list-decimal pl-5 space-y-1 text-muted-foreground">
+        <li>Create an account (you must be 21 or older).</li>
+        <li>On the verification page, tick "I am applying to be a companion" and upload your ID and a selfie.</li>
+        <li>Once approved, set up your profile and start posting from your dashboard.</li>
+      </ol>
+    </section>
+
+    <Disclaimer className="mb-8" />
+    <div className="flex flex-wrap gap-3">
+      <Button asChild size="lg"><Link to="/signup">Create an account</Link></Button>
+      <Button asChild size="lg" variant="outline"><Link to="/verify">Go to verification</Link></Button>
+    </div>
+  </PageShell>
+);
 
 export default BecomeCompanion;

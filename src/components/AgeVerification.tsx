@@ -32,7 +32,7 @@ const AgeVerification = () => {
   };
 
   const handleDecline = () => {
-    // Redirect users under 18 to a safe external site
+    // Redirect users under 21 to a safe external site
     // This could be made configurable via environment variables in production
     window.location.href = 'https://www.google.com';
   };
@@ -55,13 +55,13 @@ const AgeVerification = () => {
             <DialogTitle className="text-2xl text-center">Age Verification Required</DialogTitle>
             <DialogDescription className="text-center space-y-4 pt-4">
               <p className="text-base">
-                This website contains adult content and is intended for adults only.
+                Cumpani is a social and dating platform that includes adult content. It is for adults aged 21 and over only.
               </p>
               <p className="text-sm">
-                By entering this site, you confirm that you are at least 18 years old (or the age of majority in your jurisdiction) and agree to view adult content.
+                By entering, you confirm that you are at least 21 years old. You will be asked to verify your age and identity when you create an account.
               </p>
               <p className="text-xs text-muted-foreground">
-                If you are not of legal age or do not wish to view such content, please leave now.
+                If you are under 21, or do not wish to see adult content, please leave now.
               </p>
             </DialogDescription>
           </DialogHeader>
@@ -71,7 +71,7 @@ const AgeVerification = () => {
               size="lg" 
               className="w-full"
             >
-              I am 18 or Older - Enter Site
+              I am 21 or older - Enter
             </Button>
             <Button 
               onClick={handleDecline} 

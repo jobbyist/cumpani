@@ -1,221 +1,57 @@
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
+import { useState } from 'react';
+import PageShell from '@/components/PageShell';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Mail, MessageSquare, Send, MapPin } from 'lucide-react';
-import { useState } from 'react';
+import { supabase } from '@/lib/supabase';
 import { useToast } from '@/hooks/use-toast';
-import CurrencyConverter from '@/components/CurrencyConverter';
+import { COMPANY } from '@/lib/company';
 
 const Contact = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
-  });
+  const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' });
+  const [busy, setBusy] = useState(false);
   const { toast } = useToast();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    // Simulate form submission
-    toast({
-      title: "Message sent!",
-      description: "Thank you for your message. We'll get back to you soon.",
-    });
-    
-    // Reset form
-    setFormData({ name: '', email: '', subject: '', message: '' });
+    setBusy(true);
+    const { error } = await supabase.functions.invoke('contact-submit', { body: form });
+    setBusy(false);
+    if (error) {
+      toast({ title: 'Could not send', description: `Please email ${COMPANY.supportEmail} instead.`, variant: 'destructive' });
+      return;
+    }
+    toast({ title: 'Message sent', description: "Thanks. We'll reply by email." });
+    setForm({ name: '', email: '', subject: '', message: '' });
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData(prev => ({
-      ...prev,
-      [e.target.name]: e.target.value
-    }));
-  };
+  const set = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+    setForm((f) => ({ ...f, [k]: e.target.value }));
 
   return (
-    <div className="min-h-screen bg-background">
-      <Header />
-      
-      <main id="main-content" className="container-blog py-12">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-              Get in Touch
-            </h1>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Have a question, suggestion, or just want to say hello? We'd love to hear from you.
-            </p>
-          </div>
-
-          <div className="grid lg:grid-cols-2 gap-12">
-            {/* Contact Form */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <MessageSquare className="h-5 w-5" />
-                  Send us a Message
-                </CardTitle>
-                <CardDescription>
-                  Fill out the form below and we'll get back to you as soon as possible.
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="space-y-2">
-                    <Label htmlFor="name">Name</Label>
-                    <Input
-                      id="name"
-                      name="name"
-                      type="text"
-                      placeholder="Your full name"
-                      value={formData.name}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <Label htmlFor="email">Email</Label>
-                    <Input
-                      id="email"
-                      name="email"
-                      type="email"
-                      placeholder="your.email@example.com"
-                      value={formData.email}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <Label htmlFor="subject">Subject</Label>
-                    <Input
-                      id="subject"
-                      name="subject"
-                      type="text"
-                      placeholder="What's this about?"
-                      value={formData.subject}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <Label htmlFor="message">Message</Label>
-                    <Textarea
-                      id="message"
-                      name="message"
-                      placeholder="Tell us more about your inquiry..."
-                      rows={6}
-                      value={formData.message}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-                  
-                  <Button type="submit" className="w-full">
-                    <Send className="h-4 w-4 mr-2" />
-                    Send Message
-                  </Button>
-                </form>
-              </CardContent>
-            </Card>
-
-            {/* Contact Information */}
-            <div className="space-y-8">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Mail className="h-5 w-5" />
-                    Contact Information
-                  </CardTitle>
-                  <CardDescription>
-                    Other ways to reach us
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                  <div className="flex items-start gap-4">
-                    <div className="p-2 bg-primary/10 rounded-lg">
-                      <Mail className="h-5 w-5 text-primary" />
-                    </div>
-                    <div>
-                      <h3 className="font-medium text-foreground">Email</h3>
-                      <p className="text-muted-foreground">help@cumpani.fun</p>
-                      <p className="text-sm text-muted-foreground">
-                        We typically respond within 24 hours
-                      </p>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-start gap-4">
-                    <div className="p-2 bg-primary/10 rounded-lg">
-                      <MapPin className="h-5 w-5 text-primary" />
-                    </div>
-                    <div>
-                      <h3 className="font-medium text-foreground">Location</h3>
-                      <p className="text-muted-foreground">Global</p>
-                      <p className="text-sm text-muted-foreground">
-                        We're a distributed team working worldwide
-                      </p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle>Frequently Asked Questions</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    <div>
-                      <h4 className="font-medium text-foreground mb-2">
-                        How do I become a Cumpanion?
-                      </h4>
-                      <p className="text-sm text-muted-foreground">
-                        Visit our "Become A Cumpanion" page to learn about the application process and requirements.
-                      </p>
-                    </div>
-                    
-                    <div>
-                      <h4 className="font-medium text-foreground mb-2">
-                        Is my information kept confidential?
-                      </h4>
-                      <p className="text-sm text-muted-foreground">
-                        Yes, all your personal information and bookings are 100% confidential and encrypted.
-                      </p>
-                    </div>
-                    
-                    <div>
-                      <h4 className="font-medium text-foreground mb-2">
-                        What payment methods do you accept?
-                      </h4>
-                      <p className="text-sm text-muted-foreground">
-                        We use a secure virtual wallet system that accepts all major credit cards and debit cards.
-                      </p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-
-          {/* Currency Converter Section */}
-          <div className="mt-16 max-w-2xl mx-auto">
-            <CurrencyConverter />
-          </div>
-        </div>
-      </main>
-      
-      <Footer />
-    </div>
+    <PageShell narrow>
+      <h1 className="text-4xl font-bold mb-2">Contact us</h1>
+      <p className="text-muted-foreground mb-8">
+        Questions, feedback or a safety concern? Email <a className="text-primary underline" href={`mailto:${COMPANY.supportEmail}`}>{COMPANY.supportEmail}</a> or use the form.
+      </p>
+      <Card>
+        <CardHeader>
+          <CardTitle>Send a message</CardTitle>
+          <CardDescription>To report abuse or suspected trafficking, call 0800 222 777.</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={submit} className="space-y-4">
+            <div className="space-y-2"><Label htmlFor="name">Name</Label><Input id="name" value={form.name} onChange={set('name')} required maxLength={100} /></div>
+            <div className="space-y-2"><Label htmlFor="email">Email</Label><Input id="email" type="email" value={form.email} onChange={set('email')} required /></div>
+            <div className="space-y-2"><Label htmlFor="subject">Subject</Label><Input id="subject" value={form.subject} onChange={set('subject')} required maxLength={120} /></div>
+            <div className="space-y-2"><Label htmlFor="message">Message</Label><Textarea id="message" rows={6} value={form.message} onChange={set('message')} required maxLength={4000} /></div>
+            <Button type="submit" disabled={busy}>{busy ? 'Sending...' : 'Send message'}</Button>
+          </form>
+        </CardContent>
+      </Card>
+    </PageShell>
   );
 };
 

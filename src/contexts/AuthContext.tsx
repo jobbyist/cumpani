@@ -1,132 +1,141 @@
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { createContext, useCallback, useContext, useEffect, useMemo, useState, ReactNode } from 'react';
+import type { Session } from '@supabase/supabase-js';
+import { supabase } from '@/lib/supabase';
 
-interface User {
+export type UserRole = 'member' | 'companion' | 'admin';
+export type VerificationStatus = 'unverified' | 'pending' | 'verified' | 'rejected';
+
+export interface Profile {
+  id: string;
+  role: UserRole;
+  display_name: string;
+  city: string | null;
+  province: string | null;
+  avatar_url: string | null;
+  verification_status: VerificationStatus;
+}
+
+interface AuthUser {
   id: string;
   email: string;
   name: string;
-  isPaidUser?: boolean;
-  walletBalance?: number;
+}
+
+export interface SignupInput {
+  email: string;
+  password: string;
+  name: string;
+  dob: string; // YYYY-MM-DD
 }
 
 interface AuthContextType {
-  user: User | null;
-  login: (email: string, password: string) => Promise<boolean>;
-  signup: (email: string, password: string, name: string) => Promise<boolean>;
-  logout: () => void;
+  user: AuthUser | null;
+  profile: Profile | null;
+  session: Session | null;
+  loading: boolean;
   isAuthenticated: boolean;
-  isPaidUser: boolean;
-  upgradeToPaid: () => void;
-  addToWallet: (amount: number) => void;
+  isVerified: boolean;
+  isSubscribed: boolean;
+  isCompanion: boolean;
+  walletBalance: number;
+  login: (email: string, password: string) => Promise<{ error?: string }>;
+  signup: (input: SignupInput) => Promise<{ error?: string; needsEmailConfirmation?: boolean }>;
+  logout: () => Promise<void>;
+  refresh: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error('useAuth must be used within an AuthProvider');
-  }
+  if (!context) throw new Error('useAuth must be used within an AuthProvider');
   return context;
 };
 
-interface AuthProviderProps {
-  children: ReactNode;
-}
+export const AuthProvider = ({ children }: { children: ReactNode }) => {
+  const [session, setSession] = useState<Session | null>(null);
+  const [profile, setProfile] = useState<Profile | null>(null);
+  const [isSubscribed, setIsSubscribed] = useState(false);
+  const [walletBalance, setWalletBalance] = useState(0);
+  const [loading, setLoading] = useState(true);
 
-export const AuthProvider = ({ children }: AuthProviderProps) => {
-  const [user, setUser] = useState<User | null>(null);
-
-  useEffect(() => {
-    // Load user from localStorage on mount
-    const storedUser = localStorage.getItem('cumpani_user');
-    if (storedUser) {
-      try {
-        setUser(JSON.parse(storedUser));
-      } catch (error) {
-        console.error('Failed to parse stored user:', error);
-        localStorage.removeItem('cumpani_user');
-      }
+  const loadAccount = useCallback(async (userId: string | undefined) => {
+    if (!userId) {
+      setProfile(null);
+      setIsSubscribed(false);
+      setWalletBalance(0);
+      return;
     }
+    const [p, s, w] = await Promise.all([
+      supabase.from('profiles')
+        .select('id, role, display_name, city, province, avatar_url, verification_status')
+        .eq('id', userId).maybeSingle(),
+      supabase.from('subscriptions').select('status, current_period_end').eq('user_id', userId).maybeSingle(),
+      supabase.from('wallets').select('balance_credits').eq('user_id', userId).maybeSingle(),
+    ]);
+    setProfile((p.data as Profile) ?? null);
+    const sub = s.data;
+    setIsSubscribed(
+      !!sub && sub.status === 'active' &&
+      (!sub.current_period_end || new Date(sub.current_period_end) > new Date()),
+    );
+    setWalletBalance(Number(w.data?.balance_credits ?? 0));
   }, []);
 
-  const login = async (email: string, password: string): Promise<boolean> => {
-    // Mock authentication - in production, this would call an API
-    const storedUsers = localStorage.getItem('cumpani_users');
-    const users = storedUsers ? JSON.parse(storedUsers) : [];
-    
-    const foundUser = users.find((u: { email: string; password: string; id: string; name: string }) => u.email === email && u.password === password);
-    
-    if (foundUser) {
-      const userData = { id: foundUser.id, email: foundUser.email, name: foundUser.name };
-      setUser(userData);
-      localStorage.setItem('cumpani_user', JSON.stringify(userData));
-      return true;
-    }
-    
-    return false;
+  useEffect(() => {
+    let active = true;
+    supabase.auth.getSession().then(async ({ data }) => {
+      if (!active) return;
+      setSession(data.session);
+      await loadAccount(data.session?.user.id).catch(() => undefined);
+      if (active) setLoading(false);
+    }).catch(() => active && setLoading(false));
+
+    const { data: sub } = supabase.auth.onAuthStateChange((_event, next) => {
+      setSession(next);
+      // defer to avoid deadlocking inside the auth callback
+      setTimeout(() => { loadAccount(next?.user.id).catch(() => undefined); }, 0);
+    });
+    return () => { active = false; sub.subscription.unsubscribe(); };
+  }, [loadAccount]);
+
+  const login: AuthContextType['login'] = async (email, password) => {
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    return error ? { error: error.message } : {};
   };
 
-  const signup = async (email: string, password: string, name: string): Promise<boolean> => {
-    // Mock signup - in production, this would call an API
-    const storedUsers = localStorage.getItem('cumpani_users');
-    const users = storedUsers ? JSON.parse(storedUsers) : [];
-    
-    // Check if user already exists
-    if (users.find((u: { email: string }) => u.email === email)) {
-      return false;
-    }
-    
-    const newUser = {
-      id: Date.now().toString(),
+  const signup: AuthContextType['signup'] = async ({ email, password, name, dob }) => {
+    const { data, error } = await supabase.auth.signUp({
       email,
-      password, // WARNING: In production, passwords must be hashed on the server side
-      name
+      password,
+      options: {
+        data: { display_name: name, dob },
+        emailRedirectTo: `${window.location.origin}/login`,
+      },
+    });
+    if (error) return { error: error.message };
+    return { needsEmailConfirmation: !data.session };
+  };
+
+  const logout = async () => { await supabase.auth.signOut(); };
+  const refresh = useCallback(() => loadAccount(session?.user.id), [loadAccount, session]);
+
+  const value = useMemo<AuthContextType>(() => {
+    const u = session?.user;
+    return {
+      user: u ? { id: u.id, email: u.email ?? '', name: profile?.display_name ?? u.email ?? '' } : null,
+      profile,
+      session,
+      loading,
+      isAuthenticated: !!u,
+      isVerified: profile?.verification_status === 'verified',
+      isSubscribed,
+      isCompanion: profile?.role === 'companion',
+      walletBalance,
+      login, signup, logout, refresh,
     };
-    
-    users.push(newUser);
-    localStorage.setItem('cumpani_users', JSON.stringify(users));
-    
-    const userData = { id: newUser.id, email: newUser.email, name: newUser.name };
-    setUser(userData);
-    localStorage.setItem('cumpani_user', JSON.stringify(userData));
-    
-    return true;
-  };
-
-  const logout = () => {
-    setUser(null);
-    localStorage.removeItem('cumpani_user');
-  };
-
-  const upgradeToPaid = () => {
-    if (user) {
-      const updatedUser = { ...user, isPaidUser: true, walletBalance: user.walletBalance || 0 };
-      setUser(updatedUser);
-      localStorage.setItem('cumpani_user', JSON.stringify(updatedUser));
-    }
-  };
-
-  const addToWallet = (amount: number) => {
-    if (user) {
-      const updatedUser = { 
-        ...user, 
-        walletBalance: (user.walletBalance || 0) + amount 
-      };
-      setUser(updatedUser);
-      localStorage.setItem('cumpani_user', JSON.stringify(updatedUser));
-    }
-  };
-
-  const value = {
-    user,
-    login,
-    signup,
-    logout,
-    isAuthenticated: !!user,
-    isPaidUser: !!user?.isPaidUser,
-    upgradeToPaid,
-    addToWallet,
-  };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [session, profile, isSubscribed, walletBalance, loading, refresh]);
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

@@ -1,156 +1,52 @@
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
+import LegalPage from '@/components/LegalPage';
+import { COMPANY } from '@/lib/company';
 
-const Privacy = () => {
-  return (
-    <div className="min-h-screen bg-background">
-      <Header />
-      
-      <main id="main-content" className="container-blog py-12">
-        <div className="max-w-4xl mx-auto">
-          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-8">
-            Privacy Policy
-          </h1>
-          
-          <div className="prose prose-lg max-w-none text-muted-foreground space-y-8">
-            <section>
-              <h2 className="text-2xl font-semibold text-foreground mb-4">1. Information We Collect</h2>
-              <p>
-                At Cumpani, we collect information necessary to provide our cumpanionship services safely and effectively. This includes information you provide and data we collect automatically.
-              </p>
-              <h3 className="text-xl font-medium text-foreground mt-6 mb-3">Information you provide to us:</h3>
-              <ul className="list-disc pl-6 space-y-2">
-                <li>Account registration details (name, email, phone number, age verification)</li>
-                <li>Profile information for cumpanions (photos, bio, rates, availability)</li>
-                <li>Payment and wallet information</li>
-                <li>Communications with other users and support</li>
-                <li>Booking and transaction history</li>
-              </ul>
-              <h3 className="text-xl font-medium text-foreground mt-6 mb-3">Information collected automatically:</h3>
-              <ul className="list-disc pl-6 space-y-2">
-                <li>Device information and IP address</li>
-                <li>Usage data and browsing behavior</li>
-                <li>Location data (with your permission)</li>
-                <li>Cookies and similar technologies</li>
-              </ul>
-            </section>
-
-            <section>
-              <h2 className="text-2xl font-semibold text-foreground mb-4">2. How We Use Your Information</h2>
-              <p>
-                We use the information we collect to:
-              </p>
-              <ul className="list-disc pl-6 mt-4 space-y-2">
-                <li>Provide, maintain, and improve our cumpanionship platform</li>
-                <li>Facilitate bookings and transactions between clients and cumpanions</li>
-                <li>Process payments and manage virtual wallet balances</li>
-                <li>Verify user identity and conduct background checks for cumpanions</li>
-                <li>Send notifications, updates, and promotional communications</li>
-                <li>Provide customer support and respond to inquiries</li>
-                <li>Ensure safety, prevent fraud, and enforce our Terms</li>
-                <li>Analyze platform usage and improve user experience</li>
-              </ul>
-            </section>
-
-            <section>
-              <h2 className="text-2xl font-semibold text-foreground mb-4">3. Information Sharing</h2>
-              <p>
-                We take your privacy seriously and limit information sharing to the following circumstances:
-              </p>
-              <ul className="list-disc pl-6 mt-4 space-y-2">
-                <li><strong>Between Users:</strong> Profile information is visible to other users as intended by the platform</li>
-                <li><strong>Service Providers:</strong> Payment processors, identity verification services, and hosting providers</li>
-                <li><strong>Legal Requirements:</strong> When required by law or to protect rights and safety</li>
-                <li><strong>Business Transfers:</strong> In the event of a merger, acquisition, or asset sale</li>
-                <li><strong>With Your Consent:</strong> We may share information with your explicit permission</li>
-              </ul>
-              <p className="mt-4">
-                We do <strong>not</strong> sell your personal information to third parties.
-              </p>
-            </section>
-
-            <section>
-              <h2 className="text-2xl font-semibold text-foreground mb-4">4. Cookies and Tracking</h2>
-              <p>
-                We use cookies and similar tracking technologies to enhance your experience, analyze usage, and provide personalized content. See our <a href="/cookies" className="text-primary hover:underline">Cookie Policy</a> for detailed information about the cookies we use and how to manage them.
-              </p>
-            </section>
-
-            <section>
-              <h2 className="text-2xl font-semibold text-foreground mb-4">5. Data Security</h2>
-              <p>
-                We implement industry-standard security measures to protect your personal information:
-              </p>
-              <ul className="list-disc pl-6 mt-4 space-y-2">
-                <li>256-bit SSL encryption for all data transmission</li>
-                <li>Secure virtual wallet with encrypted payment processing</li>
-                <li>Regular security audits and vulnerability assessments</li>
-                <li>Access controls and authentication requirements</li>
-                <li>Secure data storage with backup and recovery systems</li>
-              </ul>
-              <p className="mt-4">
-                While we strive to protect your information, no internet-based service can be 100% secure. Please use strong passwords and protect your account credentials.
-              </p>
-            </section>
-
-            <section>
-              <h2 className="text-2xl font-semibold text-foreground mb-4">6. Your Rights and Choices</h2>
-              <p>
-                You have certain rights regarding your personal information:
-              </p>
-              <ul className="list-disc pl-6 mt-4 space-y-2">
-                <li><strong>Access:</strong> Request a copy of your personal information</li>
-                <li><strong>Correction:</strong> Update or correct inaccurate information</li>
-                <li><strong>Deletion:</strong> Request deletion of your account and data</li>
-                <li><strong>Opt-Out:</strong> Unsubscribe from marketing communications</li>
-                <li><strong>Data Portability:</strong> Receive your data in a portable format</li>
-                <li><strong>Object to Processing:</strong> Object to certain uses of your data</li>
-              </ul>
-              <p className="mt-4">
-                To exercise these rights, contact us at <a href="mailto:help@cumpani.fun" className="text-primary hover:underline">help@cumpani.fun</a>.
-              </p>
-            </section>
-
-            <section>
-              <h2 className="text-2xl font-semibold text-foreground mb-4">7. Age Verification and Minor Protection</h2>
-              <p>
-                Cumpani is exclusively for users 18 years and older. We do not knowingly collect information from minors. Our age verification system ensures compliance. If we discover that a minor has provided information, we will immediately delete it and terminate the account.
-              </p>
-            </section>
-
-            <section>
-              <h2 className="text-2xl font-semibold text-foreground mb-4">8. Data Retention</h2>
-              <p>
-                We retain your information for as long as necessary to provide our services and comply with legal obligations. After account deletion, we may retain certain information for legal, security, and safety purposes for up to 7 years.
-              </p>
-            </section>
-
-            <section>
-              <h2 className="text-2xl font-semibold text-foreground mb-4">9. Changes to This Policy</h2>
-              <p>
-                We may update this Privacy Policy to reflect changes in our practices or legal requirements. We will notify you of significant changes via email or platform notification. Continued use after changes constitutes acceptance.
-              </p>
-            </section>
-
-            <section>
-              <h2 className="text-2xl font-semibold text-foreground mb-4">10. Contact Us</h2>
-              <p>
-                If you have any questions, concerns, or requests regarding this Privacy Policy or your personal information, please contact us at <a href="mailto:help@cumpani.fun" className="text-primary hover:underline">help@cumpani.fun</a>.
-              </p>
-            </section>
-
-            <div className="mt-12 pt-8 border-t border-border">
-              <p className="text-sm text-muted-foreground">
-                Last updated: January 2026
-              </p>
-            </div>
-          </div>
-        </div>
-      </main>
-      
-      <Footer />
-    </div>
-  );
-};
+const Privacy = () => (
+  <LegalPage
+    title="Privacy Policy"
+    updated="29 October 2026"
+    intro={<p>This Policy explains how {COMPANY.legalName} ("Cumpani") processes personal information in accordance with the Protection of Personal Information Act 4 of 2013 (POPIA).</p>}
+    sections={[
+      { heading: 'Responsible party and Information Officer', body: (
+        <ul>
+          <li>Responsible party: {COMPANY.legalName}, {COMPANY.physicalAddress}</li>
+          <li>Information Officer: {COMPANY.informationOfficer} ({COMPANY.privacyEmail})</li>
+        </ul>
+      ) },
+      { heading: 'Information we collect', body: (
+        <ul>
+          <li><strong>Account:</strong> email, display name, date of birth, city/province, password (stored hashed by our authentication provider).</li>
+          <li><strong>Verification:</strong> government ID document and selfie (companions, and members where required) to confirm identity and that you are 21 or older.</li>
+          <li><strong>Payments:</strong> PayPal transaction and subscription identifiers and amounts. We do not receive or store your card details.</li>
+          <li><strong>Activity:</strong> messages, posts, comments, reports, wallet transactions, device and log data.</li>
+          <li><strong>Special personal information:</strong> because Cumpani is a dating platform, profile content you choose to share may reveal information about your sex life, orientation, race or ethnic origin. Sharing it is optional, and we process it only with your consent. We do not use filters or recommendations based on race or ethnic origin.</li>
+        </ul>
+      ) },
+      { heading: 'Why we process it (purpose and lawful grounds)', body: (
+        <ul>
+          <li>Provide your account, membership and wallet (performance of a contract).</li>
+          <li>Verify age and identity and prevent exploitation, fraud and abuse (legal obligation and legitimate interest).</li>
+          <li>Moderate content and respond to reports (legitimate interest; legal obligation under the Films and Publications Act).</li>
+          <li>Send service messages, and marketing only where you opt in (consent, POPIA s69).</li>
+        </ul>
+      ) },
+      { heading: 'Who we share it with (operators)', body: (
+        <p>We use operators to process information on our behalf under written agreements: Supabase (hosting, database, authentication, storage), PayPal (payments), Resend (email delivery) and Vercel (website hosting). We may disclose information to law enforcement or regulators where the law requires it. We do not sell personal information.</p>
+      ) },
+      { heading: 'Cross-border transfers', body: <p>Some operators store data outside South Africa. We transfer information only to recipients bound by law, binding rules or agreements providing a substantially similar level of protection, as required by POPIA s72.</p> },
+      { heading: 'Security and breaches', body: <p>We apply reasonable technical and organisational safeguards, including encryption in transit, row-level access controls and restricted storage for ID documents. If there are reasonable grounds to believe your information has been accessed without authority, we will notify the Information Regulator and you as soon as reasonably possible (POPIA s22).</p> },
+      { heading: 'Retention', body: (
+        <ul>
+          <li>Verification documents: deleted within 30 days after verification is decided, unless a longer period is required by law.</li>
+          <li>Financial records: retained as required by tax and company law (up to 5 years).</li>
+          <li>Account data: deleted or de-identified after account closure, subject to legal obligations and abuse prevention.</li>
+        </ul>
+      ) },
+      { heading: 'Your rights', body: <p>You may ask us to confirm what we hold about you, access it, correct or delete it, object to processing, or withdraw consent, by emailing {COMPANY.privacyEmail}. You may lodge a complaint with the Information Regulator (South Africa): inforeg.org.za, complaints.IR@justice.gov.za.</p> },
+      { heading: 'Children', body: <p>Cumpani is only for people aged 21 and over. If we learn that someone under 21 has registered we will delete the account. Report concerns to {COMPANY.privacyEmail}.</p> },
+      { heading: 'Changes', body: <p>We will post updates here and notify you of material changes.</p> },
+    ]}
+  />
+);
 
 export default Privacy;
