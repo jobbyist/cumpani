@@ -1,28 +1,22 @@
 import { Link } from 'react-router-dom';
-import { MapPin, Star, Lock, Heart } from 'lucide-react';
+import { MapPin, Heart } from 'lucide-react';
 import { CompanionProfile } from '@/types/companion';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { useAuth } from '@/contexts/AuthContext';
 import { useFavorites } from '@/contexts/FavoritesContext';
-import { useState } from 'react';
 
 interface CompanionCardProps {
   companion: CompanionProfile;
 }
 
 const CompanionCard = ({ companion }: CompanionCardProps) => {
-  const { isAuthenticated } = useAuth();
   const { isFavorite, toggleFavorite } = useFavorites();
-  const [isLiked, setIsLiked] = useState(isFavorite(companion.id));
-
-  const companionUrl = isAuthenticated ? `/companion/${companion.id}` : '/membership';
+  const isLiked = isFavorite(companion.id);
 
   const handleFavoriteClick = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
     toggleFavorite(companion.id);
-    setIsLiked(!isLiked);
   };
 
   return (
@@ -37,14 +31,6 @@ const CompanionCard = ({ companion }: CompanionCardProps) => {
             loading="lazy"
             decoding="async"
           />
-          {!isAuthenticated && (
-            <div className="absolute inset-0 bg-black/55 flex items-center justify-center backdrop-blur-[2px]">
-              <div className="text-center text-white px-4">
-                <Lock className="w-10 h-10 mx-auto mb-2 opacity-90" />
-                <p className="font-medium text-sm">Sign in to view full profile</p>
-              </div>
-            </div>
-          )}
 
           {/* Favorite Button */}
           <button
@@ -56,6 +42,12 @@ const CompanionCard = ({ companion }: CompanionCardProps) => {
               className={`w-4 h-4 ${isLiked ? 'fill-red-500 text-red-500' : 'text-foreground'}`}
             />
           </button>
+
+          {companion.isSample && (
+            <div className="absolute top-3 left-3">
+              <Badge variant="secondary" className="text-xs">Sample profile</Badge>
+            </div>
+          )}
 
           {/* Availability badge */}
           {companion.isAvailable && (
@@ -83,14 +75,6 @@ const CompanionCard = ({ companion }: CompanionCardProps) => {
             <span className="truncate">{companion.city}, {companion.province}</span>
           </div>
 
-          <div className="flex items-center mb-3">
-            <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400 mr-1" />
-            <span className="text-sm font-medium">{companion.rating.toFixed(1)}</span>
-            <span className="text-xs text-muted-foreground ml-1">
-              ({companion.reviewCount})
-            </span>
-          </div>
-
           <p className="text-sm text-muted-foreground mb-4 line-clamp-2 leading-relaxed">
             {companion.bio}
           </p>
@@ -100,9 +84,7 @@ const CompanionCard = ({ companion }: CompanionCardProps) => {
               {companion.availability}
             </span>
             <Button size="sm" className="shrink-0" asChild>
-              <Link to={companionUrl}>
-                {isAuthenticated ? 'View Profile' : 'Unlock Profile'}
-              </Link>
+              <Link to={`/companion/${companion.id}`}>View Profile</Link>
             </Button>
           </div>
         </div>

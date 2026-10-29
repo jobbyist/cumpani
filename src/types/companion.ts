@@ -8,29 +8,10 @@ export interface CompanionProfile {
   bio: string;
   profileImage: string;
   images: string[];
-  rate: number;
   availability: string;
-  // Contact details - only visible to paid users
-  phone?: string;
-  email?: string;
-  location?: string;
-  rating: number;
-  reviewCount: number;
-  // Additional filter fields
-  ethnicity?: string;
-  gender?: string;
-  sexualOrientation?: string;
   isAvailable?: boolean;
-}
-
-export interface Booking {
-  id: string;
-  companionId: string;
-  userId: string;
-  date: string;
-  duration: number;
-  totalCost: number;
-  status: 'pending' | 'confirmed' | 'completed' | 'cancelled';
+  /** true for fictional seed/demo profiles; the UI labels these as samples */
+  isSample?: boolean;
 }
 
 export const SOUTH_AFRICAN_CITIES = [
@@ -48,28 +29,5 @@ export const SOUTH_AFRICAN_CITIES = [
   'Kimberley',
 ];
 
-export const ETHNICITIES = [
-  'Black',
-  'White',
-  'Coloured',
-  'Indian',
-  'Asian',
-  'Mixed',
-  'Other',
-];
 
-export const GENDERS = [
-  'Female',
-  'Male',
-  'Non-binary',
-  'Other',
-];
 
-export const SEXUAL_ORIENTATIONS = [
-  'Straight',
-  'Gay',
-  'Lesbian',
-  'Bisexual',
-  'Pansexual',
-  'Other',
-];

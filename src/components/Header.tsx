@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Search, MessageCircle, Twitter, Instagram, Menu, X, User, LogOut } from 'lucide-react';
+import { Menu, X, User, LogOut, Wallet, LayoutDashboard } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import ThemeToggle from './ThemeToggle';
+import StoriesBar from './StoriesBar';
 import { useAuth } from '@/contexts/AuthContext';
 import {
   DropdownMenu,
@@ -16,37 +17,34 @@ import {
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
-  const { user, logout, isAuthenticated } = useAuth();
+  const { user, logout, isAuthenticated, walletBalance, isCompanion } = useAuth();
 
-  const navItems = [
-    { name: 'BROWSE CUMPANIONS', href: '/companions' },
-    { name: 'BROWSE BY LOCATION', href: '/locations' },
-    { name: 'CUMMUNITY GUIDELINES', href: '/about' },
-    { name: 'CONTACT SUPPORT', href: '/contact' },
-  ];
-
-  const socialLinks = [
-    { icon: MessageCircle, href: '#', label: 'Telegram' },
-    { icon: Twitter, href: '#', label: 'Twitter' }, 
-  ];
+  const navItems = isAuthenticated
+    ? [
+        { name: 'COMPANIONS', href: '/companions' },
+        { name: 'COMMUNITY', href: '/feed' },
+        { name: 'MESSAGES', href: '/messages' },
+        { name: 'HOW IT WORKS', href: '/how-it-works' },
+      ]
+    : [
+        { name: 'HOW IT WORKS', href: '/how-it-works' },
+        { name: 'ABOUT', href: '/about' },
+        { name: 'MEMBERSHIP', href: '/membership' },
+        { name: 'CONTACT', href: '/contact' },
+      ];
 
   return (
     <header className="bg-background border-b border-border sticky top-0 z-50">
+      <div className="container-blog border-b border-border/50 empty:hidden">
+        <StoriesBar />
+      </div>
       <div className="container-blog">
-        <div className="flex items-center justify-between h-20">
+        <div className="flex items-center justify-between h-16 sm:h-20">
           {/* Logo */}
           <div className="flex-shrink-0">
              <Link to="/" className="block" aria-label="Cumpani home">
-              <img
-                src="/cumpaniblk.svg"
-                alt="Cumpani"
-                className="w-[200px] h-auto dark:hidden"
-              />
-              <img
-                src="/cumpaniwht.svg"
-                alt="Cumpani"
-                className="hidden w-[200px] h-auto dark:block"
-              />
+              <img src="/cumpaniblk.svg" alt="Cumpani" className="h-9 sm:h-11 w-auto max-w-[190px] object-contain dark:hidden" />
+              <img src="/cumpaniwht.svg" alt="Cumpani" className="hidden h-9 sm:h-11 w-auto max-w-[190px] object-contain dark:block" />
             </Link>
           </div>
 
@@ -65,22 +63,12 @@ const Header = () => {
 
           {/* Social Links & Search */}
           <div className="hidden lg:flex items-center space-x-4">
-            {socialLinks.map(({ icon: Icon, href, label }) => (
-              <Button key={label} variant="outline" size="sm" asChild>
-                <a href={href} aria-label={label}>
-                  <Icon className="h-4 w-4" />
-                </a>
+            {isAuthenticated && (
+              <Button variant="outline" size="sm" onClick={() => navigate('/wallet')} aria-label="Wallet">
+                <Wallet className="h-4 w-4 mr-2" />
+                {walletBalance.toLocaleString()} credits
               </Button>
-            ))}
-            
-            <Button 
-              variant="outline" 
-              size="sm" 
-              aria-label="Search..."
-              onClick={() => navigate('/search')}
-            >
-              <Search className="h-4 w-4" />
-            </Button>
+            )}
             <ThemeToggle />
             
             {isAuthenticated ? (
@@ -94,6 +82,16 @@ const Header = () => {
                 <DropdownMenuContent align="end">
                   <DropdownMenuLabel>My Account</DropdownMenuLabel>
                   <DropdownMenuSeparator />
+                  {isCompanion && (
+                    <DropdownMenuItem onClick={() => navigate('/dashboard')}>
+                      <LayoutDashboard className="h-4 w-4 mr-2" />
+                      Dashboard
+                    </DropdownMenuItem>
+                  )}
+                  <DropdownMenuItem onClick={() => navigate('/wallet')}>
+                    <Wallet className="h-4 w-4 mr-2" />
+                    Wallet
+                  </DropdownMenuItem>
                   <DropdownMenuItem onClick={logout}>
                     <LogOut className="h-4 w-4 mr-2" />
                     Logout
@@ -117,6 +115,7 @@ const Header = () => {
             variant="ghost"
             size="sm"
             className="lg:hidden"
+            aria-label="Toggle menu"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -141,27 +140,8 @@ const Header = () => {
             
             <div className="mt-6 space-y-4">
               <div className="flex space-x-2 items-center">
-                {socialLinks.map(({ icon: Icon, href, label }) => (
-                  <Button key={label} variant="outline" size="sm" asChild>
-                    <a href={href} aria-label={label}>
-                      <Icon className="h-4 w-4" />
-                    </a>
-                  </Button>
-                ))}
-                
                 <ThemeToggle />
               </div>
-              
-              <Button 
-                variant="outline" 
-                size="sm" 
-                aria-label="Search..."
-                onClick={() => navigate('/search')}
-                className="w-full"
-              >
-                <Search className="h-4 w-4 mr-2" />
-                Search
-              </Button>
               
               {isAuthenticated ? (
                 <>

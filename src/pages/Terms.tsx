@@ -1,134 +1,70 @@
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
+import { Link } from 'react-router-dom';
+import LegalPage from '@/components/LegalPage';
+import { COMPANY } from '@/lib/company';
 
-const Terms = () => {
-  return (
-    <div className="min-h-screen bg-background">
-      <Header />
-      
-      <main id="main-content" className="container-blog py-12">
-        <div className="max-w-4xl mx-auto">
-          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-8">
-            Terms of Service
-          </h1>
-          
-          <div className="prose prose-lg max-w-none text-muted-foreground space-y-8">
-            <section>
-              <h2 className="text-2xl font-semibold text-foreground mb-4">1. Acceptance of Terms</h2>
-              <p>
-                By accessing and using the Cumpani website and services, you accept and agree to be bound by the terms and provisions of this agreement. These Terms of Service govern your use of our platform, including all features, functionalities, and services provided.
-              </p>
-            </section>
-
-            <section>
-              <h2 className="text-2xl font-semibold text-foreground mb-4">2. Use License</h2>
-              <p>
-                Permission is granted to access and use Cumpani's platform for personal use in accordance with these Terms. Under this license you may not:
-              </p>
-              <ul className="list-disc pl-6 mt-4 space-y-2">
-                <li>Modify, copy, or reproduce platform materials without permission</li>
-                <li>Use the platform for any illegal purpose or solicitation</li>
-                <li>Attempt to gain unauthorized access to any part of the platform</li>
-                <li>Remove any copyright or proprietary notations</li>
-                <li>Misrepresent your identity or provide false information</li>
-              </ul>
-            </section>
-
-            <section>
-              <h2 className="text-2xl font-semibold text-foreground mb-4">3. Age Verification and Eligibility</h2>
-              <p>
-                You must be at least 18 years of age to use Cumpani. By using our services, you represent and warrant that you are of legal age and have the legal capacity to enter into this agreement.
-              </p>
-            </section>
-
-            <section>
-              <h2 className="text-2xl font-semibold text-foreground mb-4">4. User Conduct and Community Guidelines</h2>
-              <p>
-                All users agree to conduct themselves in a respectful, professional manner:
-              </p>
-              <ul className="list-disc pl-6 mt-4 space-y-2">
-                <li>Respect the privacy and boundaries of all cumpanions and clients</li>
-                <li>Maintain honesty in all communications and transactions</li>
-                <li>Not engage in harassment, threats, or inappropriate behavior</li>
-                <li>Comply with all applicable laws and regulations</li>
-                <li>Report any violations or safety concerns immediately</li>
-              </ul>
-            </section>
-
-            <section>
-              <h2 className="text-2xl font-semibold text-foreground mb-4">5. Booking and Payment Terms</h2>
-              <p>
-                All bookings and payments are processed through our secure virtual wallet system. By making a booking, you agree to:
-              </p>
-              <ul className="list-disc pl-6 mt-4 space-y-2">
-                <li>Provide accurate payment information</li>
-                <li>Pay the full amount as agreed upon before services are rendered</li>
-                <li>Respect cancellation policies (see our Refund Policy)</li>
-                <li>Not request services beyond those explicitly agreed upon</li>
-              </ul>
-            </section>
-
-            <section>
-              <h2 className="text-2xl font-semibold text-foreground mb-4">6. Cumpanion Requirements</h2>
-              <p>
-                All cumpanions on our platform must:
-              </p>
-              <ul className="list-disc pl-6 mt-4 space-y-2">
-                <li>Be verified through our screening process</li>
-                <li>Maintain accurate and current profile information</li>
-                <li>Conduct themselves professionally at all times</li>
-                <li>Report any safety concerns or violations</li>
-                <li>Comply with local laws and regulations</li>
-              </ul>
-            </section>
-
-            <section>
-              <h2 className="text-2xl font-semibold text-foreground mb-4">7. Disclaimer</h2>
-              <p>
-                Cumpani provides a platform connecting clients with cumpanions. We do not employ cumpanions and are not responsible for the services provided. All interactions and agreements are between clients and cumpanions. Cumpani makes no warranties regarding the quality, safety, or legality of services provided by third parties.
-              </p>
-            </section>
-
-            <section>
-              <h2 className="text-2xl font-semibold text-foreground mb-4">8. Limitations of Liability</h2>
-              <p>
-                In no event shall Cumpani be liable for any indirect, incidental, special, consequential, or punitive damages arising from your use of the platform or services. Our total liability shall not exceed the amount paid by you in the past 12 months.
-              </p>
-            </section>
-
-            <section>
-              <h2 className="text-2xl font-semibold text-foreground mb-4">9. Termination</h2>
-              <p>
-                We reserve the right to terminate or suspend access to our services immediately, without prior notice, for conduct that we believe violates these Terms or is harmful to other users, us, or third parties, or for any other reason.
-              </p>
-            </section>
-
-            <section>
-              <h2 className="text-2xl font-semibold text-foreground mb-4">10. Changes to Terms</h2>
-              <p>
-                Cumpani may revise these Terms of Service at any time. Continued use of our services after changes constitutes acceptance of the revised terms.
-              </p>
-            </section>
-
-            <section>
-              <h2 className="text-2xl font-semibold text-foreground mb-4">11. Contact Information</h2>
-              <p>
-                If you have any questions about these Terms of Service, please contact us at <a href="mailto:help@cumpani.fun" className="text-primary hover:underline">help@cumpani.fun</a>.
-              </p>
-            </section>
-
-            <div className="mt-12 pt-8 border-t border-border">
-              <p className="text-sm text-muted-foreground">
-                Last updated: January 2026
-              </p>
-            </div>
-          </div>
-        </div>
-      </main>
-      
-      <Footer />
-    </div>
-  );
-};
+const Terms = () => (
+  <LegalPage
+    title="Terms of Use"
+    updated="29 October 2026"
+    intro={<p>These Terms govern your use of Cumpani (the "Platform"), operated by {COMPANY.legalName} ("Cumpani", "we", "us"). By creating an account you agree to them. If you do not agree, do not use the Platform.</p>}
+    sections={[
+      { heading: 'Who we are (ECTA s43)', body: (
+        <ul>
+          <li>Legal name: {COMPANY.legalName}; registration number: {COMPANY.registrationNumber}; VAT: {COMPANY.vatNumber}</li>
+          <li>Physical address: {COMPANY.physicalAddress}</li>
+          <li>Email: {COMPANY.supportEmail}; website: za.cumpani.fun</li>
+        </ul>
+      ) },
+      { heading: 'What Cumpani is, and is not', body: (
+        <>
+          <p>Cumpani is a members-only social and dating platform for adults. Members and companions can create profiles, chat, share content and join a community feed.</p>
+          <p><strong>Cumpani is not an escort agency, brothel or sex-work service.</strong> We do not arrange, facilitate, advertise or take a fee in connection with sexual services. Offering, requesting or negotiating payment or any other reward in exchange for sexual acts is prohibited, and is unlawful in South Africa. Credits and subscription fees pay only for platform features.</p>
+        </>
+      ) },
+      { heading: 'Eligibility and verification', body: (
+        <ul>
+          <li>You must be at least <strong>21 years old</strong>. We may require proof of age and identity, and may suspend accounts that cannot be verified.</li>
+          <li>You must provide accurate information and keep your login details secure. You are responsible for activity on your account.</li>
+          <li>Companions must complete identity and age verification before their profile is shown to members. Verification confirms identity and age only. It is not an endorsement or background check of any person.</li>
+        </ul>
+      ) },
+      { heading: 'Membership subscription', body: (
+        <p>Access to companion profiles, messaging and the community feed requires an active membership at <strong>R99 per month</strong> (inclusive of VAT where applicable), billed monthly through PayPal. The subscription renews automatically until cancelled. You may cancel at any time from your account or PayPal; access continues until the end of the paid period. See our <Link to="/refunds">Refunds &amp; Cancellations</Link> policy.</p>
+      ) },
+      { heading: 'Credits (digital wallet)', body: (
+        <ul>
+          <li>Credits are purchased with a ZAR amount converted to USD at the live exchange rate shown at checkout, and are used to unlock platform features such as messages and exclusive content.</li>
+          <li>Credits are a licence to use the Platform. They are not money, are not a deposit, bear no interest and are not redeemable for cash except where the law requires a refund.</li>
+          <li>Companions earn a share of credits spent on their content and messages. Payout terms are set out in the Companion terms provided at onboarding.</li>
+        </ul>
+      ) },
+      { heading: 'Prohibited conduct', body: (
+        <p>You must follow our <Link to="/acceptable-use">Acceptable Use Policy</Link> and <Link to="/community-guidelines">Community Guidelines</Link>. In particular you must not: solicit or offer sexual services for reward; share content involving anyone under 18 or any non-consensual content; harass, threaten or exploit others; impersonate anyone; use the Platform for human trafficking or exploitation; or attempt to circumvent verification, payments or security.</p>
+      ) },
+      { heading: 'Adult content', body: (
+        <p>The Platform contains content intended for adults. Content must comply with the Films and Publications Act 65 of 1996 (as amended). Prohibited material is removed and reported to the Film and Publication Board and the South African Police Service where required.</p>
+      ) },
+      { heading: 'Your content', body: (
+        <p>You keep ownership of content you post, and grant Cumpani a non-exclusive, worldwide licence to host and display it on the Platform. You confirm you have the right to post it and the consent of everyone shown in it. We may remove content that breaches these Terms.</p>
+      ) },
+      { heading: 'Safety', body: (
+        <p>Meeting people carries risk. Cumpani does not supervise offline meetings and is not responsible for the conduct of members or companions. Use sound judgement, meet in public places and tell someone you trust. Report concerns using the in-app report button or at {COMPANY.supportEmail}.</p>
+      ) },
+      { heading: 'Suspension and termination', body: (
+        <p>We may suspend or terminate accounts that breach these Terms or the law. Unused credits on an account terminated for breach are forfeited, subject to your statutory rights.</p>
+      ) },
+      { heading: 'Limitation of liability', body: (
+        <p>To the extent permitted by law, and without limiting your rights under the Consumer Protection Act 68 of 2008, Cumpani is not liable for indirect or consequential loss, or for the acts of other users. Nothing in these Terms excludes liability that cannot lawfully be excluded.</p>
+      ) },
+      { heading: 'Electronic communications', body: (
+        <p>You agree that we may communicate with you electronically and that electronic acceptance of these Terms is binding in terms of the Electronic Communications and Transactions Act 25 of 2002. You may withdraw from a distance transaction within the cooling-off period set out in section 44 of that Act, where it applies.</p>
+      ) },
+      { heading: 'Governing law and disputes', body: (
+        <p>These Terms are governed by the laws of the Republic of South Africa. Complaints may be sent to {COMPANY.supportEmail}. You may also approach the National Consumer Commission or the relevant ombud. Courts in South Africa have jurisdiction.</p>
+      ) },
+      { heading: 'Changes', body: <p>We may update these Terms. Material changes will be notified in-app or by email, and continued use after the effective date means you accept them.</p> },
+    ]}
+  />
+);
 
 export default Terms;
