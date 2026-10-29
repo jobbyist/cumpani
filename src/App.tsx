@@ -11,6 +11,7 @@ import ProtectedRoute from "@/components/ProtectedRoute";
 import CookieConsent from "@/components/CookieConsent";
 import { Suspense, lazy } from "react";
 import { AuthProvider } from "@/contexts/AuthContext";
+import { OrientationProvider } from "@/contexts/OrientationContext";
 import { FavoritesProvider } from "@/contexts/FavoritesContext";
 import Index from "./pages/Index";
 
@@ -34,6 +35,7 @@ const Wallet = lazy(() => import("./pages/Wallet"));
 const Feed = lazy(() => import("./pages/Feed"));
 const Messages = lazy(() => import("./pages/Messages"));
 const Dashboard = lazy(() => import("./pages/Dashboard"));
+const Admin = lazy(() => import("./pages/Admin"));
 const AcceptableUse = lazy(() => import("./pages/AcceptableUse"));
 const CommunityGuidelines = lazy(() => import("./pages/CommunityGuidelines"));
 
@@ -44,6 +46,7 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
         <AuthProvider>
+          <OrientationProvider>
           <FavoritesProvider>
             <TooltipProvider>
               <SkipLink />
@@ -78,6 +81,9 @@ const App = () => {
                   <Route path="/feed" element={<ProtectedRoute><Feed /></ProtectedRoute>} />
                   <Route path="/messages" element={<ProtectedRoute><Messages /></ProtectedRoute>} />
 
+                  {/* Administrators */}
+                  <Route path="/admin" element={<ProtectedRoute requireAdmin><Admin /></ProtectedRoute>} />
+
                   {/* Companions */}
                   <Route path="/dashboard/*" element={<ProtectedRoute requireCompanion requireSubscription={false}><Dashboard /></ProtectedRoute>} />
                   {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
@@ -89,6 +95,7 @@ const App = () => {
             </BrowserRouter>
             </TooltipProvider>
           </FavoritesProvider>
+          </OrientationProvider>
         </AuthProvider>
       </ThemeProvider>
     </QueryClientProvider>

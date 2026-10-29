@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import PageShell from '@/components/PageShell';
 import Disclaimer from '@/components/Disclaimer';
 import HeroVideo from '@/components/HeroVideo';
+import ReelsCarousel from '@/components/ReelsCarousel';
 import LocationCarousel from '@/components/LocationCarousel';
 import { Button } from '@/components/ui/button';
 import { Shield, Lock, MessageCircle, Users, BadgeCheck, Wallet } from 'lucide-react';
@@ -39,6 +40,8 @@ const Index = () => {
           </Button>
         </div>
     </HeroVideo>}>
+
+      <ReelsCarousel />
 
       <section className="py-8">
         <h2 className="text-2xl font-bold mb-6 text-center">Across South Africa</h2>

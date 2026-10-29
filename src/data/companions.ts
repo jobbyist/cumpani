@@ -15,6 +15,7 @@ export const companionProfiles: CompanionProfile[] = [
     availability: 'Evenings & Weekends',
     isAvailable: true,
     isSample: true,
+    presentsAs: 'women',
   },
   {
     id: '2',
@@ -29,6 +30,7 @@ export const companionProfiles: CompanionProfile[] = [
     availability: 'Flexible',
     isAvailable: true,
     isSample: true,
+    presentsAs: 'women',
   },
   {
     id: '3',
@@ -43,6 +45,7 @@ export const companionProfiles: CompanionProfile[] = [
     availability: 'Afternoons & Evenings',
     isAvailable: true,
     isSample: true,
+    presentsAs: 'women',
   },
   {
     id: '4',
@@ -57,6 +60,7 @@ export const companionProfiles: CompanionProfile[] = [
     availability: 'By Appointment',
     isAvailable: true,
     isSample: true,
+    presentsAs: 'women',
   },
   {
     id: '5',
@@ -71,6 +75,7 @@ export const companionProfiles: CompanionProfile[] = [
     availability: 'Weekdays & Weekends',
     isAvailable: true,
     isSample: true,
+    presentsAs: 'women',
   },
   {
     id: '6',
@@ -85,6 +90,7 @@ export const companionProfiles: CompanionProfile[] = [
     availability: 'Evenings',
     isAvailable: true,
     isSample: true,
+    presentsAs: 'women',
   },
   {
     id: '7',
@@ -99,6 +105,7 @@ export const companionProfiles: CompanionProfile[] = [
     availability: 'Flexible',
     isAvailable: true,
     isSample: true,
+    presentsAs: 'women',
   },
   {
     id: '8',
@@ -113,6 +120,7 @@ export const companionProfiles: CompanionProfile[] = [
     availability: 'Weekends',
     isAvailable: true,
     isSample: true,
+    presentsAs: 'women',
   },
   {
     id: '9',
@@ -127,6 +135,7 @@ export const companionProfiles: CompanionProfile[] = [
     availability: 'Evenings & Late Nights',
     isAvailable: true,
     isSample: true,
+    presentsAs: 'women',
   },
   {
     id: '10',
@@ -141,6 +150,7 @@ export const companionProfiles: CompanionProfile[] = [
     availability: 'Afternoons & Weekends',
     isAvailable: true,
     isSample: true,
+    presentsAs: 'women',
   },
 
   // Additional 40+ fictional profiles
@@ -157,6 +167,7 @@ export const companionProfiles: CompanionProfile[] = [
     availability: 'Evenings',
     isAvailable: true,
     isSample: true,
+    presentsAs: 'women',
   },
   {
     id: '12',
@@ -171,6 +182,7 @@ export const companionProfiles: CompanionProfile[] = [
     availability: 'Flexible',
     isAvailable: true,
     isSample: true,
+    presentsAs: 'women',
   },
   {
     id: '13',
@@ -185,6 +197,7 @@ export const companionProfiles: CompanionProfile[] = [
     availability: 'Weekends',
     isAvailable: true,
     isSample: true,
+    presentsAs: 'women',
   },
   {
     id: '14',
@@ -199,6 +212,7 @@ export const companionProfiles: CompanionProfile[] = [
     availability: 'Afternoons & Evenings',
     isAvailable: true,
     isSample: true,
+    presentsAs: 'women',
   },
   {
     id: '15',
@@ -213,6 +227,7 @@ export const companionProfiles: CompanionProfile[] = [
     availability: 'Evenings',
     isAvailable: true,
     isSample: true,
+    presentsAs: 'women',
   },
   {
     id: '16',
@@ -227,6 +242,7 @@ export const companionProfiles: CompanionProfile[] = [
     availability: 'Flexible',
     isAvailable: true,
     isSample: true,
+    presentsAs: 'women',
   },
   {
     id: '17',
@@ -241,6 +257,7 @@ export const companionProfiles: CompanionProfile[] = [
     availability: 'Evenings & Weekends',
     isAvailable: true,
     isSample: true,
+    presentsAs: 'women',
   },
   {
     id: '18',
@@ -255,6 +272,7 @@ export const companionProfiles: CompanionProfile[] = [
     availability: 'Evenings',
     isAvailable: true,
     isSample: true,
+    presentsAs: 'women',
   },
   {
     id: '19',
@@ -269,6 +287,7 @@ export const companionProfiles: CompanionProfile[] = [
     availability: 'Flexible',
     isAvailable: true,
     isSample: true,
+    presentsAs: 'women',
   },
   {
     id: '20',
@@ -283,6 +302,7 @@ export const companionProfiles: CompanionProfile[] = [
     availability: 'Weekends',
     isAvailable: true,
     isSample: true,
+    presentsAs: 'women',
   },
   {
     id: '21',
@@ -297,6 +317,7 @@ export const companionProfiles: CompanionProfile[] = [
     availability: 'Afternoons & Evenings',
     isAvailable: true,
     isSample: true,
+    presentsAs: 'women',
   },
   {
     id: '22',
@@ -311,6 +332,7 @@ export const companionProfiles: CompanionProfile[] = [
     availability: 'Evenings',
     isAvailable: true,
     isSample: true,
+    presentsAs: 'women',
   },
   {
     id: '23',
@@ -325,6 +347,7 @@ export const companionProfiles: CompanionProfile[] = [
     availability: 'Flexible',
     isAvailable: true,
     isSample: true,
+    presentsAs: 'women',
   },
   {
     id: '24',
@@ -339,6 +362,7 @@ export const companionProfiles: CompanionProfile[] = [
     availability: 'Evenings & Weekends',
     isAvailable: true,
     isSample: true,
+    presentsAs: 'women',
   },
   {
     id: '25',
@@ -353,6 +377,7 @@ export const companionProfiles: CompanionProfile[] = [
     availability: 'Flexible',
     isAvailable: true,
     isSample: true,
+    presentsAs: 'women',
   },
   {
     id: '26',
@@ -367,6 +392,7 @@ export const companionProfiles: CompanionProfile[] = [
     availability: 'Evenings',
     isAvailable: true,
     isSample: true,
+    presentsAs: 'women',
   },
   {
     id: '27',
@@ -381,6 +407,7 @@ export const companionProfiles: CompanionProfile[] = [
     availability: 'Afternoons & Weekends',
     isAvailable: true,
     isSample: true,
+    presentsAs: 'women',
   },
   {
     id: '28',
@@ -395,6 +422,7 @@ export const companionProfiles: CompanionProfile[] = [
     availability: 'Evenings',
     isAvailable: true,
     isSample: true,
+    presentsAs: 'women',
   },
   {
     id: '29',
@@ -409,6 +437,7 @@ export const companionProfiles: CompanionProfile[] = [
     availability: 'Flexible',
     isAvailable: true,
     isSample: true,
+    presentsAs: 'women',
   },
   {
     id: '30',
@@ -423,6 +452,7 @@ export const companionProfiles: CompanionProfile[] = [
     availability: 'Evenings & Weekends',
     isAvailable: true,
     isSample: true,
+    presentsAs: 'women',
   },
   {
     id: '31',
@@ -437,6 +467,7 @@ export const companionProfiles: CompanionProfile[] = [
     availability: 'Flexible',
     isAvailable: true,
     isSample: true,
+    presentsAs: 'women',
   },
   {
     id: '32',
@@ -451,6 +482,7 @@ export const companionProfiles: CompanionProfile[] = [
     availability: 'Evenings',
     isAvailable: true,
     isSample: true,
+    presentsAs: 'women',
   },
   {
     id: '33',
@@ -465,6 +497,7 @@ export const companionProfiles: CompanionProfile[] = [
     availability: 'Evenings',
     isAvailable: true,
     isSample: true,
+    presentsAs: 'women',
   },
   {
     id: '34',
@@ -479,6 +512,7 @@ export const companionProfiles: CompanionProfile[] = [
     availability: 'Afternoons & Weekends',
     isAvailable: true,
     isSample: true,
+    presentsAs: 'women',
   },
   {
     id: '35',
@@ -493,6 +527,7 @@ export const companionProfiles: CompanionProfile[] = [
     availability: 'Evenings',
     isAvailable: true,
     isSample: true,
+    presentsAs: 'women',
   },
   {
     id: '36',
@@ -507,6 +542,7 @@ export const companionProfiles: CompanionProfile[] = [
     availability: 'Flexible',
     isAvailable: true,
     isSample: true,
+    presentsAs: 'women',
   },
   {
     id: '37',
@@ -521,6 +557,7 @@ export const companionProfiles: CompanionProfile[] = [
     availability: 'Evenings & Weekends',
     isAvailable: true,
     isSample: true,
+    presentsAs: 'women',
   },
   {
     id: '38',
@@ -535,6 +572,7 @@ export const companionProfiles: CompanionProfile[] = [
     availability: 'Flexible',
     isAvailable: true,
     isSample: true,
+    presentsAs: 'women',
   },
   {
     id: '39',
@@ -549,6 +587,7 @@ export const companionProfiles: CompanionProfile[] = [
     availability: 'Evenings',
     isAvailable: true,
     isSample: true,
+    presentsAs: 'women',
   },
   {
     id: '40',
@@ -563,6 +602,7 @@ export const companionProfiles: CompanionProfile[] = [
     availability: 'Evenings',
     isAvailable: true,
     isSample: true,
+    presentsAs: 'women',
   },
   {
     id: '41',
@@ -577,6 +617,7 @@ export const companionProfiles: CompanionProfile[] = [
     availability: 'Afternoons & Weekends',
     isAvailable: true,
     isSample: true,
+    presentsAs: 'women',
   },
   {
     id: '42',
@@ -591,6 +632,7 @@ export const companionProfiles: CompanionProfile[] = [
     availability: 'Evenings',
     isAvailable: true,
     isSample: true,
+    presentsAs: 'women',
   },
   {
     id: '43',
@@ -605,6 +647,7 @@ export const companionProfiles: CompanionProfile[] = [
     availability: 'Flexible',
     isAvailable: true,
     isSample: true,
+    presentsAs: 'women',
   },
   {
     id: '44',
@@ -619,6 +662,7 @@ export const companionProfiles: CompanionProfile[] = [
     availability: 'Evenings & Weekends',
     isAvailable: true,
     isSample: true,
+    presentsAs: 'women',
   },
   {
     id: '45',
@@ -633,6 +677,7 @@ export const companionProfiles: CompanionProfile[] = [
     availability: 'Flexible',
     isAvailable: true,
     isSample: true,
+    presentsAs: 'women',
   },
   {
     id: '46',
@@ -647,6 +692,7 @@ export const companionProfiles: CompanionProfile[] = [
     availability: 'Evenings',
     isAvailable: true,
     isSample: true,
+    presentsAs: 'women',
   },
   {
     id: '47',
@@ -661,6 +707,7 @@ export const companionProfiles: CompanionProfile[] = [
     availability: 'Afternoons & Weekends',
     isAvailable: true,
     isSample: true,
+    presentsAs: 'women',
   },
   {
     id: '48',
@@ -675,6 +722,7 @@ export const companionProfiles: CompanionProfile[] = [
     availability: 'Evenings',
     isAvailable: true,
     isSample: true,
+    presentsAs: 'women',
   },
   {
     id: '49',
@@ -689,6 +737,7 @@ export const companionProfiles: CompanionProfile[] = [
     availability: 'Flexible',
     isAvailable: true,
     isSample: true,
+    presentsAs: 'women',
   },
   {
     id: '50',
@@ -703,6 +752,7 @@ export const companionProfiles: CompanionProfile[] = [
     availability: 'Evenings & Weekends',
     isAvailable: true,
     isSample: true,
+    presentsAs: 'women',
   },
   {
     id: '51',
@@ -717,6 +767,7 @@ export const companionProfiles: CompanionProfile[] = [
     availability: 'Flexible',
     isAvailable: true,
     isSample: true,
+    presentsAs: 'women',
   },
   {
     id: '52',
@@ -731,5 +782,6 @@ export const companionProfiles: CompanionProfile[] = [
     availability: 'Evenings',
     isAvailable: true,
     isSample: true,
+    presentsAs: 'women',
   },
 ];

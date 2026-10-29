@@ -10,6 +10,7 @@ import type { CompanionProfile } from '@/types/companion';
 interface CompanionRow {
   user_id: string; username: string; bio: string | null; city: string; province: string;
   photos: string[] | null; is_available: boolean; is_sample: boolean;
+  presents_as: 'women' | 'men' | 'trans' | null; orientation_tags: string[] | null;
   profile: { display_name: string; dob: string } | null;
 }
 
@@ -21,7 +22,7 @@ export const useCompanions = () =>
       if (!isSupabaseConfigured) return sampleProfiles;
       const { data, error } = await supabase
         .from('companion_profiles')
-        .select('user_id, username, bio, city, province, photos, is_available, is_sample, profile:profiles!companion_profiles_user_id_fkey(display_name, dob)')
+        .select('user_id, username, bio, city, province, photos, is_available, is_sample, presents_as, orientation_tags, profile:profiles!companion_profiles_user_id_fkey(display_name, dob)')
         .eq('moderation', 'approved')
         .limit(200);
       if (error) throw error;
@@ -36,6 +37,7 @@ export const useCompanions = () =>
             city: r.city, province: r.province, bio: r.bio ?? '', profileImage: url ?? '/placeholder.svg',
             images: url ? [url] : [], availability: r.is_available ? 'Available' : 'Unavailable',
             isAvailable: r.is_available, isSample: r.is_sample,
+            presentsAs: r.presents_as ?? undefined, orientationTags: r.orientation_tags ?? [],
           } satisfies CompanionProfile;
         }),
       );

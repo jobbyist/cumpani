@@ -17,7 +17,7 @@ import {
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
-  const { user, logout, isAuthenticated, walletBalance, isCompanion } = useAuth();
+  const { user, logout, isAuthenticated, walletBalance, isCompanion, isAdmin } = useAuth();
 
   const navItems = isAuthenticated
     ? [
@@ -82,6 +82,12 @@ const Header = () => {
                 <DropdownMenuContent align="end">
                   <DropdownMenuLabel>My Account</DropdownMenuLabel>
                   <DropdownMenuSeparator />
+                  {isAdmin && (
+                    <DropdownMenuItem onClick={() => navigate('/admin')}>
+                      <LayoutDashboard className="h-4 w-4 mr-2" />
+                      Admin
+                    </DropdownMenuItem>
+                  )}
                   {isCompanion && (
                     <DropdownMenuItem onClick={() => navigate('/dashboard')}>
                       <LayoutDashboard className="h-4 w-4 mr-2" />

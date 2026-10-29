@@ -13,6 +13,7 @@ export interface Profile {
   province: string | null;
   avatar_url: string | null;
   verification_status: VerificationStatus;
+  interested_in: ('women' | 'men' | 'trans' | 'everyone')[] | null;
 }
 
 interface AuthUser {
@@ -37,6 +38,7 @@ interface AuthContextType {
   isVerified: boolean;
   isSubscribed: boolean;
   isCompanion: boolean;
+  isAdmin: boolean;
   walletBalance: number;
   login: (email: string, password: string) => Promise<{ error?: string }>;
   signup: (input: SignupInput) => Promise<{ error?: string; needsEmailConfirmation?: boolean }>;
@@ -68,7 +70,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
     const [p, s, w] = await Promise.all([
       supabase.from('profiles')
-        .select('id, role, display_name, city, province, avatar_url, verification_status')
+        .select('id, role, display_name, city, province, avatar_url, verification_status, interested_in')
         .eq('id', userId).maybeSingle(),
       supabase.from('subscriptions').select('status, current_period_end').eq('user_id', userId).maybeSingle(),
       supabase.from('wallets').select('balance_credits').eq('user_id', userId).maybeSingle(),
@@ -122,15 +124,17 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const value = useMemo<AuthContextType>(() => {
     const u = session?.user;
+    const admin = profile?.role === 'admin';
     return {
       user: u ? { id: u.id, email: u.email ?? '', name: profile?.display_name ?? u.email ?? '' } : null,
       profile,
       session,
       loading,
       isAuthenticated: !!u,
-      isVerified: profile?.verification_status === 'verified',
-      isSubscribed,
-      isCompanion: profile?.role === 'companion',
+      isVerified: admin || profile?.verification_status === 'verified',
+      isSubscribed: admin || isSubscribed,
+      isCompanion: admin || profile?.role === 'companion',
+      isAdmin: admin,
       walletBalance,
       login, signup, logout, refresh,
     };
