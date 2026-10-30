@@ -96,14 +96,14 @@ const ReelsCarousel = () => {
     },
   });
 
-  const reels = (data ?? PLACEHOLDERS).filter((r) => matches(r.audiences));
+  const reels = (data ?? PLACEHOLDERS).filter((r) => matches(r.audiences)).slice(0, 5);
   if (reels.length === 0) return null;
 
   return (
     <section aria-label="Featured reels" className="py-8">
       <div className="mb-4 flex items-end justify-between">
-        <h2 className="text-2xl font-bold">Featured reels</h2>
-        <p className="text-xs text-muted-foreground">Adult content · 21+</p>
+        <div><h2 className="text-2xl font-bold">Creator reels</h2><p className="mt-1 text-sm text-muted-foreground">Short videos from South African creators.</p></div>
+        <p className="text-xs text-muted-foreground">21+ · Featured clips</p>
       </div>
       <Carousel opts={{ align: 'start', dragFree: true }} className="w-full">
         <CarouselContent className="-ml-3">
