@@ -16,7 +16,11 @@ const AgeVerification = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    if (localStorage.getItem(AGE_VERIFIED_KEY)) return;
+    try {
+      if (localStorage.getItem(AGE_VERIFIED_KEY)) return;
+    } catch {
+      // If localStorage is unavailable, always show the gate.
+    }
     // Keep the gate modal-only and clean up the delayed open on unmount.
     const timer = window.setTimeout(() => setIsOpen(true), 500);
     return () => window.clearTimeout(timer);
