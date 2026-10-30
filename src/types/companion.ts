@@ -7,6 +7,8 @@ export interface CompanionProfile {
   province: string;
   bio: string;
   profileImage: string;
+  /** tiny pre-blurred image shown to logged-out visitors (original is never sent to them) */
+  blurImage?: string;
   images: string[];
   availability: string;
   isAvailable?: boolean;

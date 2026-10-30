@@ -8,6 +8,7 @@ import SkipLink from "@/components/SkipLink";
 import AgeVerification from "@/components/AgeVerification";
 import BottomNav from "@/components/BottomNav";
 import ProtectedRoute from "@/components/ProtectedRoute";
+import QuickExit from "@/components/QuickExit";
 import PreviewBanner from "@/components/PreviewBanner";
 import CookieConsent from "@/components/CookieConsent";
 import { Suspense, lazy } from "react";
@@ -36,6 +37,8 @@ const Wallet = lazy(() => import("./pages/Wallet"));
 const Feed = lazy(() => import("./pages/Feed"));
 const Messages = lazy(() => import("./pages/Messages"));
 const Dashboard = lazy(() => import("./pages/Dashboard"));
+const EarlyAccess = lazy(() => import("./pages/EarlyAccess"));
+const Safety = lazy(() => import("./pages/Safety"));
 const Admin = lazy(() => import("./pages/Admin"));
 const AcceptableUse = lazy(() => import("./pages/AcceptableUse"));
 const CommunityGuidelines = lazy(() => import("./pages/CommunityGuidelines"));
@@ -59,6 +62,8 @@ const App = () => {
                 <Routes>
                   <Route path="/" element={<Index />} />
                   <Route path="/how-it-works" element={<HowItWorks />} />
+                  <Route path="/early-access" element={<EarlyAccess />} />
+                  <Route path="/safety" element={<Safety />} />
                   <Route path="/about" element={<About />} />
                   <Route path="/contact" element={<Contact />} />
                   <Route path="/terms" element={<Terms />} />
@@ -91,6 +96,7 @@ const App = () => {
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </Suspense>
+              <QuickExit />
               <PreviewBanner />
               <BottomNav />
               <CookieConsent />

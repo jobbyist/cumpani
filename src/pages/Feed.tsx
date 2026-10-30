@@ -10,6 +10,7 @@ import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/lib/supabase';
+import { fileReport } from '@/lib/reports';
 import { useToast } from '@/hooks/use-toast';
 
 type Sort = 'new' | 'top';
@@ -55,10 +56,9 @@ const PostCard = ({ post }: { post: Post }) => {
     onSuccess: () => { setComment(''); qc.invalidateQueries({ queryKey: ['comments', post.id] }); qc.invalidateQueries({ queryKey: ['posts'] }); },
   });
   const report = async () => {
-    const reason = window.prompt('Why are you reporting this post?');
-    if (!reason || reason.trim().length < 3) return;
-    const { error } = await supabase.from('reports').insert({ reporter_id: user!.id, target_type: 'post', target_id: post.id, reason: reason.trim() });
-    toast(error ? { title: 'Could not report', variant: 'destructive' } : { title: 'Report sent', description: 'Thank you. Our team will review it.' });
+    const ok = await fileReport(user!.id, 'post', post.id);
+    if (ok === null) return;
+    toast(ok ? { title: 'Report sent', description: 'Thank you. Our team will review it.' } : { title: 'Could not report', variant: 'destructive' });
   };
 
   return (

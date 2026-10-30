@@ -100,7 +100,7 @@ const ReelsCarousel = () => {
   if (reels.length === 0) return null;
 
   return (
-    <section aria-label="Featured reels" className="py-8">
+    <section id="reels" aria-label="Featured reels" className="scroll-mt-24 py-8">
       <div className="mb-4 flex items-end justify-between">
         <h2 className="text-2xl font-bold">Featured reels</h2>
         <p className="text-xs text-muted-foreground">Adult content · 21+</p>
