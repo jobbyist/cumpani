@@ -11,23 +11,33 @@ import { supabase, isSupabaseConfigured } from '@/lib/supabase';
 
 interface Reel {
   id: string; title: string; tags: string[]; audiences: string[];
-  video_path: string; preview_path: string;
+  video_path: string; preview_path: string; preview_url?: string;
 }
 
-/** Placeholders shown until the reels table is seeded / Supabase is configured. */
-const PLACEHOLDERS: Reel[] = [
-  ...['Ebony', 'Ebony', 'Ebony', 'Ebony', 'Trans'].map((t, i) => ({
-    id: `placeholder-${i}`, title: `Featured reel ${i + 1}`, tags: [t], audiences: [t === 'Trans' ? 'trans' : 'women'], video_path: '', preview_path: '',
-  })),
-];
+/** Safe public teaser used until approved Supabase reels are available. */
+const PLACEHOLDER_VIDEO = '/cumpanireels.mp4';
+const PLACEHOLDERS: Reel[] = Array.from({ length: 10 }, (_, i) => {
+  const audience = i < 8 ? 'women' : 'trans';
+  const tag = audience === 'women' ? 'Ebony' : 'Trans';
+  return {
+    id: `placeholder-${i + 1}`,
+    title: `Featured reel ${i + 1}`,
+    tags: [tag],
+    audiences: [audience],
+    video_path: '',
+    preview_path: '',
+    preview_url: PLACEHOLDER_VIDEO,
+  };
+});
 
 const ReelCard = ({ reel, full }: { reel: Reel; full: string | undefined }) => {
   const { isAuthenticated } = useAuth();
   const ref = useRef<HTMLVideoElement>(null);
   const [muted, setMuted] = useState(true);
-  const preview = reel.preview_path
+  const storagePreview = reel.preview_path
     ? supabase.storage.from('reels-preview').getPublicUrl(reel.preview_path).data.publicUrl
     : undefined;
+  const preview = reel.preview_url ?? storagePreview;
   const src = full ?? preview;
   const locked = !full;
 
@@ -83,7 +93,7 @@ const ReelsCarousel = () => {
       if (!isSupabaseConfigured) return PLACEHOLDERS;
       const { data: rows, error } = await supabase.from('reels')
         .select('id, title, tags, audiences, video_path, preview_path')
-        .eq('moderation', 'approved').order('sort_order').order('created_at', { ascending: false }).limit(20);
+        .eq('moderation', 'approved').order('sort_order').order('created_at', { ascending: false }).limit(10);
       if (error || !rows?.length) return PLACEHOLDERS;
       const full: Record<string, string> = {};
       if (canWatch) {
@@ -96,7 +106,7 @@ const ReelsCarousel = () => {
     },
   });
 
-  const reels = (data ?? PLACEHOLDERS).filter((r) => matches(r.audiences)).slice(0, 5);
+  const reels = (data ?? PLACEHOLDERS).filter((r) => matches(r.audiences)).slice(0, 10);
   if (reels.length === 0) return null;
 
   return (
