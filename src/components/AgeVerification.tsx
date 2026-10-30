@@ -16,44 +16,43 @@ const AgeVerification = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    // Check if user has already verified their age
-    const hasVerified = localStorage.getItem(AGE_VERIFIED_KEY);
-    if (!hasVerified) {
-      // Small delay to ensure smooth page load
-      setTimeout(() => {
-        setIsOpen(true);
-      }, 500);
+    try {
+      if (localStorage.getItem(AGE_VERIFIED_KEY)) return;
+    } catch {
+      // If localStorage is unavailable, always show the gate.
     }
+    // Keep the gate modal-only and clean up the delayed open on unmount.
+    const timer = window.setTimeout(() => setIsOpen(true), 500);
+    return () => window.clearTimeout(timer);
   }, []);
 
   const handleAccept = () => {
     localStorage.setItem(AGE_VERIFIED_KEY, 'true');
     setIsOpen(false);
+    // Cookie consent waits until the age gate has been completed.
+    window.dispatchEvent(new Event('cumpani:age-verified'));
   };
 
   const handleDecline = () => {
-    // Redirect users under 21 to a safe external site
-    // This could be made configurable via environment variables in production
     window.location.href = 'https://www.google.com';
   };
 
   return (
     <Dialog open={isOpen} onOpenChange={() => {
-      // Prevent dialog from being closed without making a choice
-      // Users must explicitly accept or decline age verification
+      // Prevent dismissal without an explicit age decision.
     }}>
-      <DialogContent 
-        className="max-w-full h-screen w-screen flex items-center justify-center p-0 gap-0"
+      <DialogContent
+        className="z-[100] max-h-[calc(100dvh-2rem)] w-[calc(100%-2rem)] max-w-md overflow-y-auto rounded-2xl p-6 sm:p-8"
         onInteractOutside={(e) => e.preventDefault()}
         onEscapeKeyDown={(e) => e.preventDefault()}
       >
-        <div className="w-full max-w-md mx-auto p-8">
+        <div className="mx-auto w-full">
           <DialogHeader>
-            <div className="flex justify-center mb-4">
-              <ShieldAlert className="w-16 h-16 text-primary" />
+            <div className="mb-4 flex justify-center">
+              <ShieldAlert className="h-14 w-14 text-primary" />
             </div>
-            <DialogTitle className="text-2xl text-center">Age Verification Required</DialogTitle>
-            <DialogDescription className="text-center space-y-4 pt-4">
+            <DialogTitle className="text-center text-2xl">Age Verification Required</DialogTitle>
+            <DialogDescription className="space-y-4 pt-4 text-center">
               <p className="text-base">
                 Cumpani is a social and dating platform that includes adult content. It is for adults aged 21 and over only.
               </p>
@@ -65,21 +64,12 @@ const AgeVerification = () => {
               </p>
             </DialogDescription>
           </DialogHeader>
-          <DialogFooter className="flex-col sm:flex-col gap-2 pt-4">
-            <Button 
-              onClick={handleAccept} 
-              size="lg" 
-              className="w-full"
-            >
+          <DialogFooter className="flex-col gap-2 pt-5 sm:flex-col">
+            <Button onClick={handleAccept} size="lg" className="w-full">
               I am 21 or older - Enter
             </Button>
-            <Button 
-              onClick={handleDecline} 
-              variant="outline" 
-              size="lg" 
-              className="w-full"
-            >
-              I am Under 18 - Exit
+            <Button onClick={handleDecline} variant="outline" size="lg" className="w-full">
+              I am under 21 - Exit
             </Button>
           </DialogFooter>
         </div>
