@@ -42,7 +42,7 @@ const ApplicationForm = () => {
     const res = await submitApplication(f);
     setBusy(false);
     if (res.ok || res.reason === 'duplicate') { setDone(true); return; }
-    toast({ title: 'Could not submit', description: FAIL_MESSAGES[res.reason], variant: 'destructive' });
+    toast({ title: 'Could not submit', description: FAIL_MESSAGES[res.reason ?? 'unavailable'], variant: 'destructive' });
   };
 
   if (done) {

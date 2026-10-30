@@ -5,7 +5,9 @@ const EXIT_URL = 'https://www.google.com';
 
 /** Leaves the site immediately and removes it from back-button history. Also triggered by pressing Esc 3 times. */
 export const quickExit = () => {
+  // Also removes the saved "I'm interested in" choice and any other local state.
   try { sessionStorage.clear(); } catch { /* ignore */ }
+  try { localStorage.clear(); } catch { /* ignore */ }
   window.location.replace(EXIT_URL);
 };
 

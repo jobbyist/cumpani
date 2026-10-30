@@ -108,7 +108,10 @@ const Reports = () => {
     queryFn: async () => (await supabase.from('reports').select('id, target_type, target_id, reason, created_at, category, priority').eq('resolved', false).order('priority', { ascending: false }).order('created_at').limit(50)).data ?? [],
   });
   const resolve = useMutation({
-    mutationFn: async (id: string) => { await supabase.from('reports').update({ resolved: true }).eq('id', id); },
+    mutationFn: async (id: string) => {
+      const { error } = await supabase.from('reports').update({ resolved: true }).eq('id', id);
+      if (error) throw error;
+    },
     onSuccess: () => qc.invalidateQueries({ queryKey: ['admin', 'reports'] }),
   });
   return (
@@ -175,7 +178,9 @@ const csv = (rows: Record<string, unknown>[]) => {
 };
 const download = (name: string, text: string) => {
   const a = document.createElement('a');
-  a.href = URL.createObjectURL(new Blob([text], { type: 'text/csv' })); a.download = name; a.click();
+  const url = URL.createObjectURL(new Blob([text], { type: 'text/csv' }));
+  a.href = url; a.download = name; a.click();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
 };
 
 const Signups = () => {

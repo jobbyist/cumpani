@@ -619,7 +619,7 @@ create table public.companion_applications (
   status public.moderation_status not null default 'pending',
   created_at timestamptz not null default now(),
   constraint ca_email_format check (email ~* '^[^@\s]+@[^@\s]+\.[^@\s]+$' and char_length(email) <= 254),
-  constraint ca_21_plus check (dob <= (current_date - interval '21 years'))
+  constraint ca_21_plus check (dob <= ((now() at time zone 'Africa/Johannesburg')::date - interval '21 years'))
 );
 create unique index companion_applications_email_key on public.companion_applications (lower(email));
 alter table public.companion_applications enable row level security;
@@ -657,5 +657,24 @@ create view public.featured_companions_public as
   from public.companion_profiles
   where moderation = 'approved' and blur_path is not null;
 grant select on public.featured_companions_public to anon, authenticated;
+
+-- Only admins (or the service role / SQL editor, where auth.uid() is null) may approve a companion profile.
+-- Without this, any signed-in user could insert their own row as 'approved' and appear in the public view.
+create or replace function public.guard_companion_moderation() returns trigger
+language plpgsql security definer set search_path = public as $$
+begin
+  if auth.uid() is not null and not public.is_admin() then
+    if tg_op = 'INSERT' then
+      new.moderation := 'pending';
+      new.is_sample := false;
+    else
+      new.moderation := old.moderation;
+      new.is_sample := old.is_sample;
+    end if;
+  end if;
+  return new;
+end $$;
+create trigger companion_moderation_guard before insert or update on public.companion_profiles
+  for each row execute function public.guard_companion_moderation();
 
 

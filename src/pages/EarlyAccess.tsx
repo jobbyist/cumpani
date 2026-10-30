@@ -27,7 +27,7 @@ const EarlyAccess = () => {
     setBusy(false);
     if (res.ok) { setDone(true); return; }
     if (res.reason === 'duplicate') { setDone(true); return; }
-    toast({ title: 'Could not join', description: FAIL_MESSAGES[res.reason], variant: 'destructive' });
+    toast({ title: 'Could not join', description: FAIL_MESSAGES[res.reason ?? 'unavailable'], variant: 'destructive' });
   };
 
   return (

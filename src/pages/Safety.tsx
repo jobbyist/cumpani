@@ -24,6 +24,7 @@ const steps = [
   'Never send money, ID documents or intimate photos to someone you have not verified. Keep chats on Cumpani so reports work.',
   'If someone threatens to out you or demands money, do not pay. Screenshot it, block them, and report it as "Threat to out me" or "Blackmail / extortion".',
   'Use a strong password and turn on two-factor authentication where offered.',
+  'On a shared device, browse in a private window. Quick exit leaves the site and clears what Cumpani saved in your browser, but it cannot erase your browser\'s back-button history.',
   'If you are in danger, leave and call the police.',
 ];
 
