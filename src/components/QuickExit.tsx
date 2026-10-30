@@ -23,7 +23,7 @@ const QuickExit = () => {
   }, []);
   return (
     <button type="button" onClick={quickExit} aria-label="Quick exit: leave this site now"
-      className="fixed right-3 top-[88px] z-[65] flex items-center gap-1 rounded-full bg-red-600 px-3 py-1.5 text-xs font-semibold text-white shadow-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-white lg:top-24">
+      className="fixed bottom-24 right-3 z-[65] flex items-center gap-1 rounded-full bg-red-600 px-3 py-1.5 text-xs font-semibold text-white shadow-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-white lg:bottom-auto lg:top-24">
       <X className="h-3.5 w-3.5" aria-hidden="true" /> Quick exit
     </button>
   );
