@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import PageShell from '@/components/PageShell';
 import Disclaimer from '@/components/Disclaimer';
+import ReelsCarousel from '@/components/ReelsCarousel';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/contexts/AuthContext';
 import { useCompanions } from '@/hooks/useCompanions';
@@ -120,6 +121,8 @@ const Index = () => {
             View all companions <ArrowRight className="h-4 w-4" />
           </Link>
         </section>
+
+        <ReelsCarousel />
 
         <section className="my-10 overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-neutral-900 via-neutral-900 to-pink-950/40">
           <div className="grid items-center gap-7 p-6 sm:p-9 lg:grid-cols-[1fr_auto] lg:p-10">
