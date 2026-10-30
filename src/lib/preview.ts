@@ -5,3 +5,14 @@
  * Remove this file and its usages once Supabase is set up.
  */
 export const PREVIEW_MODE = import.meta.env.VITE_PREVIEW_MODE === 'true';
+
+const VIEW_KEY = 'cumpani_preview_view';
+
+/** In preview builds, reviewers can switch between the logged-out Guest view (default) and the Member/admin view. */
+export const previewView = (): 'guest' | 'member' => {
+  try { return localStorage.getItem(VIEW_KEY) === 'member' ? 'member' : 'guest'; } catch { return 'guest'; }
+};
+export const setPreviewView = (v: 'guest' | 'member') => {
+  try { localStorage.setItem(VIEW_KEY, v); } catch { /* ignore */ }
+  window.location.reload();
+};

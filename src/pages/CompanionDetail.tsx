@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import { MapPin, Flag } from 'lucide-react';
+import { MapPin, Flag, BadgeCheck } from 'lucide-react';
 import PageShell from '@/components/PageShell';
 import Disclaimer from '@/components/Disclaimer';
 import { Button } from '@/components/ui/button';
@@ -7,6 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { useCompanions } from '@/hooks/useCompanions';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/lib/supabase';
+import { fileReport } from '@/lib/reports';
 import { useToast } from '@/hooks/use-toast';
 
 const CompanionDetail = () => {
@@ -39,10 +40,10 @@ const CompanionDetail = () => {
   };
 
   const report = async () => {
-    const reason = window.prompt('Why are you reporting this profile?');
-    if (!reason || reason.trim().length < 3 || companion.isSample) return;
-    const { error } = await supabase.from('reports').insert({ reporter_id: user!.id, target_type: 'profile', target_id: companion.id, reason: reason.trim() });
-    toast(error ? { title: 'Could not report', variant: 'destructive' } : { title: 'Report sent' });
+    if (companion.isSample) return;
+    const ok = await fileReport(user!.id, 'profile', companion.id);
+    if (ok === null) return;
+    toast(ok ? { title: 'Report sent' } : { title: 'Could not report', variant: 'destructive' });
   };
 
   return (
@@ -56,11 +57,11 @@ const CompanionDetail = () => {
           </div>
           <p className="flex items-center text-muted-foreground"><MapPin className="mr-1 h-4 w-4" />{companion.city}, {companion.province}</p>
           <div className="flex gap-2">
+            <Badge className="gap-1 border-0 bg-sky-600 text-white hover:bg-sky-600"><BadgeCheck className="h-3.5 w-3.5" aria-hidden="true" />Verified</Badge>
             {companion.isAvailable && <Badge className="bg-emerald-500 text-white">Available</Badge>}
-            {companion.isSample && <Badge variant="secondary">Sample profile</Badge>}
           </div>
           <p className="leading-relaxed">{companion.bio}</p>
-          <p className="text-sm text-muted-foreground">{companion.availability}</p>
+          <p className="text-sm text-muted-foreground">Usually online: {companion.availability}</p>
           <div className="flex flex-wrap gap-3">
             <Button size="lg" onClick={message}>Message</Button>
             <Button size="lg" variant="outline" onClick={report}><Flag className="mr-2 h-4 w-4" />Report</Button>

@@ -19,3 +19,8 @@ Registered name, CIPC number, VAT number, physical address, Information Officer 
 9. **Explicit user-generated content:** FPB classification and age-restriction duties, online distributor registration, takedown process, and the reel creators' written authorisation (operator states they hold it).
 10. **Orientation preference** is special personal information: confirm consent wording and the browser-only default.
 11. **Ethnicity labels on content** (e.g. a reel tag): confirm this is acceptable alongside the Privacy Policy statement that we do not filter or recommend by race or ethnic origin; the filter itself only uses women/men/trans/everyone.
+
+## Added with the pre-launch campaign
+12. **"Verified" badge on sample profiles:** the operator chose to label fictional sample profiles "Verified". Counsel to advise on CPA s41 (false or misleading representations) before launch; the safest course is to remove sample profiles when real verified companions are live.
+13. **Early-access waitlist and applications:** POPIA consent wording, retention, and the 21+ check; companion applications are accepted only 2 Nov to 1 Dec 2026 (enforced in the database).
+14. **LGBT safety measures:** special personal information handling, priority-report process, extortion/outing escalation to SAPS, and Equality Act / hate-speech exposure for user content.

@@ -9,6 +9,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useFxRate } from '@/hooks/useFxRate';
 import { supabase } from '@/lib/supabase';
 import { useToast } from '@/hooks/use-toast';
+import { memberPhase, effectiveNow } from '@/lib/launch';
 
 const PRICE_ZAR = 99;
 const perks = [
@@ -52,7 +53,12 @@ const Membership = () => {
             ))}
           </ul>
 
-          {isSubscribed ? (
+          {memberPhase(effectiveNow()) === 'waitlist' ? (
+            <div className="space-y-2 text-center">
+              <p className="font-medium">Membership opens on 1 December 2026.</p>
+              <Button asChild size="lg"><Link to="/early-access">Join the early-access waitlist</Link></Button>
+            </div>
+          ) : isSubscribed ? (
             <p className="text-center font-medium text-primary">Your membership is active.</p>
           ) : !isAuthenticated ? (
             <div className="flex flex-col gap-2">

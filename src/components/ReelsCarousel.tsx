@@ -8,14 +8,15 @@ import { Button } from '@/components/ui/button';
 import { useAuth } from '@/contexts/AuthContext';
 import { useOrientation } from '@/contexts/OrientationContext';
 import { supabase, isSupabaseConfigured } from '@/lib/supabase';
+import { memberPhase, effectiveNow } from '@/lib/launch';
 
 interface Reel {
   id: string; title: string; tags: string[]; audiences: string[];
   video_path: string; preview_path: string; preview_url?: string;
 }
 
-/** Safe public teaser used until approved Supabase reels are available. */
-const PLACEHOLDER_VIDEO = '/cumpanireels.mp4';
+/** Baked-blur public teaser used until approved reels exist. The unblurred source is never served publicly. */
+const PLACEHOLDER_VIDEO = '/cumpanireels-preview.mp4';
 const PLACEHOLDERS: Reel[] = Array.from({ length: 10 }, (_, i) => {
   const audience = i < 8 ? 'women' : 'trans';
   const tag = audience === 'women' ? 'Ebony' : 'Trans';
@@ -74,7 +75,7 @@ const ReelCard = ({ reel, full }: { reel: Reel; full: string | undefined }) => {
         <div className="absolute inset-x-3 bottom-3 space-y-2 text-center text-white">
           <Lock className="mx-auto h-5 w-5" aria-hidden="true" />
           <p className="text-xs">{isAuthenticated ? 'Activate membership to watch' : 'Join to watch in full'}</p>
-          <Button size="sm" asChild><Link to={isAuthenticated ? '/membership' : '/signup'}>{isAuthenticated ? 'Membership' : 'Join Cumpani'}</Link></Button>
+          <Button size="sm" asChild><Link to={isAuthenticated ? '/membership' : memberPhase(effectiveNow()) === 'live' ? '/signup' : '/early-access'}>{isAuthenticated ? 'Membership' : memberPhase(effectiveNow()) === 'live' ? 'Join Cumpani' : 'Get early access'}</Link></Button>
         </div>
       )}
     </div>
@@ -110,7 +111,7 @@ const ReelsCarousel = () => {
   if (reels.length === 0) return null;
 
   return (
-    <section aria-label="Featured reels" className="py-8">
+    <section id="reels" aria-label="Featured reels" className="scroll-mt-24 py-8">
       <div className="mb-4 flex items-end justify-between">
         <div><h2 className="text-2xl font-bold">Creator reels</h2><p className="mt-1 text-sm text-muted-foreground">Short videos from South African creators.</p></div>
         <p className="text-xs text-muted-foreground">21+ · Featured clips</p>

@@ -1,7 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, ReactNode } from 'react';
 import type { Session } from '@supabase/supabase-js';
 import { supabase } from '@/lib/supabase';
-import { PREVIEW_MODE } from '@/lib/preview';
+import { PREVIEW_MODE, previewView } from '@/lib/preview';
 
 export type UserRole = 'member' | 'companion' | 'admin';
 export type VerificationStatus = 'unverified' | 'pending' | 'verified' | 'rejected';
@@ -126,7 +126,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const value = useMemo<AuthContextType>(() => {
     const u = session?.user;
     // Temporary preview mode: no real session, show the full member/admin experience with sample data.
-    if (PREVIEW_MODE && !u) {
+    if (PREVIEW_MODE && !u && previewView() === 'member') {
       return {
         user: { id: 'preview', email: 'preview@cumpani.fun', name: 'Preview' },
         profile: {

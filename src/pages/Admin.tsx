@@ -105,10 +105,13 @@ const Reports = () => {
   const qc = useQueryClient();
   const { data } = useQuery({
     queryKey: ['admin', 'reports'],
-    queryFn: async () => (await supabase.from('reports').select('id, target_type, target_id, reason, created_at').eq('resolved', false).order('created_at').limit(50)).data ?? [],
+    queryFn: async () => (await supabase.from('reports').select('id, target_type, target_id, reason, created_at, category, priority').eq('resolved', false).order('priority', { ascending: false }).order('created_at').limit(50)).data ?? [],
   });
   const resolve = useMutation({
-    mutationFn: async (id: string) => { await supabase.from('reports').update({ resolved: true }).eq('id', id); },
+    mutationFn: async (id: string) => {
+      const { error } = await supabase.from('reports').update({ resolved: true }).eq('id', id);
+      if (error) throw error;
+    },
     onSuccess: () => qc.invalidateQueries({ queryKey: ['admin', 'reports'] }),
   });
   return (
@@ -119,7 +122,7 @@ const Reports = () => {
           <ul className="divide-y divide-border">
             {data?.map((r) => (
               <li key={r.id} className="flex items-center justify-between gap-3 py-2 text-sm">
-                <span><Badge variant="secondary">{r.target_type}</Badge> {r.reason}</span>
+                <span>{r.priority && <Badge variant="destructive" className="mr-1">Priority</Badge>}<Badge variant="secondary">{r.category ?? r.target_type}</Badge> {r.reason}</span>
                 <Button size="sm" variant="outline" onClick={() => resolve.mutate(r.id)}>Resolve</Button>
               </li>
             ))}
@@ -167,6 +170,35 @@ const ReelsEditor = () => {
   );
 };
 
+const csv = (rows: Record<string, unknown>[]) => {
+  if (!rows.length) return '';
+  const cols = Object.keys(rows[0]);
+  const esc = (v: unknown) => `"${String(v ?? '').replace(/"/g, '""')}"`;
+  return [cols.join(','), ...rows.map((r) => cols.map((c) => esc(r[c])).join(','))].join('\n');
+};
+const download = (name: string, text: string) => {
+  const a = document.createElement('a');
+  const url = URL.createObjectURL(new Blob([text], { type: 'text/csv' }));
+  a.href = url; a.download = name; a.click();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+};
+
+const Signups = () => {
+  const { data: waitlist } = useQuery({ queryKey: ['admin', 'waitlist'], queryFn: async () => (await supabase.from('early_access_signups').select('name, email, city, marketing_consent, created_at').order('created_at', { ascending: false }).limit(1000)).data ?? [] });
+  const { data: apps } = useQuery({ queryKey: ['admin', 'apps'], queryFn: async () => (await supabase.from('companion_applications').select('name, email, city, role, links, status, created_at').order('created_at', { ascending: false }).limit(1000)).data ?? [] });
+  return (
+    <div className="space-y-4">
+      <Card><CardHeader><CardTitle>Waitlist ({waitlist?.length ?? 0})</CardTitle><CardDescription>Members who want early access.</CardDescription></CardHeader>
+        <CardContent><Button size="sm" variant="outline" disabled={!waitlist?.length} onClick={() => download('waitlist.csv', csv(waitlist as Record<string, unknown>[]))}>Export CSV</Button></CardContent></Card>
+      <Card><CardHeader><CardTitle>Companion and creator applications ({apps?.length ?? 0})</CardTitle></CardHeader>
+        <CardContent className="space-y-3">
+          <Button size="sm" variant="outline" disabled={!apps?.length} onClick={() => download('applications.csv', csv(apps as Record<string, unknown>[]))}>Export CSV</Button>
+          <ul className="divide-y divide-border text-sm">{apps?.slice(0, 50).map((a) => <li key={a.email} className="flex justify-between py-2"><span>{a.name} <Badge variant="secondary">{a.role}</Badge></span><span className="text-muted-foreground">{a.city}</span></li>)}</ul>
+        </CardContent></Card>
+    </div>
+  );
+};
+
 const Admin = () => (
   <PageShell>
     <h1 className="mb-6 text-3xl font-bold">Admin console</h1>
@@ -178,6 +210,7 @@ const Admin = () => (
         <TabsTrigger value="content">Content</TabsTrigger>
         <TabsTrigger value="profiles">Profiles</TabsTrigger>
         <TabsTrigger value="reports">Reports</TabsTrigger>
+        <TabsTrigger value="signups">Signups</TabsTrigger>
       </TabsList>
       <TabsContent value="verify"><Verifications /></TabsContent>
       <TabsContent value="posts"><ModerationQueue table="posts" label="Community posts" /></TabsContent>
@@ -185,6 +218,7 @@ const Admin = () => (
       <TabsContent value="content" className="space-y-4"><ModerationQueue table="content_items" label="Exclusive content" /><ModerationQueue table="stories" label="Stories" titleCol="caption" /></TabsContent>
       <TabsContent value="profiles"><ModerationQueue table="companion_profiles" label="Companion profiles" idCol="user_id" titleCol="username" /></TabsContent>
       <TabsContent value="reports"><Reports /></TabsContent>
+      <TabsContent value="signups"><Signups /></TabsContent>
     </Tabs>
   </PageShell>
 );

@@ -1,11 +1,12 @@
-import { useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import { Home, Users, MessagesSquare, MessageCircle, SlidersHorizontal, LogIn } from 'lucide-react';
+import { NavLink, Link } from 'react-router-dom';
+import { Home, Users, MessagesSquare, MessageCircle, LayoutGrid, LogIn, Film, HeartHandshake, Info, Phone, HelpCircle, Sparkles, Mail } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { INTEREST_OPTIONS, useOrientation, type Interest } from '@/contexts/OrientationContext';
-import { Drawer, DrawerContent, DrawerDescription, DrawerHeader, DrawerTitle } from '@/components/ui/drawer';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { Label } from '@/components/ui/label';
+import { memberPhase, effectiveNow } from '@/lib/launch';
+import {
+  DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuRadioGroup,
+  DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 
 const memberItems = [
   { to: '/', label: 'Home', icon: Home, end: true },
@@ -20,72 +21,78 @@ const linkClass = ({ isActive }: { isActive: boolean }) =>
     isActive ? 'text-primary' : 'text-muted-foreground hover:text-foreground'
   }`;
 
-/** Floating mobile navigation with a Filter tab ("I'm interested in"). Visible to everyone. */
+/** Floating mobile navigation. "Browse" opens a menu of key pages plus the "I'm interested in" filter. */
 const BottomNav = () => {
   const { isAuthenticated } = useAuth();
   const { interest, setInterest } = useOrientation();
-  const [open, setOpen] = useState(false);
   const items = isAuthenticated ? memberItems : guestItems;
   const active = interest !== 'everyone';
+  const live = memberPhase(effectiveNow()) === 'live';
+
+  const links = [
+    { to: '/companions', label: 'Verified companions', icon: Users },
+    { to: '/', label: 'Featured reels', icon: Film, hash: '#reels' },
+    { to: '/feed', label: 'Community feed', icon: MessagesSquare },
+    { to: live ? '/membership' : '/early-access', label: live ? 'Membership' : 'Get early access', icon: Sparkles },
+    { to: '/become-companion', label: 'Become a companion', icon: Mail },
+    { to: '/how-it-works', label: 'How it works', icon: HelpCircle },
+    { to: '/safety', label: 'Safety Centre (LGBT-inclusive)', icon: HeartHandshake },
+    { to: '/about', label: 'About', icon: Info },
+    { to: '/contact', label: 'Contact', icon: Phone },
+  ];
 
   return (
-    <>
-      <nav
-        aria-label="Primary"
-        className="lg:hidden fixed inset-x-3 bottom-3 z-40 rounded-2xl border border-border bg-background/90 shadow-lg backdrop-blur-md"
-        style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
-      >
-        <ul className="flex items-stretch justify-around">
-          {items.map(({ to, label, icon: Icon, end }) => (
-            <li key={to} className="flex-1">
-              <NavLink to={to} end={end} className={linkClass}>
-                <Icon className="h-5 w-5" aria-hidden="true" />
-                {label}
-              </NavLink>
-            </li>
-          ))}
-          <li className="flex-1">
-            <button type="button" onClick={() => setOpen(true)} aria-haspopup="dialog"
-              className={`relative flex w-full flex-col items-center gap-0.5 py-2.5 text-[11px] font-medium transition-colors ${
-                active ? 'text-primary' : 'text-muted-foreground hover:text-foreground'}`}>
-              <SlidersHorizontal className="h-5 w-5" aria-hidden="true" />
-              Filter
-              {active && <span className="absolute right-[28%] top-2 h-2 w-2 rounded-full bg-primary" aria-label="Filter active" />}
-            </button>
+    <nav
+      aria-label="Primary"
+      className="lg:hidden fixed inset-x-3 bottom-3 z-40 rounded-2xl border border-border bg-background/90 shadow-lg backdrop-blur-md"
+      style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
+    >
+      <ul className="flex items-stretch justify-around">
+        {items.map(({ to, label, icon: Icon, end }) => (
+          <li key={to} className="flex-1">
+            <NavLink to={to} end={end} className={linkClass}>
+              <Icon className="h-5 w-5" aria-hidden="true" />
+              {label}
+            </NavLink>
           </li>
-          {!isAuthenticated && (
-            <li className="flex-1">
-              <NavLink to="/signup" className={linkClass}>
-                <LogIn className="h-5 w-5" aria-hidden="true" />
-                Join
-              </NavLink>
-            </li>
-          )}
-        </ul>
-      </nav>
-
-      <Drawer open={open} onOpenChange={setOpen}>
-        <DrawerContent>
-          <div className="mx-auto w-full max-w-md px-4 pb-8">
-            <DrawerHeader className="px-0">
-              <DrawerTitle>I'm interested in</DrawerTitle>
-              <DrawerDescription>
-                Surfaces matching reels and profiles. Your choice stays in this browser, and is saved to your
-                account only if you have consented to processing of special personal information.
-              </DrawerDescription>
-            </DrawerHeader>
-            <RadioGroup value={interest} onValueChange={(v) => { setInterest(v as Interest); setOpen(false); }} className="gap-3">
-              {INTEREST_OPTIONS.map((o) => (
-                <div key={o.value} className="flex items-center gap-3 rounded-lg border border-border p-3">
-                  <RadioGroupItem value={o.value} id={`interest-${o.value}`} />
-                  <Label htmlFor={`interest-${o.value}`} className="flex-1 cursor-pointer">{o.label}</Label>
-                </div>
+        ))}
+        <li className="flex-1">
+          <DropdownMenu>
+            <DropdownMenuTrigger
+              className={`relative flex w-full flex-col items-center gap-0.5 py-2.5 text-[11px] font-medium transition-colors focus:outline-none ${
+                active ? 'text-primary' : 'text-muted-foreground hover:text-foreground'}`}>
+              <LayoutGrid className="h-5 w-5" aria-hidden="true" />
+              Browse
+              {active && <span className="absolute right-[28%] top-2 h-2 w-2 rounded-full bg-primary" aria-label="Filter active" />}
+            </DropdownMenuTrigger>
+            <DropdownMenuContent side="top" align="end" sideOffset={12} className="max-h-[70vh] w-72 overflow-y-auto">
+              <DropdownMenuLabel>Browse</DropdownMenuLabel>
+              {links.map(({ to, label, icon: Icon, hash }) => (
+                <DropdownMenuItem key={label} asChild>
+                  <Link to={to + (hash ?? '')}><Icon className="mr-2 h-4 w-4" aria-hidden="true" />{label}</Link>
+                </DropdownMenuItem>
               ))}
-            </RadioGroup>
-          </div>
-        </DrawerContent>
-      </Drawer>
-    </>
+              <DropdownMenuSeparator />
+              <DropdownMenuLabel>I'm interested in</DropdownMenuLabel>
+              <DropdownMenuRadioGroup value={interest} onValueChange={(v) => setInterest(v as Interest)}>
+                {INTEREST_OPTIONS.map((o) => (
+                  <DropdownMenuRadioItem key={o.value} value={o.value} onSelect={(e) => e.preventDefault()}>{o.label}</DropdownMenuRadioItem>
+                ))}
+              </DropdownMenuRadioGroup>
+              <p className="px-2 pb-2 pt-1 text-[11px] text-muted-foreground">Saved in this browser only unless you consent to saving it to your account.</p>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </li>
+        {!isAuthenticated && (
+          <li className="flex-1">
+            <NavLink to={live ? '/signup' : '/early-access'} className={linkClass}>
+              <LogIn className="h-5 w-5" aria-hidden="true" />
+              {live ? 'Join' : 'Waitlist'}
+            </NavLink>
+          </li>
+        )}
+      </ul>
+    </nav>
   );
 };
 
