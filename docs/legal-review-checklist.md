@@ -14,3 +14,8 @@ Registered name, CIPC number, VAT number, physical address, Information Officer 
 6. **Stored value:** credits as a closed-loop platform licence vs. National Payment System Act / FICA implications, and companion payouts.
 7. **PayPal:** confirm in writing that PayPal will approve this merchant category (adult content). Not yet confirmed.
 8. Age verification standard for a 21+ adult platform (manual ID review currently).
+
+## Added with reels / orientation filter
+9. **Explicit user-generated content:** FPB classification and age-restriction duties, online distributor registration, takedown process, and the reel creators' written authorisation (operator states they hold it).
+10. **Orientation preference** is special personal information: confirm consent wording and the browser-only default.
+11. **Ethnicity labels on content** (e.g. a reel tag): confirm this is acceptable alongside the Privacy Policy statement that we do not filter or recommend by race or ethnic origin; the filter itself only uses women/men/trans/everyone.

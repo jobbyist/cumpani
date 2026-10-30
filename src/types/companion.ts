@@ -12,6 +12,9 @@ export interface CompanionProfile {
   isAvailable?: boolean;
   /** true for fictional seed/demo profiles; the UI labels these as samples */
   isSample?: boolean;
+  /** self-declared category for the viewer's orientation filter; undefined = shown to everyone */
+  presentsAs?: 'women' | 'men' | 'trans';
+  orientationTags?: string[];
 }
 
 export const SOUTH_AFRICAN_CITIES = [

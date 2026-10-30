@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import PageShell from '@/components/PageShell';
 import Disclaimer from '@/components/Disclaimer';
 import CompanionCard from '@/components/CompanionCard';
+import { useOrientation } from '@/contexts/OrientationContext';
 import { useCompanions } from '@/hooks/useCompanions';
 import { SOUTH_AFRICAN_CITIES } from '@/types/companion';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -18,20 +19,22 @@ const Companions = () => {
   const [query, setQuery] = useState('');
   const [availableOnly, setAvailableOnly] = useState(false);
   const { data, isLoading, isError } = useCompanions();
+  const { interest, matches } = useOrientation();
 
   const results = useMemo(() => {
     const q = query.trim().toLowerCase();
     return (data ?? []).filter((c) =>
       (city === 'all' || c.city === city) &&
+      matches(c.presentsAs ? [c.presentsAs] : undefined) &&
       (!availableOnly || c.isAvailable) &&
       (!q || c.name.toLowerCase().includes(q) || c.username.toLowerCase().includes(q) || c.bio.toLowerCase().includes(q)));
-  }, [data, city, query, availableOnly]);
+  }, [data, city, query, availableOnly, matches]);
 
   return (
     <PageShell>
       <header className="mb-6 space-y-2">
         <h1 className="text-3xl md:text-4xl font-bold">Discover people</h1>
-        <p className="text-muted-foreground">Verified profiles across South Africa. Say hello and see where the conversation goes.</p>
+        <p className="text-muted-foreground">Verified profiles across South Africa. Say hello and see where the conversation goes.{interest !== 'everyone' && <> Showing profiles matching your "I'm interested in" filter.</>}</p>
       </header>
       <Disclaimer className="mb-6" />
 

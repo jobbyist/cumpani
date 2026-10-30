@@ -8,6 +8,7 @@ interface ProtectedRouteProps {
   requireVerified?: boolean;
   requireSubscription?: boolean;
   requireCompanion?: boolean;
+  requireAdmin?: boolean;
 }
 
 /**
@@ -19,8 +20,9 @@ const ProtectedRoute = ({
   requireVerified = true,
   requireSubscription = true,
   requireCompanion = false,
+  requireAdmin = false,
 }: ProtectedRouteProps) => {
-  const { isAuthenticated, isVerified, isSubscribed, isCompanion, loading } = useAuth();
+  const { isAuthenticated, isVerified, isSubscribed, isCompanion, isAdmin, loading } = useAuth();
   const location = useLocation();
 
   if (loading) {
@@ -29,6 +31,7 @@ const ProtectedRoute = ({
   if (!isAuthenticated) {
     return <Navigate to="/login" replace state={{ from: location.pathname }} />;
   }
+  if (requireAdmin && !isAdmin) return <Navigate to="/" replace />;
   if (requireCompanion && !isCompanion) return <Navigate to="/" replace />;
   if (requireVerified && !isVerified) return <Navigate to="/verify" replace />;
   if (requireSubscription && !isSubscribed) return <Navigate to="/membership" replace />;
