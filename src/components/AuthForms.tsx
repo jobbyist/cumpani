@@ -132,7 +132,7 @@ export const SignupForm = ({ onClose }: AuthFormProps) => {
     setIsLoading(false);
     onClose?.();
     if (res.needsEmailConfirmation) setSent(true);
-    else navigate('/verify');
+    else navigate('/onboarding');
   };
 
   if (sent) {
