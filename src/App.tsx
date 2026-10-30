@@ -25,6 +25,7 @@ const About = lazy(() => import("./pages/About"));
 const Contact = lazy(() => import("./pages/Contact"));
 const Login = lazy(() => import("./pages/Login"));
 const Signup = lazy(() => import("./pages/Signup"));
+const Onboarding = lazy(() => import("./pages/Onboarding"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const Companions = lazy(() => import("./pages/Companions"));
 const CompanionDetail = lazy(() => import("./pages/CompanionDetail"));
@@ -71,6 +72,7 @@ const App = () => {
                   <Route path="/become-companion" element={<BecomeCompanion />} />
                   <Route path="/login" element={<Login />} />
                   <Route path="/signup" element={<Signup />} />
+                  <Route path="/onboarding" element={<ProtectedRoute requireVerified={false} requireSubscription={false}><Onboarding /></ProtectedRoute>} />
 
                   {/* Signed-in only */}
                   <Route path="/verify" element={<ProtectedRoute requireVerified={false} requireSubscription={false}><Verify /></ProtectedRoute>} />
