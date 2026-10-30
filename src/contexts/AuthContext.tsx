@@ -1,6 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, ReactNode } from 'react';
 import type { Session } from '@supabase/supabase-js';
 import { supabase } from '@/lib/supabase';
+import { PREVIEW_MODE } from '@/lib/preview';
 
 export type UserRole = 'member' | 'companion' | 'admin';
 export type VerificationStatus = 'unverified' | 'pending' | 'verified' | 'rejected';
@@ -13,6 +14,7 @@ export interface Profile {
   province: string | null;
   avatar_url: string | null;
   verification_status: VerificationStatus;
+  interested_in: ('women' | 'men' | 'trans' | 'everyone')[] | null;
 }
 
 interface AuthUser {
@@ -37,6 +39,7 @@ interface AuthContextType {
   isVerified: boolean;
   isSubscribed: boolean;
   isCompanion: boolean;
+  isAdmin: boolean;
   walletBalance: number;
   login: (email: string, password: string) => Promise<{ error?: string }>;
   signup: (input: SignupInput) => Promise<{ error?: string; needsEmailConfirmation?: boolean }>;
@@ -68,7 +71,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
     const [p, s, w] = await Promise.all([
       supabase.from('profiles')
-        .select('id, role, display_name, city, province, avatar_url, verification_status')
+        .select('id, role, display_name, city, province, avatar_url, verification_status, interested_in')
         .eq('id', userId).maybeSingle(),
       supabase.from('subscriptions').select('status, current_period_end').eq('user_id', userId).maybeSingle(),
       supabase.from('wallets').select('balance_credits').eq('user_id', userId).maybeSingle(),
@@ -122,15 +125,29 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const value = useMemo<AuthContextType>(() => {
     const u = session?.user;
+    // Temporary preview mode: no real session, show the full member/admin experience with sample data.
+    if (PREVIEW_MODE && !u) {
+      return {
+        user: { id: 'preview', email: 'preview@cumpani.fun', name: 'Preview' },
+        profile: {
+          id: 'preview', role: 'admin', display_name: 'Preview', city: null, province: null, avatar_url: null,
+          verification_status: 'verified', interested_in: null,
+        } as Profile,
+        session: null, loading, isAuthenticated: true, isVerified: true, isSubscribed: true,
+        isCompanion: true, isAdmin: true, walletBalance: 0, login, signup, logout, refresh,
+      };
+    }
+    const admin = profile?.role === 'admin';
     return {
       user: u ? { id: u.id, email: u.email ?? '', name: profile?.display_name ?? u.email ?? '' } : null,
       profile,
       session,
       loading,
       isAuthenticated: !!u,
-      isVerified: profile?.verification_status === 'verified',
-      isSubscribed,
-      isCompanion: profile?.role === 'companion',
+      isVerified: admin || profile?.verification_status === 'verified',
+      isSubscribed: admin || isSubscribed,
+      isCompanion: admin || profile?.role === 'companion',
+      isAdmin: admin,
       walletBalance,
       login, signup, logout, refresh,
     };

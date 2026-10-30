@@ -22,8 +22,8 @@ const ProfileTab = () => {
     queryKey: ['my-companion-profile'],
     queryFn: async () => (await supabase.from('companion_profiles').select('*').eq('user_id', user!.id).maybeSingle()).data,
   });
-  const [form, setForm] = useState<{ username?: string; bio?: string; city?: string; is_available?: boolean }>({});
-  const v = { username: '', bio: '', city: 'Johannesburg', is_available: true, ...data, ...form };
+  const [form, setForm] = useState<{ username?: string; bio?: string; city?: string; is_available?: boolean; presents_as?: string }>({});
+  const v = { username: '', bio: '', city: 'Johannesburg', is_available: true, presents_as: '', ...data, ...form};
 
   const save = useMutation({
     mutationFn: async () => {
@@ -32,6 +32,7 @@ const ProfileTab = () => {
       const province = '';
       const { error } = await supabase.from('companion_profiles').upsert({
         user_id: user!.id, username, bio: v.bio, city: v.city, province: data?.province ?? province, is_available: v.is_available,
+        presents_as: v.presents_as || null,
       });
       if (error) throw error;
     },
@@ -53,6 +54,12 @@ const ProfileTab = () => {
               onChange={(e) => setForm({ ...form, city: e.target.value })}>
               {SOUTH_AFRICAN_CITIES.map((c) => <option key={c}>{c}</option>)}
             </select></div>
+          <div className="space-y-2"><Label htmlFor="pa">Show my profile to people interested in (optional)</Label>
+            <select id="pa" className="h-10 w-full rounded-md border border-input bg-background px-3 text-sm" value={v.presents_as ?? ''}
+              onChange={(e) => setForm({ ...form, presents_as: e.target.value })}>
+              <option value="">Everyone</option><option value="women">Women</option><option value="men">Men</option><option value="trans">Trans</option>
+            </select>
+            <p className="text-xs text-muted-foreground">Self-declared and optional. Used only to match viewers' filter choices.</p></div>
           <label className="flex items-center gap-2 text-sm"><Switch checked={v.is_available} onCheckedChange={(c) => setForm({ ...form, is_available: c })} /> Currently available</label>
           <Button type="submit" disabled={save.isPending}>Save profile</Button>
         </form>
