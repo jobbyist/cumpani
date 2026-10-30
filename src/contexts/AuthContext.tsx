@@ -3,12 +3,13 @@ import type { Session } from '@supabase/supabase-js';
 import { supabase } from '@/lib/supabase';
 import { PREVIEW_MODE } from '@/lib/preview';
 
-export type UserRole = 'member' | 'companion' | 'admin';
+export type UserRole = 'member' | 'companion' | 'creator' | 'seeker' | 'admin';
 export type VerificationStatus = 'unverified' | 'pending' | 'verified' | 'rejected';
 
 export interface Profile {
   id: string;
   role: UserRole;
+  roles?: ('companion' | 'creator' | 'seeker')[];
   display_name: string;
   city: string | null;
   province: string | null;
@@ -39,6 +40,8 @@ interface AuthContextType {
   isVerified: boolean;
   isSubscribed: boolean;
   isCompanion: boolean;
+  isCreator: boolean;
+  roles: ('companion' | 'creator' | 'seeker')[];
   isAdmin: boolean;
   walletBalance: number;
   login: (email: string, password: string) => Promise<{ error?: string }>;
@@ -69,14 +72,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       setWalletBalance(0);
       return;
     }
-    const [p, s, w] = await Promise.all([
+    const [p, s, w, roleRows] = await Promise.all([
       supabase.from('profiles')
         .select('id, role, display_name, city, province, avatar_url, verification_status, interested_in')
         .eq('id', userId).maybeSingle(),
       supabase.from('subscriptions').select('status, current_period_end').eq('user_id', userId).maybeSingle(),
       supabase.from('wallets').select('balance_credits').eq('user_id', userId).maybeSingle(),
+      supabase.from('profile_roles').select('role').eq('user_id', userId),
     ]);
-    setProfile((p.data as Profile) ?? null);
+    const roles = (roleRows.data ?? []).map((row) => row.role).filter((r): r is 'companion' | 'creator' | 'seeker' => ['companion','creator','seeker'].includes(r));
+    setProfile(p.data ? ({ ...p.data, roles: roles.length ? roles : (p.data.role === 'companion' ? ['companion'] : ['seeker']) } as Profile) : null);
     const sub = s.data;
     setIsSubscribed(
       !!sub && sub.status === 'active' &&
@@ -134,7 +139,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           verification_status: 'verified', interested_in: null,
         } as Profile,
         session: null, loading, isAuthenticated: true, isVerified: true, isSubscribed: true,
-        isCompanion: true, isAdmin: true, walletBalance: 0, login, signup, logout, refresh,
+        isCompanion: true, isCreator: true, roles: ['companion','creator','seeker'], isAdmin: true, walletBalance: 0, login, signup, logout, refresh,
       };
     }
     const admin = profile?.role === 'admin';
@@ -146,7 +151,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       isAuthenticated: !!u,
       isVerified: admin || profile?.verification_status === 'verified',
       isSubscribed: admin || isSubscribed,
-      isCompanion: admin || profile?.role === 'companion',
+      roles: profile?.roles ?? (profile?.role === 'companion' ? ['companion'] : ['seeker']),
+      isCompanion: admin || (profile?.roles ?? (profile?.role === 'companion' ? ['companion'] : [])).includes('companion'),
+      isCreator: admin || !!profile?.roles?.includes('creator'),
       isAdmin: admin,
       walletBalance,
       login, signup, logout, refresh,
