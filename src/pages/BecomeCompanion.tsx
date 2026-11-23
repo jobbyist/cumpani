@@ -90,7 +90,7 @@ const ApplicationForm = () => {
 };
 
 const BecomeCumpanion = () => {
-  const phase = cumpanionPhase(effectiveNow());
+  const phase = companionPhase(effectiveNow());
   return (
     <PageShell narrow>
       <div className="mb-10 space-y-3 text-center">
