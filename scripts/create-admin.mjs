@@ -1,5 +1,5 @@
 // Creates (or updates) the site administrator. Run once after the Supabase project and migrations exist.
-//   SUPABASE_URL=... SUPABASE_SERVICE_ROLE_KEY=... ADMIN_EMAIL=admin@cumpani.fun ADMIN_PASSWORD='...' node scripts/create-admin.mjs
+//   SUPABASE_URL=... SUPABASE_SERVICE_ROLE_KEY=... ADMIN_EMAIL=admin@cumpani.co.za ADMIN_PASSWORD='...' node scripts/create-admin.mjs
 // The password is read from the environment and is never stored in the repository.
 import { createClient } from '@supabase/supabase-js';
 
