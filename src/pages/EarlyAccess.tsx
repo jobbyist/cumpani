@@ -34,9 +34,9 @@ const EarlyAccess = () => {
     <PageShell narrow>
       <div className="mb-8 space-y-4 text-center">
         <div className="text-foreground"><span className="inline-block rounded-full bg-primary/10 text-primary"><CountdownChip /></span></div>
-        <h1 className="text-4xl font-bold">Get early access</h1>
+        <h1 className="text-4xl font-bold">Join Cumpani</h1>
         <p className="text-lg text-muted-foreground">
-          Cumpani opens on 1 December 2026. Join the waitlist to be first in, and to hear when verified companions go live in your city.
+          Cumpani opens on 1 December 2026. Create your Cumpanion-seeker account to discover verified Cumpanions, connect with creators and hear when the platform opens in your city.
         </p>
       </div>
 
@@ -49,12 +49,12 @@ const EarlyAccess = () => {
         <Card><CardContent className="flex flex-col items-center gap-3 pt-6 text-center">
           <CheckCircle className="h-10 w-10 text-emerald-600" aria-hidden="true" />
           <p className="text-lg font-medium">You're on the list.</p>
-          <p className="text-sm text-muted-foreground">We'll email you before launch. Are you a companion or creator? Applications run 2 November to 1 December.</p>
-          <Button asChild variant="outline"><Link to="/become-companion">Apply as a companion</Link></Button>
+          <p className="text-sm text-muted-foreground">We'll email you before launch. Are you a Cumpanion or creator? Cumpanion and creator applications run 2 November to 1 December.</p>
+          <Button asChild variant="outline"><Link to="/become-companion">Apply as a Cumpanion</Link></Button>
         </CardContent></Card>
       ) : (
         <Card>
-          <CardHeader><CardTitle>Join the waitlist</CardTitle><CardDescription>You must be 21 or older to use Cumpani.</CardDescription></CardHeader>
+          <CardHeader><CardTitle>Join now</CardTitle><CardDescription>You must be 21 or older to use Cumpani.</CardDescription></CardHeader>
           <CardContent>
             <form onSubmit={submit} className="space-y-4">
               <div className="space-y-2"><Label htmlFor="ea-name">Name</Label>
@@ -70,7 +70,7 @@ const EarlyAccess = () => {
                 <Checkbox checked={form.marketing} onCheckedChange={(v) => setForm({ ...form, marketing: v === true })} />
                 <span>Email me about the launch and product updates. I can unsubscribe at any time. See the <Link to="/privacy" className="underline">Privacy Policy</Link>.</span>
               </label>
-              <Button type="submit" className="w-full" disabled={busy}>{busy ? 'Joining...' : 'Join the waitlist'}</Button>
+              <Button type="submit" className="w-full" disabled={busy}>{busy ? 'Joining...' : 'Join now'}</Button>
             </form>
           </CardContent>
         </Card>

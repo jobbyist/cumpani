@@ -10,7 +10,7 @@ import {
 
 const memberItems = [
   { to: '/', label: 'Home', icon: Home, end: true },
-  { to: '/companions', label: 'Companions', icon: Users },
+  { to: '/companions', label: 'Cumpanions', icon: Users },
   { to: '/feed', label: 'Community', icon: MessagesSquare },
   { to: '/messages', label: 'Messages', icon: MessageCircle },
 ];
@@ -30,11 +30,11 @@ const BottomNav = () => {
   const live = memberPhase(effectiveNow()) === 'live';
 
   const links = [
-    { to: '/companions', label: 'Verified companions', icon: Users },
+    { to: '/companions', label: 'Verified Cumpanions', icon: Users },
     { to: '/', label: 'Featured reels', icon: Film, hash: '#reels' },
     { to: '/feed', label: 'Community feed', icon: MessagesSquare },
-    { to: live ? '/membership' : '/early-access', label: live ? 'Membership' : 'Get early access', icon: Sparkles },
-    { to: '/become-companion', label: 'Become a companion', icon: Mail },
+    { to: live ? '/membership' : '/join-now', label: live ? 'Membership' : 'Join now', icon: Sparkles },
+    { to: '/become-companion', label: 'Become a Cumpanion', icon: Mail },
     { to: '/how-it-works', label: 'How it works', icon: HelpCircle },
     { to: '/safety', label: 'Safety Centre (LGBT-inclusive)', icon: HeartHandshake },
     { to: '/about', label: 'About', icon: Info },
@@ -85,7 +85,7 @@ const BottomNav = () => {
         </li>
         {!isAuthenticated && (
           <li className="flex-1">
-            <NavLink to={live ? '/signup' : '/early-access'} className={linkClass}>
+            <NavLink to={live ? '/signup' : '/join-now'} className={linkClass}>
               <LogIn className="h-5 w-5" aria-hidden="true" />
               {live ? 'Join' : 'Waitlist'}
             </NavLink>

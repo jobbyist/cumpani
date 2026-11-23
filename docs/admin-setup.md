@@ -7,7 +7,7 @@ Nothing here runs until a Supabase project exists. Steps, in order:
 3. **Create the administrator** (password is read from the environment and is never stored in the repo):
    ```bash
    SUPABASE_URL=https://<ref>.supabase.co SUPABASE_SERVICE_ROLE_KEY=<service role key> \
-   ADMIN_EMAIL=admin@cumpani.fun ADMIN_PASSWORD='<the password>' node scripts/create-admin.mjs
+   ADMIN_EMAIL=admin@cumpani.co.za ADMIN_PASSWORD='<the password>' node scripts/create-admin.mjs
    ```
    The admin is treated as verified and subscribed by every route guard, RLS policy and RPC, can message and unlock
    content without credits, and has the `/admin` console (verification, moderation queues, reports, reel tags/audiences).

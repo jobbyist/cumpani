@@ -13,4 +13,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://za.cumpani.fun/sitemap.xml
+Sitemap: https://za.cumpani.co.za/sitemap.xml

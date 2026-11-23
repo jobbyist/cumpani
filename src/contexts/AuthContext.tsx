@@ -42,6 +42,7 @@ interface AuthContextType {
   isAdmin: boolean;
   walletBalance: number;
   login: (email: string, password: string) => Promise<{ error?: string }>;
+  loginWithGoogle: () => Promise<{ error?: string }>;
   signup: (input: SignupInput) => Promise<{ error?: string; needsEmailConfirmation?: boolean }>;
   logout: () => Promise<void>;
   refresh: () => Promise<void>;
@@ -102,8 +103,19 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     return () => { active = false; sub.subscription.unsubscribe(); };
   }, [loadAccount]);
 
-  const login: AuthContextType['login'] = async (email, password) => {
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
+  const login: AuthContextType['login'] = async (identifier, password) => {
+    if (identifier.includes('@')) {
+      const { error } = await supabase.auth.signInWithPassword({ email: identifier.trim(), password });
+      return error ? { error: error.message } : {};
+    }
+    const { data, error } = await supabase.functions.invoke('login-identifier', { body: { identifier: identifier.trim(), password } });
+    if (error || !data?.access_token || !data?.refresh_token) return { error: error?.message ?? 'Invalid email, username or password.' };
+    const { error: sessionError } = await supabase.auth.setSession({ access_token: data.access_token, refresh_token: data.refresh_token });
+    return sessionError ? { error: sessionError.message } : {};
+  };
+
+  const loginWithGoogle: AuthContextType['loginWithGoogle'] = async () => {
+    const { error } = await supabase.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: `${window.location.origin}/login` } });
     return error ? { error: error.message } : {};
   };
 
@@ -128,13 +140,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     // Temporary preview mode: no real session, show the full member/admin experience with sample data.
     if (PREVIEW_MODE && !u && previewView() === 'member') {
       return {
-        user: { id: 'preview', email: 'preview@cumpani.fun', name: 'Preview' },
+        user: { id: 'preview', email: 'preview@cumpani.co.za', name: 'Preview' },
         profile: {
           id: 'preview', role: 'admin', display_name: 'Preview', city: null, province: null, avatar_url: null,
           verification_status: 'verified', interested_in: null,
         } as Profile,
         session: null, loading, isAuthenticated: true, isVerified: true, isSubscribed: true,
-        isCompanion: true, isAdmin: true, walletBalance: 0, login, signup, logout, refresh,
+        isCompanion: true, isAdmin: true, walletBalance: 0, login, loginWithGoogle, signup, logout, refresh,
       };
     }
     const admin = profile?.role === 'admin';

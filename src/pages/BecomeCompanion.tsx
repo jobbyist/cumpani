@@ -56,7 +56,7 @@ const ApplicationForm = () => {
   }
   return (
     <Card>
-      <CardHeader><CardTitle>Apply to join as a verified companion or creator</CardTitle>
+      <CardHeader><CardTitle>Apply to join as a verified cumpanion or creator</CardTitle>
         <CardDescription>Applications are open until 1 December 2026. You must be 21 or older.</CardDescription></CardHeader>
       <CardContent>
         <form onSubmit={submit} className="space-y-4">
@@ -73,7 +73,7 @@ const ApplicationForm = () => {
           <div className="space-y-2"><Label htmlFor="ap-role">I want to join as</Label>
             <select id="ap-role" className="h-10 w-full rounded-md border border-input bg-background px-3 text-sm" value={f.role}
               onChange={(e) => setF({ ...f, role: e.target.value as 'companion' | 'creator' })}>
-              <option value="companion">Companion</option><option value="creator">Content creator</option>
+              <option value="companion">Cumpanion</option><option value="creator">Content creator</option>
             </select></div>
           <div className="space-y-2"><Label htmlFor="ap-links">Links to your profiles or work (optional)</Label>
             <Textarea id="ap-links" value={f.links} onChange={(e) => setF({ ...f, links: e.target.value })} maxLength={1000} /></div>
@@ -89,12 +89,12 @@ const ApplicationForm = () => {
   );
 };
 
-const BecomeCompanion = () => {
+const BecomeCumpanion = () => {
   const phase = companionPhase(effectiveNow());
   return (
     <PageShell narrow>
       <div className="mb-10 space-y-3 text-center">
-        <h1 className="text-4xl font-bold">Become a verified companion or creator</h1>
+        <h1 className="text-4xl font-bold">Become a verified cumpanion or creator</h1>
         <p className="text-lg text-muted-foreground">
           Create a verified profile on Cumpani, connect with members and share content on your terms. Applications are open from 2 November to 1 December 2026, ahead of our 1 December launch.
         </p>
@@ -115,7 +115,7 @@ const BecomeCompanion = () => {
         <Card><CardContent className="space-y-3 pt-6 text-center">
           <p className="text-lg font-medium">Applications open on {COMPANION_SIGNUP_OPENS.toLocaleDateString('en-ZA', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Africa/Johannesburg' })}.</p>
           <p className="text-sm text-muted-foreground">Join the waitlist and we'll email you the moment they open.</p>
-          <Button asChild><Link to="/early-access">Notify me</Link></Button>
+          <Button asChild><Link to="/join-now">Notify me</Link></Button>
         </CardContent></Card>
       )}
       {phase === 'closed' && (
@@ -129,4 +129,4 @@ const BecomeCompanion = () => {
   );
 };
 
-export default BecomeCompanion;
+export default BecomeCumpanion;

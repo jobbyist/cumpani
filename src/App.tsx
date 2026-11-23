@@ -3,12 +3,11 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ThemeProvider } from "next-themes";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import SkipLink from "@/components/SkipLink";
 import AgeVerification from "@/components/AgeVerification";
 import BottomNav from "@/components/BottomNav";
 import ProtectedRoute from "@/components/ProtectedRoute";
-import QuickExit from "@/components/QuickExit";
 import PreviewBanner from "@/components/PreviewBanner";
 import CookieConsent from "@/components/CookieConsent";
 import { Suspense, lazy } from "react";
@@ -62,7 +61,8 @@ const App = () => {
                 <Routes>
                   <Route path="/" element={<Index />} />
                   <Route path="/how-it-works" element={<HowItWorks />} />
-                  <Route path="/early-access" element={<EarlyAccess />} />
+                  <Route path="/join-now" element={<EarlyAccess />} />
+                  <Route path="/early-access" element={<Navigate to="/join-now" replace />} />
                   <Route path="/safety" element={<Safety />} />
                   <Route path="/about" element={<About />} />
                   <Route path="/contact" element={<Contact />} />
@@ -96,7 +96,6 @@ const App = () => {
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </Suspense>
-              <QuickExit />
               <PreviewBanner />
               <BottomNav />
               <CookieConsent />
