@@ -12,7 +12,7 @@ const Terms = () => (
         <ul>
           <li>Legal name: {COMPANY.legalName}; registration number: {COMPANY.registrationNumber}; VAT: {COMPANY.vatNumber}</li>
           <li>Physical address: {COMPANY.physicalAddress}</li>
-          <li>Email: {COMPANY.supportEmail}; website: za.cumpani.fun</li>
+          <li>Email: {COMPANY.supportEmail}; website: za.cumpani.co.za</li>
         </ul>
       ) },
       { heading: 'What Cumpani is, and is not', body: (
