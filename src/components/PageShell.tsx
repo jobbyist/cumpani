@@ -12,11 +12,11 @@ interface PageShellProps {
 }
 
 const PageShell = ({ children, narrow = false, hero }: PageShellProps) => (
-  <div className="min-h-screen bg-background">
+  <div className="min-h-screen bg-neutral-950 text-white">
     <Header />
     <PageBreadcrumbs />
     {hero}
-    <main id="main-content" className={`container-blog py-10 pb-28 lg:pb-12 ${narrow ? 'max-w-3xl' : ''}`}>
+    <main id="main-content" className={`container-blog py-10 pb-28 text-white lg:pb-12 ${narrow ? 'max-w-3xl' : ''}`}>
       {children}
     </main>
     <Footer />
