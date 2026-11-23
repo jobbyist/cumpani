@@ -8,7 +8,6 @@ import SkipLink from "@/components/SkipLink";
 import AgeVerification from "@/components/AgeVerification";
 import BottomNav from "@/components/BottomNav";
 import ProtectedRoute from "@/components/ProtectedRoute";
-import QuickExit from "@/components/QuickExit";
 import PreviewBanner from "@/components/PreviewBanner";
 import CookieConsent from "@/components/CookieConsent";
 import { Suspense, lazy } from "react";
@@ -96,7 +95,6 @@ const App = () => {
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </Suspense>
-              <QuickExit />
               <PreviewBanner />
               <BottomNav />
               <CookieConsent />
