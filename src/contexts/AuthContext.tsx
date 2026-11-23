@@ -103,9 +103,15 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     return () => { active = false; sub.subscription.unsubscribe(); };
   }, [loadAccount]);
 
-  const login: AuthContextType['login'] = async (email, password) => {
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
-    return error ? { error: error.message } : {};
+  const login: AuthContextType['login'] = async (identifier, password) => {
+    if (identifier.includes('@')) {
+      const { error } = await supabase.auth.signInWithPassword({ email: identifier.trim(), password });
+      return error ? { error: error.message } : {};
+    }
+    const { data, error } = await supabase.functions.invoke('login-identifier', { body: { identifier: identifier.trim(), password } });
+    if (error || !data?.access_token || !data?.refresh_token) return { error: error?.message ?? 'Invalid email, username or password.' };
+    const { error: sessionError } = await supabase.auth.setSession({ access_token: data.access_token, refresh_token: data.refresh_token });
+    return sessionError ? { error: sessionError.message } : {};
   };
 
   const loginWithGoogle: AuthContextType['loginWithGoogle'] = async () => {
