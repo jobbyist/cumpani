@@ -128,7 +128,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     // Temporary preview mode: no real session, show the full member/admin experience with sample data.
     if (PREVIEW_MODE && !u && previewView() === 'member') {
       return {
-        user: { id: 'preview', email: 'preview@cumpani.fun', name: 'Preview' },
+        user: { id: 'preview', email: 'preview@cumpani.co.za', name: 'Preview' },
         profile: {
           id: 'preview', role: 'admin', display_name: 'Preview', city: null, province: null, avatar_url: null,
           verification_status: 'verified', interested_in: null,
