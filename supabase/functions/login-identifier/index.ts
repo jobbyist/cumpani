@@ -16,7 +16,7 @@ Deno.serve(async (req) => {
   try {
     const { identifier, password } = await req.json();
     if (typeof identifier !== "string" || typeof password !== "string" ||
-        identifier.trim().length < 3 || password.length < 1 || password.length > 256) {
+        identifier.trim().length < 3 || identifier.trim().length > 80 || password.length < 1 || password.length > 256) {
       return json({ error: "Invalid email, username or password." }, 400);
     }
 
@@ -27,11 +27,13 @@ Deno.serve(async (req) => {
 
     // Usernames are scoped to Cumpanion profiles; never return the mapped email to the caller.
     if (!email.includes("@")) {
+      const username = identifier.trim().replace(/^@/, "");
+      if (!/^[a-zA-Z0-9._-]{3,30}$/.test(username)) return json({ error: "Invalid email, username or password." }, 401);
       const admin = createClient(supabaseUrl, serviceKey, { auth: { persistSession: false } });
       const { data: profile, error: lookupError } = await admin
         .from("companion_profiles")
         .select("user_id")
-        .ilike("username", identifier.trim().replace(/^@/, ""))
+        .ilike("username", username)
         .maybeSingle();
       if (lookupError || !profile?.user_id) return json({ error: "Invalid email, username or password." }, 401);
 
