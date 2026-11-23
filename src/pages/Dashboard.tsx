@@ -60,7 +60,7 @@ const CreatorUpload = () => {
   const [file, setFile] = useState<File | null>(null);
   const upload = useMutation({
     mutationFn: async () => {
-      if (!file || !file.type.match(/^(image|video)\\//) || file.size > 50 * 1024 * 1024) throw new Error('Choose an image or video under 50 MB.');
+      if (!file || !file.type.match(/^(image|video)\//) || file.size > 50 * 1024 * 1024) throw new Error('Choose an image or video under 50 MB.');
       const path = `${user!.id}/${Date.now()}-${file.name.replace(/[^a-zA-Z0-9._-]/g, '_')}`;
       const stored = await supabase.storage.from('exclusive').upload(path, file, { contentType: file.type });
       if (stored.error) throw stored.error;
