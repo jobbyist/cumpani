@@ -1,15 +1,83 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import PageShell from '@/components/PageShell';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { Switch } from '@/components/ui/switch';
+import { useToast } from '@/hooks/use-toast';
 import { Badge } from '@/components/ui/badge';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/lib/supabase';
 import { ArrowUpRight, BadgeCheck, BarChart3, Eye, Gift, ImagePlus, MessageCircle, Play, Settings, ShieldCheck, Sparkles, Wallet, Users, FileText, Plus } from 'lucide-react';
 
 const money = (value: number) => new Intl.NumberFormat('en-ZA', { style: 'currency', currency: 'ZAR', maximumFractionDigits: 0 }).format(value);
+
+const ProfileSettings = () => {
+  const { user } = useAuth();
+  const { toast } = useToast();
+  const qc = useQueryClient();
+  const { data } = useQuery({
+    queryKey: ['dashboard-profile-settings', user?.id],
+    enabled: !!user?.id,
+    queryFn: async () => (await supabase.from('companion_profiles').select('username,bio,city,is_available,presents_as').eq('user_id', user!.id).maybeSingle()).data,
+  });
+  const [username, setUsername] = useState('');
+  const [bio, setBio] = useState('');
+  const [city, setCity] = useState('');
+  const [available, setAvailable] = useState(true);
+  const save = useMutation({
+    mutationFn: async () => {
+      const clean = (username || data?.username || '').trim().replace(/^@/, '').toLowerCase();
+      if (clean.length < 3) throw new Error('Choose a username with at least 3 characters.');
+      const { error } = await supabase.from('companion_profiles').upsert({
+        user_id: user!.id, username: clean, bio: bio || data?.bio || '', city: city || data?.city || '',
+        is_available: available, presents_as: data?.presents_as ?? null,
+      });
+      if (error) throw error;
+    },
+    onSuccess: () => { toast({ title: 'Profile saved' }); qc.invalidateQueries({ queryKey: ['dashboard-profile', user?.id] }); qc.invalidateQueries({ queryKey: ['dashboard-profile-settings', user?.id] }); },
+    onError: (error: Error) => toast({ title: 'Could not save profile', description: error.message, variant: 'destructive' }),
+  });
+  return <Card id="profile-settings" className="surface-card border-white/10 bg-white/[0.035] text-white"><CardHeader><CardTitle>Profile settings</CardTitle></CardHeader><CardContent><form className="grid gap-4 sm:grid-cols-2" onSubmit={e => { e.preventDefault(); save.mutate(); }}>
+    <div className="space-y-2"><Label htmlFor="dashboard-username">Username</Label><Input id="dashboard-username" placeholder={data?.username ?? 'Choose a username'} value={username} onChange={e => setUsername(e.target.value)} /></div>
+    <div className="space-y-2"><Label htmlFor="dashboard-city">City</Label><Input id="dashboard-city" placeholder={data?.city ?? 'Johannesburg'} value={city} onChange={e => setCity(e.target.value)} /></div>
+    <div className="space-y-2 sm:col-span-2"><Label htmlFor="dashboard-bio">About you</Label><Textarea id="dashboard-bio" maxLength={1000} placeholder={data?.bio ?? 'Tell members a little about yourself'} value={bio} onChange={e => setBio(e.target.value)} /></div>
+    <label className="flex items-center gap-2 text-sm"><Switch checked={available} onCheckedChange={setAvailable} /> Available for discovery</label>
+    <div className="sm:col-span-2"><Button type="submit" disabled={save.isPending} className="bg-pink-600 text-white hover:bg-pink-500">{save.isPending ? 'Saving...' : 'Save profile'}</Button></div>
+  </form></CardContent></Card>;
+};
+
+const CreatorUpload = () => {
+  const { user } = useAuth();
+  const { toast } = useToast();
+  const qc = useQueryClient();
+  const [title, setTitle] = useState('');
+  const [price, setPrice] = useState(0);
+  const [file, setFile] = useState<File | null>(null);
+  const upload = useMutation({
+    mutationFn: async () => {
+      if (!file || !file.type.match(/^(image|video)\\//) || file.size > 50 * 1024 * 1024) throw new Error('Choose an image or video under 50 MB.');
+      const path = `${user!.id}/${Date.now()}-${file.name.replace(/[^a-zA-Z0-9._-]/g, '_')}`;
+      const stored = await supabase.storage.from('exclusive').upload(path, file, { contentType: file.type });
+      if (stored.error) throw stored.error;
+      const { error } = await supabase.from('content_items').insert({ author_id: user!.id, title: title.trim(), media_path: path, price_credits: price });
+      if (error) throw error;
+    },
+    onSuccess: () => { setTitle(''); setFile(null); setPrice(0); toast({ title: 'Content submitted for review' }); qc.invalidateQueries({ queryKey: ['dashboard-content', user?.id] }); },
+    onError: (error: Error) => toast({ title: 'Upload failed', description: error.message, variant: 'destructive' }),
+  });
+  return <Card id="creator-upload" className="surface-card border-white/10 bg-white/[0.035] text-white"><CardHeader><CardTitle>Create content</CardTitle></CardHeader><CardContent><form className="grid gap-4 sm:grid-cols-2" onSubmit={e => { e.preventDefault(); upload.mutate(); }}>
+    <div className="space-y-2 sm:col-span-2"><Label htmlFor="content-title">Title</Label><Input id="content-title" value={title} onChange={e => setTitle(e.target.value)} required maxLength={100} /></div>
+    <div className="space-y-2"><Label htmlFor="content-price">Price in credits</Label><Input id="content-price" type="number" min={0} max={1000} value={price} onChange={e => setPrice(Math.max(0, Number(e.target.value)))} /></div>
+    <div className="space-y-2"><Label htmlFor="content-file">Image or video</Label><Input id="content-file" type="file" accept="image/*,video/*" onChange={e => setFile(e.target.files?.[0] ?? null)} required /></div>
+    <p className="text-xs text-white/50 sm:col-span-2">Uploads are reviewed before they become visible to members. Maximum file size: 50 MB.</p>
+    <div className="sm:col-span-2"><Button type="submit" disabled={upload.isPending} className="bg-pink-600 text-white hover:bg-pink-500">{upload.isPending ? 'Uploading...' : 'Submit content'}</Button></div>
+  </form></CardContent></Card>;
+};
 
 const Dashboard = () => {
   const { user, profile, walletBalance, isAdmin } = useAuth();
@@ -78,7 +146,7 @@ const Dashboard = () => {
           <Card className="surface-card border-white/10 bg-white/[0.035] text-white">
             <CardHeader className="flex flex-row items-center justify-between space-y-0">
               <CardTitle className="flex items-center gap-2 text-base"><Users className="h-5 w-5 text-pink-500" /> Your profile</CardTitle>
-              <Link to="/dashboard/profile" className="text-xs font-semibold text-pink-400">Manage profile <ArrowUpRight className="inline h-3 w-3" /></Link>
+              <Link to="#profile-settings" className="text-xs font-semibold text-pink-400">Manage profile <ArrowUpRight className="inline h-3 w-3" /></Link>
             </CardHeader>
             <CardContent>
               <div className="flex items-center gap-4">
@@ -98,7 +166,7 @@ const Dashboard = () => {
           <Card className="surface-card border-white/10 bg-white/[0.035] text-white">
             <CardHeader className="flex flex-row items-center justify-between space-y-0">
               <CardTitle className="flex items-center gap-2 text-base"><Play className="h-5 w-5 text-pink-500" /> Creator studio</CardTitle>
-              <Button asChild size="sm" className="rounded-full bg-pink-600 text-white hover:bg-pink-500"><Link to="/dashboard/content"><Plus className="mr-1 h-4 w-4" /> Create</Link></Button>
+              <Button asChild size="sm" className="rounded-full bg-pink-600 text-white hover:bg-pink-500"><Link to="#creator-upload"><Plus className="mr-1 h-4 w-4" /> Create</Link></Button>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-3 gap-2">
@@ -136,6 +204,8 @@ const Dashboard = () => {
           <span><Settings className="mr-2 inline h-4 w-4 text-pink-500" /> Account tools and settings</span>
           <div className="flex gap-4"><Link to="/verify" className="hover:text-pink-400">Verification</Link><Link to="/messages" className="hover:text-pink-400">Messages</Link><Link to="/wallet" className="hover:text-pink-400">Wallet</Link>{isAdmin && <Link to="/admin" className="hover:text-pink-400">Admin</Link>}</div>
         </div>
+        <ProfileSettings />
+        <CreatorUpload />
       </div>
     </PageShell>
   );
