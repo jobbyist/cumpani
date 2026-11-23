@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Menu, X, User, LogOut, Wallet, LayoutDashboard } from 'lucide-react';
+import { Menu, X, User, LogOut, Wallet, LayoutDashboard, Bell } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import ThemeToggle from './ThemeToggle';
 import StoriesBar from './StoriesBar';
@@ -21,7 +21,7 @@ const Header = () => {
 
   const navItems = isAuthenticated
     ? [
-        { name: 'COMPANIONS', href: '/companions' },
+        { name: 'CUMPANIONS', href: '/companions' },
         { name: 'COMMUNITY', href: '/feed' },
         { name: 'MESSAGES', href: '/messages' },
         { name: 'HOW IT WORKS', href: '/how-it-works' },
@@ -63,6 +63,7 @@ const Header = () => {
 
           {/* Social Links & Search */}
           <div className="hidden lg:flex items-center space-x-4">
+            {isAuthenticated && <Button variant="ghost" size="icon" onClick={() => navigate('/messages')} aria-label="Notifications and messages" className="relative"><Bell className="h-5 w-5" /><span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-pink-500" /></Button>}
             {isAuthenticated && (
               <Button variant="outline" size="sm" onClick={() => navigate('/wallet')} aria-label="Wallet">
                 <Wallet className="h-4 w-4 mr-2" />
@@ -151,6 +152,7 @@ const Header = () => {
               
               {isAuthenticated ? (
                 <>
+                  <Button variant="outline" size="sm" onClick={() => { navigate('/messages'); setIsMenuOpen(false); }} className="w-full"><Bell className="mr-2 h-4 w-4" /> Notifications & messages</Button>
                   <div className="text-sm text-muted-foreground px-2">
                     Logged in as: {user?.name}
                   </div>
