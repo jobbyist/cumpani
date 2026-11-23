@@ -10,7 +10,7 @@ import {
 
 const memberItems = [
   { to: '/', label: 'Home', icon: Home, end: true },
-  { to: '/companions', label: 'Companions', icon: Users },
+  { to: '/companions', label: 'Cumpanions', icon: Users },
   { to: '/feed', label: 'Community', icon: MessagesSquare },
   { to: '/messages', label: 'Messages', icon: MessageCircle },
 ];
