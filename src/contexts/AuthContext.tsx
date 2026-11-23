@@ -42,6 +42,7 @@ interface AuthContextType {
   isAdmin: boolean;
   walletBalance: number;
   login: (email: string, password: string) => Promise<{ error?: string }>;
+  loginWithGoogle: () => Promise<{ error?: string }>;
   signup: (input: SignupInput) => Promise<{ error?: string; needsEmailConfirmation?: boolean }>;
   logout: () => Promise<void>;
   refresh: () => Promise<void>;
@@ -107,6 +108,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     return error ? { error: error.message } : {};
   };
 
+  const loginWithGoogle: AuthContextType['loginWithGoogle'] = async () => {
+    const { error } = await supabase.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: `${window.location.origin}/login` } });
+    return error ? { error: error.message } : {};
+  };
+
   const signup: AuthContextType['signup'] = async ({ email, password, name, dob }) => {
     const { data, error } = await supabase.auth.signUp({
       email,
@@ -134,7 +140,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           verification_status: 'verified', interested_in: null,
         } as Profile,
         session: null, loading, isAuthenticated: true, isVerified: true, isSubscribed: true,
-        isCompanion: true, isAdmin: true, walletBalance: 0, login, signup, logout, refresh,
+        isCompanion: true, isAdmin: true, walletBalance: 0, login, loginWithGoogle, signup, logout, refresh,
       };
     }
     const admin = profile?.role === 'admin';
