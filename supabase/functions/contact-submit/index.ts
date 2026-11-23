@@ -13,8 +13,8 @@ Deno.serve(async (req) => {
     method: 'POST',
     headers: { Authorization: `Bearer ${Deno.env.get('RESEND_API_KEY')}`, 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      from: 'Cumpani Contact <no-reply@cumpani.fun>',
-      to: [Deno.env.get('SUPPORT_EMAIL') ?? 'help@cumpani.fun'],
+      from: 'Cumpani Contact <no-reply@cumpani.co.za>',
+      to: [Deno.env.get('SUPPORT_EMAIL') ?? 'help@cumpani.co.za'],
       reply_to: email,
       subject: `[Contact] ${subject.slice(0, 120)}`,
       html: `<p><b>${esc(name)}</b> &lt;${esc(email)}&gt;</p><p>${esc(message).replace(/\n/g, '<br>')}</p>`,
