@@ -10,7 +10,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { BadgeCheck, MessageCircle, Image, Wallet, ShieldCheck, CheckCircle } from 'lucide-react';
 import { submitApplication, FAIL_MESSAGES } from '@/lib/forms';
-import { cumpanionPhase, effectiveNow, COMPANION_SIGNUP_OPENS } from '@/lib/launch';
+import { companionPhase, effectiveNow, COMPANION_SIGNUP_OPENS } from '@/lib/launch';
 import { useToast } from '@/hooks/use-toast';
 
 const perks = [
@@ -28,7 +28,7 @@ const isOldEnough = (dob: string) => {
 };
 
 const ApplicationForm = () => {
-  const [f, setF] = useState({ name: '', email: '', dob: '', city: '', role: 'cumpanion' as 'cumpanion' | 'creator', links: '', consent: false, website: '' });
+  const [f, setF] = useState({ name: '', email: '', dob: '', city: '', role: 'companion' as 'companion' | 'creator', links: '', consent: false, website: '' });
   const [busy, setBusy] = useState(false);
   const [done, setDone] = useState(false);
   const { toast } = useToast();
@@ -72,8 +72,8 @@ const ApplicationForm = () => {
           </div>
           <div className="space-y-2"><Label htmlFor="ap-role">I want to join as</Label>
             <select id="ap-role" className="h-10 w-full rounded-md border border-input bg-background px-3 text-sm" value={f.role}
-              onChange={(e) => setF({ ...f, role: e.target.value as 'cumpanion' | 'creator' })}>
-              <option value="cumpanion">Cumpanion</option><option value="creator">Content creator</option>
+              onChange={(e) => setF({ ...f, role: e.target.value as 'companion' | 'creator' })}>
+              <option value="companion">Cumpanion</option><option value="creator">Content creator</option>
             </select></div>
           <div className="space-y-2"><Label htmlFor="ap-links">Links to your profiles or work (optional)</Label>
             <Textarea id="ap-links" value={f.links} onChange={(e) => setF({ ...f, links: e.target.value })} maxLength={1000} /></div>
@@ -115,7 +115,7 @@ const BecomeCumpanion = () => {
         <Card><CardContent className="space-y-3 pt-6 text-center">
           <p className="text-lg font-medium">Applications open on {COMPANION_SIGNUP_OPENS.toLocaleDateString('en-ZA', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Africa/Johannesburg' })}.</p>
           <p className="text-sm text-muted-foreground">Join the waitlist and we'll email you the moment they open.</p>
-          <Button asChild><Link to="/early-access">Notify me</Link></Button>
+          <Button asChild><Link to="/join-now">Notify me</Link></Button>
         </CardContent></Card>
       )}
       {phase === 'closed' && (
