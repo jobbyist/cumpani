@@ -71,8 +71,8 @@ export const LoginForm = ({ onClose }: AuthFormProps) => {
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="email">Email address</Label>
-            <Input id="email" type="email" autoComplete="email" value={email}
+            <Label htmlFor="email">Email or username</Label>
+            <Input id="email" type="text" autoComplete="username" placeholder="you@example.com or your username" value={email}
               onChange={(e) => setEmail(e.target.value)} required disabled={isLoading} />
           </div>
           <div className="space-y-2">
