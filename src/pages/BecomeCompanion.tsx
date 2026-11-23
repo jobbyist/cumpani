@@ -10,7 +10,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { BadgeCheck, MessageCircle, Image, Wallet, ShieldCheck, CheckCircle } from 'lucide-react';
 import { submitApplication, FAIL_MESSAGES } from '@/lib/forms';
-import { companionPhase, effectiveNow, COMPANION_SIGNUP_OPENS } from '@/lib/launch';
+import { cumpanionPhase, effectiveNow, COMPANION_SIGNUP_OPENS } from '@/lib/launch';
 import { useToast } from '@/hooks/use-toast';
 
 const perks = [
@@ -28,7 +28,7 @@ const isOldEnough = (dob: string) => {
 };
 
 const ApplicationForm = () => {
-  const [f, setF] = useState({ name: '', email: '', dob: '', city: '', role: 'companion' as 'companion' | 'creator', links: '', consent: false, website: '' });
+  const [f, setF] = useState({ name: '', email: '', dob: '', city: '', role: 'cumpanion' as 'cumpanion' | 'creator', links: '', consent: false, website: '' });
   const [busy, setBusy] = useState(false);
   const [done, setDone] = useState(false);
   const { toast } = useToast();
@@ -56,7 +56,7 @@ const ApplicationForm = () => {
   }
   return (
     <Card>
-      <CardHeader><CardTitle>Apply to join as a verified companion or creator</CardTitle>
+      <CardHeader><CardTitle>Apply to join as a verified cumpanion or creator</CardTitle>
         <CardDescription>Applications are open until 1 December 2026. You must be 21 or older.</CardDescription></CardHeader>
       <CardContent>
         <form onSubmit={submit} className="space-y-4">
@@ -72,8 +72,8 @@ const ApplicationForm = () => {
           </div>
           <div className="space-y-2"><Label htmlFor="ap-role">I want to join as</Label>
             <select id="ap-role" className="h-10 w-full rounded-md border border-input bg-background px-3 text-sm" value={f.role}
-              onChange={(e) => setF({ ...f, role: e.target.value as 'companion' | 'creator' })}>
-              <option value="companion">Companion</option><option value="creator">Content creator</option>
+              onChange={(e) => setF({ ...f, role: e.target.value as 'cumpanion' | 'creator' })}>
+              <option value="cumpanion">Cumpanion</option><option value="creator">Content creator</option>
             </select></div>
           <div className="space-y-2"><Label htmlFor="ap-links">Links to your profiles or work (optional)</Label>
             <Textarea id="ap-links" value={f.links} onChange={(e) => setF({ ...f, links: e.target.value })} maxLength={1000} /></div>
@@ -89,12 +89,12 @@ const ApplicationForm = () => {
   );
 };
 
-const BecomeCompanion = () => {
-  const phase = companionPhase(effectiveNow());
+const BecomeCumpanion = () => {
+  const phase = cumpanionPhase(effectiveNow());
   return (
     <PageShell narrow>
       <div className="mb-10 space-y-3 text-center">
-        <h1 className="text-4xl font-bold">Become a verified companion or creator</h1>
+        <h1 className="text-4xl font-bold">Become a verified cumpanion or creator</h1>
         <p className="text-lg text-muted-foreground">
           Create a verified profile on Cumpani, connect with members and share content on your terms. Applications are open from 2 November to 1 December 2026, ahead of our 1 December launch.
         </p>
@@ -129,4 +129,4 @@ const BecomeCompanion = () => {
   );
 };
 
-export default BecomeCompanion;
+export default BecomeCumpanion;
