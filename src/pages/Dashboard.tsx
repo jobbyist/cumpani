@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/lib/supabase';
-import { ArrowUpRight, BadgeCheck, Bell, ChartNoAxesColumnIncreasing, Eye, Gift, ImagePlus, MessageCircle, Play, Settings, ShieldCheck, Sparkles, Wallet, Users, FileText, Plus } from 'lucide-react';
+import { ArrowUpRight, BadgeCheck, BarChart3, Eye, Gift, ImagePlus, MessageCircle, Play, Settings, ShieldCheck, Sparkles, Wallet, Users, FileText, Plus } from 'lucide-react';
 
 const money = (value: number) => new Intl.NumberFormat('en-ZA', { style: 'currency', currency: 'ZAR', maximumFractionDigits: 0 }).format(value);
 
@@ -124,7 +124,7 @@ const Dashboard = () => {
             </CardContent>
           </Card>
           <Card className="surface-card border-white/10 bg-white/[0.035] text-white">
-            <CardHeader><CardTitle className="flex items-center gap-2 text-base"><ChartNoAxesColumnIncreasing className="h-5 w-5 text-pink-500" /> Recent activity</CardTitle></CardHeader>
+            <CardHeader><CardTitle className="flex items-center gap-2 text-base"><BarChart3 className="h-5 w-5 text-pink-500" /> Recent activity</CardTitle></CardHeader>
             <CardContent className="space-y-4">
               <div className="flex items-center gap-3"><Eye className="h-5 w-5 text-pink-500" /><div className="min-w-0"><p className="text-sm font-medium">Profile activity</p><p className="text-xs text-white/45">Your profile visibility and status</p></div></div>
               <div className="flex items-center gap-3"><MessageCircle className="h-5 w-5 text-pink-500" /><div className="min-w-0"><p className="text-sm font-medium">Inbox</p><p className="text-xs text-white/45">{messages.length} recent sent messages in the last 100 records</p></div><Button asChild size="sm" variant="outline" className="ml-auto border-white/15 bg-transparent"><Link to="/messages">Open</Link></Button></div>
