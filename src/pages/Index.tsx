@@ -4,8 +4,8 @@ import Disclaimer from '@/components/Disclaimer';
 import ReelsCarousel from '@/components/ReelsCarousel';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/contexts/AuthContext';
-import { useCompanions } from '@/hooks/useCompanions';
-import { useFeaturedCompanions } from '@/hooks/useFeaturedCompanions';
+import { useCumpanions } from '@/hooks/useCumpanions';
+import { useFeaturedCumpanions } from '@/hooks/useFeaturedCumpanions';
 import CountdownChip from '@/components/CountdownChip';
 import { companionPhase, effectiveNow, memberPhase, COMPANION_SIGNUP_OPENS } from '@/lib/launch';
 import { useOrientation } from '@/contexts/OrientationContext';
@@ -15,7 +15,7 @@ import {
 } from 'lucide-react';
 
 const trustPoints = [
-  { icon: ShieldCheck, title: 'Verified companions', text: 'Real people. Profiles reviewed before they go live.' },
+  { icon: ShieldCheck, title: 'Verified Cumpanions', text: 'Real people. Profiles reviewed before they go live.' },
   { icon: LockKeyhole, title: 'Private by design', text: 'Your privacy matters. Always.' },
   { icon: Heart, title: 'Content on your terms', text: 'Discover approved posts and exclusive creator content.' },
   { icon: MessageCircle, title: 'South African community', text: 'Connect with people and creators across the country.' },
@@ -31,17 +31,17 @@ const safetyItems: { icon: typeof BadgeCheck; title: string; text: string; badge
 
 const Index = () => {
   const { isAuthenticated } = useAuth();
-  const { data: members = [] } = useCompanions();
-  const { data: teasers = [] } = useFeaturedCompanions(12);
+  const { data: members = [] } = useCumpanions();
+  const { data: teasers = [] } = useFeaturedCumpanions(12);
   const { matches } = useOrientation();
   const now = effectiveNow();
   const live = memberPhase(now) === 'live';
   const phase = companionPhase(now);
   const opens = COMPANION_SIGNUP_OPENS.toLocaleDateString('en-ZA', { day: 'numeric', month: 'long', timeZone: 'Africa/Johannesburg' });
-  const joinHref = live ? '/signup' : '/early-access';
+  const joinHref = live ? '/signup' : '/join-now';
   // Logged-out visitors only ever receive the pre-blurred teaser images.
-  const companions = isAuthenticated ? members : teasers;
-  const featured = companions
+  const Cumpanions = isAuthenticated ? members : teasers;
+  const featured = Cumpanions
     .filter((person) => matches(person.presentsAs ? [person.presentsAs] : undefined))
     .slice(0, 6);
 
@@ -63,21 +63,21 @@ const Index = () => {
               <CountdownChip />
               <p className="text-xs font-bold uppercase tracking-[0.24em] text-pink-500">Real people. Real connections. LGBT-friendly.</p>
               <h1 className="max-w-2xl text-4xl font-extrabold leading-[1.06] tracking-tight sm:text-5xl lg:text-6xl">
-                Meet verified companions &amp; explore <span className="text-pink-500">exclusive content.</span>
+                Meet verified Cumpanions &amp; explore <span className="text-pink-500">exclusive content.</span>
               </h1>
               <p className="max-w-xl text-base leading-relaxed text-white/75 sm:text-lg">
-                Cumpani is South Africa’s social and dating platform for adults 21+. Discover verified companions,
+                Cumpani is South Africa’s social and dating platform for adults 21+. Discover verified Cumpanions,
                 connect with creators and explore approved content in a private, respectful environment.
               </p>
               <div className="flex flex-col gap-3 pt-1 sm:flex-row">
                 <Button size="lg" className="h-12 rounded-full bg-pink-600 px-7 text-white shadow-[0_8px_30px_rgba(219,39,119,0.25)] hover:bg-pink-500" asChild>
-                  <Link to={isAuthenticated ? '/companions' : joinHref}>
-                    {isAuthenticated ? 'Explore companions' : live ? 'Join now (21+)' : 'Get early access (21+)'} <ArrowRight className="ml-2 h-4 w-4" />
+                  <Link to={isAuthenticated ? '/Cumpanions' : joinHref}>
+                    {isAuthenticated ? 'Explore Cumpanions' : live ? 'Join now (21+)' : 'Join now (21+)'} <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>
                 <Button size="lg" variant="outline" className="h-12 rounded-full border-white/40 bg-black/20 px-7 text-white hover:bg-white hover:text-black" asChild>
-                  <Link to={isAuthenticated ? '/companions' : '/become-companion'}>
-                    {isAuthenticated ? 'Browse the platform' : phase === 'soon' ? `Companions & creators: opens ${opens}` : 'Apply as a companion or creator'}
+                  <Link to={isAuthenticated ? '/Cumpanions' : '/become-companion'}>
+                    {isAuthenticated ? 'Browse the platform' : phase === 'soon' ? `Cumpanions & creators: opens ${opens}` : 'Apply as a companion or creator'}
                   </Link>
                 </Button>
               </div>
@@ -105,10 +105,10 @@ const Index = () => {
           <div className="mb-6 flex items-end justify-between gap-4">
             <div>
               <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.2em] text-pink-500">Discover your people</p>
-              <h2 id="featured-heading" className="text-2xl font-bold tracking-tight sm:text-3xl">Featured companions</h2>
+              <h2 id="featured-heading" className="text-2xl font-bold tracking-tight sm:text-3xl">Featured Cumpanions</h2>
               <p className="mt-2 text-sm text-white/60">Profiles from across South Africa. Verified and ready to connect.</p>
             </div>
-            <Link to={isAuthenticated ? '/companions' : joinHref} className="hidden shrink-0 items-center gap-2 text-sm font-semibold text-pink-500 transition-colors hover:text-pink-300 sm:inline-flex">
+            <Link to={isAuthenticated ? '/Cumpanions' : joinHref} className="hidden shrink-0 items-center gap-2 text-sm font-semibold text-pink-500 transition-colors hover:text-pink-300 sm:inline-flex">
               View all <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
@@ -135,8 +135,8 @@ const Index = () => {
               </Link>
             ))}
           </div>
-          <Link to={isAuthenticated ? '/companions' : joinHref} className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-pink-500 sm:hidden">
-            View all companions <ArrowRight className="h-4 w-4" />
+          <Link to={isAuthenticated ? '/Cumpanions' : joinHref} className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-pink-500 sm:hidden">
+            View all Cumpanions <ArrowRight className="h-4 w-4" />
           </Link>
         </section>
 
@@ -149,7 +149,7 @@ const Index = () => {
               <h2 className="text-2xl font-extrabold leading-tight tracking-tight sm:text-3xl">Create. Connect. <span className="text-pink-500">Earn.</span></h2>
               <p className="mt-3 max-w-xl text-sm leading-relaxed text-white/65 sm:text-base">
                 Build a verified presence, connect with members and share approved content on your terms.
-                Track your activity and earnings from your companion dashboard.
+                Track your activity and earnings from your Cumpanion dashboard.
               </p>
               <Button asChild size="lg" className="mt-6 h-11 rounded-full bg-pink-600 px-6 text-white hover:bg-pink-500">
                 <Link to="/become-companion">Become a companion <ArrowRight className="ml-2 h-4 w-4" /></Link>
@@ -209,7 +209,7 @@ const Index = () => {
             </div>
           </div>
           <Button asChild className="h-11 w-full rounded-full bg-pink-600 px-6 text-white hover:bg-pink-500 sm:w-auto">
-            <Link to={isAuthenticated ? '/companions' : joinHref}>{live || isAuthenticated ? 'Join Cumpani' : 'Get early access'} <ArrowRight className="ml-2 h-4 w-4" /></Link>
+            <Link to={isAuthenticated ? '/Cumpanions' : joinHref}>{live || isAuthenticated ? 'Join Cumpani' : 'Join now'} <ArrowRight className="ml-2 h-4 w-4" /></Link>
           </Button>
         </section>
 
