@@ -75,7 +75,7 @@ const ReelCard = ({ reel, full }: { reel: Reel; full: string | undefined }) => {
         <div className="absolute inset-x-3 bottom-3 space-y-2 text-center text-white">
           <Lock className="mx-auto h-5 w-5" aria-hidden="true" />
           <p className="text-xs">{isAuthenticated ? 'Activate membership to watch' : 'Join to watch in full'}</p>
-          <Button size="sm" asChild><Link to={isAuthenticated ? '/membership' : memberPhase(effectiveNow()) === 'live' ? '/signup' : '/early-access'}>{isAuthenticated ? 'Membership' : memberPhase(effectiveNow()) === 'live' ? 'Join Cumpani' : 'Get early access'}</Link></Button>
+          <Button size="sm" asChild><Link to={isAuthenticated ? '/membership' : memberPhase(effectiveNow()) === 'live' ? '/signup' : '/join-now'}>{isAuthenticated ? 'Membership' : memberPhase(effectiveNow()) === 'live' ? 'Join Cumpani' : 'Join now'}</Link></Button>
         </div>
       )}
     </div>
