@@ -36,7 +36,7 @@ const EarlyAccess = () => {
         <div className="text-foreground"><span className="inline-block rounded-full bg-primary/10 text-primary"><CountdownChip /></span></div>
         <h1 className="text-4xl font-bold">Join Cumpani</h1>
         <p className="text-lg text-muted-foreground">
-          Cumpani opens on 1 December 2026. Create your companion-seeker account to discover verified Cumpanions, connect with creators and hear when the platform opens in your city.
+          Cumpani opens on 1 December 2026. Create your Cumpanion-seeker account to discover verified Cumpanions, connect with creators and hear when the platform opens in your city.
         </p>
       </div>
 
@@ -49,8 +49,8 @@ const EarlyAccess = () => {
         <Card><CardContent className="flex flex-col items-center gap-3 pt-6 text-center">
           <CheckCircle className="h-10 w-10 text-emerald-600" aria-hidden="true" />
           <p className="text-lg font-medium">You're on the list.</p>
-          <p className="text-sm text-muted-foreground">We'll email you before launch. Are you a companion or creator? Cumpanion and creator applications run 2 November to 1 December.</p>
-          <Button asChild variant="outline"><Link to="/become-companion">Apply as a companion</Link></Button>
+          <p className="text-sm text-muted-foreground">We'll email you before launch. Are you a Cumpanion or creator? Cumpanion and creator applications run 2 November to 1 December.</p>
+          <Button asChild variant="outline"><Link to="/become-companion">Apply as a Cumpanion</Link></Button>
         </CardContent></Card>
       ) : (
         <Card>
