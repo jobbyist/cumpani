@@ -9,6 +9,7 @@ import { Label } from '@/components/ui/label';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
+import { Chrome } from 'lucide-react';
 
 export const LEGAL_VERSION = '2026-10-draft';
 
@@ -42,7 +43,7 @@ export const LoginForm = ({ onClose }: AuthFormProps) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const { login } = useAuth();
+  const { login, loginWithGoogle } = useAuth();
   const { toast } = useToast();
   const navigate = useNavigate();
   const location = useLocation();
@@ -64,13 +65,13 @@ export const LoginForm = ({ onClose }: AuthFormProps) => {
   return (
     <Card className="w-full max-w-md mx-auto">
       <CardHeader>
-        <CardTitle>Login</CardTitle>
-        <CardDescription>Enter your credentials to access your account</CardDescription>
+        <CardTitle>Welcome back</CardTitle>
+        <CardDescription>Sign in to your Cumpani account.</CardDescription>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="email">Email</Label>
+            <Label htmlFor="email">Email address</Label>
             <Input id="email" type="email" autoComplete="email" value={email}
               onChange={(e) => setEmail(e.target.value)} required disabled={isLoading} />
           </div>
@@ -80,10 +81,12 @@ export const LoginForm = ({ onClose }: AuthFormProps) => {
               onChange={(e) => setPassword(e.target.value)} required disabled={isLoading} />
           </div>
           <Button type="submit" className="w-full" disabled={isLoading}>
-            {isLoading ? 'Logging in...' : 'Login'}
+            {isLoading ? 'Signing in...' : 'Sign in'}
           </Button>
+          <div className="relative py-1 text-center text-xs text-muted-foreground"><span className="bg-card px-3">or continue with</span><div className="absolute inset-x-0 top-1/2 -z-10 border-t border-border" /></div>
+          <Button type="button" variant="outline" className="w-full" disabled={isLoading} onClick={async () => { setIsLoading(true); const result = await loginWithGoogle(); setIsLoading(false); if (result.error) toast({ title: 'Google sign-in failed', description: result.error, variant: 'destructive' }); }}><Chrome className="mr-2 h-4 w-4" /> Continue with Google</Button>
           <p className="text-center text-sm text-muted-foreground">
-            Don't have an account?{' '}
+            New to Cumpani?{' '}
             <Link to="/signup" className="text-primary hover:underline font-medium">Sign up</Link>
           </p>
         </form>
