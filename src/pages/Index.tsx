@@ -71,13 +71,13 @@ const Index = () => {
               </p>
               <div className="flex flex-col gap-3 pt-1 sm:flex-row">
                 <Button size="lg" className="h-12 rounded-full bg-pink-600 px-7 text-white shadow-[0_8px_30px_rgba(219,39,119,0.25)] hover:bg-pink-500" asChild>
-                  <Link to={isAuthenticated ? '/Cumpanions' : joinHref}>
+                  <Link to={isAuthenticated ? '/companions' : joinHref}>
                     {isAuthenticated ? 'Explore Cumpanions' : live ? 'Join now (21+)' : 'Join now (21+)'} <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>
                 <Button size="lg" variant="outline" className="h-12 rounded-full border-white/40 bg-black/20 px-7 text-white hover:bg-white hover:text-black" asChild>
                   <Link to={isAuthenticated ? '/Cumpanions' : '/become-companion'}>
-                    {isAuthenticated ? 'Browse the platform' : phase === 'soon' ? `Cumpanions & creators: opens ${opens}` : 'Apply as a companion or creator'}
+                    {isAuthenticated ? 'Browse the platform' : phase === 'soon' ? `Cumpanions & creators: opens ${opens}` : 'Apply as a Cumpanion or creator'}
                   </Link>
                 </Button>
               </div>
@@ -145,14 +145,14 @@ const Index = () => {
         <section className="my-10 overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-neutral-900 via-neutral-900 to-pink-950/40">
           <div className="grid items-center gap-7 p-6 sm:p-9 lg:grid-cols-[1fr_auto] lg:p-10">
             <div className="max-w-2xl">
-              <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.2em] text-pink-500">The companion partner programme</p>
+              <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.2em] text-pink-500">The Cumpanion partner programme</p>
               <h2 className="text-2xl font-extrabold leading-tight tracking-tight sm:text-3xl">Create. Connect. <span className="text-pink-500">Earn.</span></h2>
               <p className="mt-3 max-w-xl text-sm leading-relaxed text-white/65 sm:text-base">
                 Build a verified presence, connect with members and share approved content on your terms.
                 Track your activity and earnings from your Cumpanion dashboard.
               </p>
               <Button asChild size="lg" className="mt-6 h-11 rounded-full bg-pink-600 px-6 text-white hover:bg-pink-500">
-                <Link to="/become-companion">Become a companion <ArrowRight className="ml-2 h-4 w-4" /></Link>
+                <Link to="/become-companion">Become a Cumpanion <ArrowRight className="ml-2 h-4 w-4" /></Link>
               </Button>
             </div>
             <div className="hidden h-36 w-36 items-center justify-center rounded-full border border-pink-500/30 bg-pink-500/10 lg:flex">
