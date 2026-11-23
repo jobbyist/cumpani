@@ -76,7 +76,7 @@ const Index = () => {
                   </Link>
                 </Button>
                 <Button size="lg" variant="outline" className="h-12 rounded-full border-white/40 bg-black/20 px-7 text-white hover:bg-white hover:text-black" asChild>
-                  <Link to={isAuthenticated ? '/Cumpanions' : '/become-companion'}>
+                  <Link to={isAuthenticated ? '/companions' : '/become-companion'}>
                     {isAuthenticated ? 'Browse the platform' : phase === 'soon' ? `Cumpanions & creators: opens ${opens}` : 'Apply as a Cumpanion or creator'}
                   </Link>
                 </Button>
@@ -108,7 +108,7 @@ const Index = () => {
               <h2 id="featured-heading" className="text-2xl font-bold tracking-tight sm:text-3xl">Featured Cumpanions</h2>
               <p className="mt-2 text-sm text-white/60">Profiles from across South Africa. Verified and ready to connect.</p>
             </div>
-            <Link to={isAuthenticated ? '/Cumpanions' : joinHref} className="hidden shrink-0 items-center gap-2 text-sm font-semibold text-pink-500 transition-colors hover:text-pink-300 sm:inline-flex">
+            <Link to={isAuthenticated ? '/companions' : joinHref} className="hidden shrink-0 items-center gap-2 text-sm font-semibold text-pink-500 transition-colors hover:text-pink-300 sm:inline-flex">
               View all <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
@@ -135,7 +135,7 @@ const Index = () => {
               </Link>
             ))}
           </div>
-          <Link to={isAuthenticated ? '/Cumpanions' : joinHref} className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-pink-500 sm:hidden">
+          <Link to={isAuthenticated ? '/companions' : joinHref} className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-pink-500 sm:hidden">
             View all Cumpanions <ArrowRight className="h-4 w-4" />
           </Link>
         </section>
@@ -209,7 +209,7 @@ const Index = () => {
             </div>
           </div>
           <Button asChild className="h-11 w-full rounded-full bg-pink-600 px-6 text-white hover:bg-pink-500 sm:w-auto">
-            <Link to={isAuthenticated ? '/Cumpanions' : joinHref}>{live || isAuthenticated ? 'Join Cumpani' : 'Join now'} <ArrowRight className="ml-2 h-4 w-4" /></Link>
+            <Link to={isAuthenticated ? '/companions' : joinHref}>{live || isAuthenticated ? 'Join Cumpani' : 'Join now'} <ArrowRight className="ml-2 h-4 w-4" /></Link>
           </Button>
         </section>
 
